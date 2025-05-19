@@ -12,7 +12,7 @@ hero:
   actions:
     - theme: brand
       text: 快速开始
-      link: /纯Windows环境部署指南
+      link: /what-is-weclone
     - theme: alt
       text: GitHub仓库
       link: https://github.com/xming521/WeClone/
