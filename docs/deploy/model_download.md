@@ -1,8 +1,8 @@
-## 模型下载
+# 模型下载
 
 WeClone 默认使用 Qwen2.5-7B-Instruct 模型，你也可以选择其他你想要使用的模型（不推荐使用深度思考模型）。
 
-### **安装 Git LFS：**
+## **安装 Git LFS：**
 
 在 CMD 或 PowerShell 窗口，运行：
 
@@ -12,7 +12,7 @@ git lfs install
 
 每个用户只需执行一次此命令。
 
-### **克隆模型仓库：**
+## **克隆模型仓库：**
 
 推荐使用 [魔搭社区（ModelScope）](https://www.modelscope.cn/models) 的模型资源，默认下载 `Qwen2.5-7B-Instruct` 模型。你也可以根据自己的情况和喜好选择该平台的其他模型。
 

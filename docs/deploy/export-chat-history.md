@@ -2,20 +2,20 @@
 
 要微调模型，首先你需要你的微信聊天数据。
 
-## **下载并安装PyWxDump：**
+## **下载并安装PyWxDump**
 
 `PyWxDump`是一个用于提取微信聊天记录的工具。由于`PyWxDump`目前仅确认在Windows环境下正常运行，所有无论使用`WSL2`还是纯Windows环境部署的`WeClone`，这里都切换到**Windows环境**。
 
 **在Windows环境下**访问 [PyWxDump GitHub 仓库](https://github.com/xaoyaoo/PyWxDump) 获取最新版本安装包。安装教程可直接参考[PyWxDump官方教程](https://github.com/xaoyaoo/PyWxDump/blob/master/doc/UserGuide.md)
 
-## **导出数据：**
+## **导出数据**
 
 * 根据 PyWxDump 的指南，运行软件并解密你的微信数据库
 * 在 PyWxDump 中选择“聊天备份”功能
 * 导出类型选择 CSV
 * 你可以选择导出与多个联系人或群聊的聊天记录（当前版本不建议使用群聊记录）
 
-## **整理数据：**
+## **整理数据**
 
 * PyWxDump 导出的 CSV 文件通常位于其运行目录下的 `wxdump_tmp/export` 文件夹中。
 
@@ -25,7 +25,6 @@
 
   ```bash
   cp -r /mnt/你的PyWxDump/csv ./dataset/ #在WeClone根目录下执行该命令
-  
   #例如：
   cp -r /mnt/d/Desktop/Just_for_fun/wxdump_work/export/wxid_wk5iejbp9ma322/csv ./dataset/
   ```

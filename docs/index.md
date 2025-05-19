@@ -7,7 +7,7 @@ hero:
   text: "从聊天记录创造数字分身的一站式解决方案"
   tagline: 数字克隆/数字分身/数字永生/LLM/聊天机器人/LoRA
   image: 
-    src: /logo.png
+    src: /img/logo_plain.png
     alt: "weclone-hero-image"
   actions:
     - theme: brand
