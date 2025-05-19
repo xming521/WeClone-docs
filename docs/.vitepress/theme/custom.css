@@ -1,0 +1,37 @@
+/* .vitepress/theme/custom.css */
+
+:root {
+  /* --vp-c-brand-1: #39c3a0;
+  --vp-c-brand-2: #1b75bc; */
+
+  --vp-home-hero-name-color: transparent;
+  --vp-home-hero-name-background: linear-gradient(120deg, #1b75bc,#2bcad8,#19d480 );
+}
+
+
+/* 设置整体 Hero 区块背景颜色与图片统一 */
+.VPHomeHero .container {
+  width: 923px;
+  height: 312px;
+  border-radius: 12px; 
+  overflow: hidden;
+  background-color: rgb(221, 246, 250); 
+  /* background: linear-gradient(120deg, #79b5dc, #96d3f0, #afd2db); */
+}
+
+/* 让 Hero 图片靠右显示 */
+
+.image-container .VPImage.image-src[alt="weclone-hero-image"] {
+  width: 100% !important;
+  max-width: 800px !important;
+  height: auto !important;
+  object-fit: contain; /* 保持比例缩放 */
+  object-position: right center !important; /* 靠右显示中心图案 */
+}
+
+/* 选中整个右侧 image 容器，进行右浮动/对齐 */
+.VPHero .image {
+  display: flex;
+  justify-content: flex-end; /* 向右排列图片 */
+  align-items: center;
+}
