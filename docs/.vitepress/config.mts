@@ -15,7 +15,7 @@ export default defineConfig({
   },
   title: "WeClone",
   description: "从聊天记录创造数字分身的一站式解决方案",
-  head: [['link', { rel: 'icon', href: '/img/logo_head.svg' }]],
+  head: [['link', { rel: 'icon', href: '/img/web-logo.png' }]],
   themeConfig: {
     // https://vitepress.dev/reference/default-theme-config
 
