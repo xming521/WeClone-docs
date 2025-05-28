@@ -6,5 +6,5 @@
 
 [WeClone](https://github.com/xming521/WeClone/) 是一个通过微信聊天记录微调大语言模型（LLM），打造专属数字分身的项目。
 
-![image](/docs/img/website-screenshot.png)
+![image](/docs/public/img/website-screenshot.png)
 

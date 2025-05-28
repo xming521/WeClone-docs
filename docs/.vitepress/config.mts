@@ -15,8 +15,10 @@ export default defineConfig({
   },
   title: "WeClone",
   description: "从聊天记录创造数字分身的一站式解决方案",
+  head: [['link', { rel: 'icon', href: '/img/logo_head.svg' }]],
   themeConfig: {
     // https://vitepress.dev/reference/default-theme-config
+
     nav: [
       { text: '主页', link: '/' },
       { text: '开始', link: '/what-is-weclone' }
