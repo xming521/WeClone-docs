@@ -17,6 +17,8 @@
   ```bash
   pip install uv
   ```
+  
+> 注：项目尚未提供 `requirements.txt`，使用其他命令（如 `conda`）易导致依赖版本冲突。
 
 ## 虚拟环境搭建
 

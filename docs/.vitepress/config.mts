@@ -42,7 +42,8 @@ export default defineConfig({
             collapsed: true,
             items:[ 
             { text: 'Windows', link: '/deploy/Windows' },
-            { text: 'WSL2', link: '/deploy/wsl2' }
+            { text: 'WSL2', link: '/deploy/wsl2' },
+            { text: 'Linux', link: '/deploy/Linux' }
             ]
           },
           { text: '导出聊天记录', link: '/deploy/export-chat-history' },
