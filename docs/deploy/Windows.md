@@ -44,21 +44,24 @@
 
    激活成功后，你的命令行提示符前通常会显示 `(.venv)`。
 
-4. **（直接跳过）手动安装 `pytorch`**（现在已经不需要了，WeClone的pyproject.toml默认使用了清华源）
-
-   <details>
-     <summary>手动安装 PyTorch 参考教程</summary>
-     <p>由于国内环境，和其他包一起安装 PyTorch 大概率会出错，所以最好先在环境内安装好 PyTorch。推荐从一些国内镜像源下载好 PyTorch 安装包后在本地离线安装。可以参考下面的教程，但是注意教程中使用的是下载官方包的链接，需要替换成国内镜像源的对应网站。</p>
-     <p><strong>参考教程：</strong><a href="https://blog.csdn.net/weixin_44956153/article/details/142303905" target="_blank">PyTorch 离线版本安装教程</a></p>
-   </details>
-
-5. **安装项目主要依赖：**
+4. **安装项目主要依赖：**
 
    ```bash
    uv pip install --group main -e .
    ```
 
-   此命令将读取项目中依赖配置并安装所有库。~~（如果项目担心重复安装torch，你可以考虑临时将其注释掉或在安装时用 pip 避免重复安装）。~~
+   此命令将读取项目中依赖配置并安装所有库。
+
+5. **（ `pytorch`安装失败再看）手动安装 `pytorch`**
+
+
+    <details>
+      <summary>手动安装 PyTorch 参考教程</summary>
+      <p> 网络环境不稳定的情况下安装PyTorch有一定概率会出错，所以可以在环境内安装好 PyTorch。推荐从一些国内镜像源下载好 PyTorch 安装包后在本地离线安装。可以参考下面的教程，但是注意教程中使用的是下载官方包的链接，需要替换成国内镜像源的对应网站。</p>
+      <p><strong>参考教程：</strong><a href="https://blog.csdn.net/weixin_44956153/article/details/142303905" target="_blank">PyTorch 离线版本安装教程</a></p>
+      安装完后记得重新跑一下`uv pip install --group main -e .`把漏掉的包重新安装上
+    </details>
+
 
 6. **测试 CUDA 环境 (NVIDIA GPU 用户)：**
    安装完依赖后（特别是 PyTorch），运行以下命令测试 CUDA 是否配置正确并能被 PyTorch 识别：
@@ -74,7 +77,7 @@
    将配置文件模板复制一份并重命名为`settings.jsonc`，后续配置修改在此文件进行：
 
    ```cmd
-   copy settings.template.jsonc settings.jsonc 
+   copy settings.template.jsonc settings.jsonc
    ```
 
 8. **(可选) 安装 FlashAttention**
@@ -82,7 +85,7 @@
 
    参考教程：[Windows环境下flash-attention安装_flashattention2 windows 安装-CSDN博客](https://blog.csdn.net/qq_21491605/article/details/136109125)
 
-   > [!NOTE] FlashAttention 在 Windows 上安装较复杂，且并非所有显卡支持，如遇失败可跳过，项目仍可运行，只是推理速度稍慢。
+   > ⚠️ FlashAttention 在 Windows 上安装较复杂，且并非所有显卡支持，如遇失败可跳过，项目仍可运行，只是推理速度稍慢。
 
 9. **（适用于 0.2.1 ~ 0.2.2 版本）禁用 vLLM 功能模块**
 
@@ -96,75 +99,100 @@
 
    **方法一（推荐，最简单）：**
 
+   - **卸载 `vllm`**
+
    ```bash
    git pull https://github.com/xming521/WeClone.git  # 拉取最新代码
    uv pip uninstall vllm                             # 卸载 vLLM 模块
    ```
 
-   <details>
-   <summary><strong>方法二（不再推荐）</strong></summary>
+   - **禁用数据清洗或启用在线清洗**
 
+   打开配置文件 `settings.jsonc`，根据需求修改 `clean_dataset` 配置项：
 
-   - 注释掉 vLLM 引用
-
-   打开 `WeClone/weclone/data/clean/strategies.py`，将 `vLLM` 的导入语句注释掉：
-
-   ```python
-   # from weclone.core.inference.vllm_infer import infer as infer  # 注释此行
-   ```
-
-   完整的导入部分如下（供参考）：
-
-   ```python
-   import json
-   import pandas as pd
-   from abc import ABC, abstractmethod
-   from dataclasses import dataclass
-   from typing import Any, Dict, List, Union
-   from langchain_core.prompts import PromptTemplate
-   from weclone.data.models import QaPair, CutMessage, QaPairScore
-   from weclone.prompts.clean_data import CLEAN_PROMPT
-   # from weclone.core.inference.vllm_infer import infer as infer
-   from weclone.utils.log import logger
-   ```
-
-   - **禁用数据清洗功能**
-
-   打开配置文件 `settings.jsonc`，修改 `clean_dataset` 配置项：
+   - 若需**禁用数据清洗**，将 `"enable_clean": false`；
+   - 若需**启用在线清洗**，则保持 `"enable_clean": true`，同时设置 `"online_llm_clear": true`，并填写相应的 LLM API 信息。
 
    ```json
    "clean_dataset": {
-       "enable_clean": false,  // 将 true 改为 false，禁用数据清洗
-       "clean_strategy": "llm",
-       "llm": {
-           "accept_score": 2  // 可接受的 LLM 打分阈值（1分最差，5分最好）
-       }
-   }
+      "enable_clean": true,
+      "clean_strategy": "llm",
+      "llm": {
+         "accept_score": 2, // 可接受的 LLM 打分阈值，1 分最差，5 分最好。低于该分数的数据将被过滤掉
+      }
+   },
+   "online_llm_clear": false,
+   "base_url": "https://xxx/v1",
+   "llm_api_key": "xxxxx",
+   "model_name": "xxx", // 建议使用参数量较大的模型，如 DeepSeek-V3
+   "clean_batch_size": 10
    ```
 
-   - **屏蔽 llamafactory 自动加载 vLLM**
 
-   `llamafactory` 导入时可能尝试加载 `vllm_engine`，在 Windows 上会报错。为避免问题，在以下文件最顶部添加 mock 脚本：
 
-   * `WeClone/weclone/eval/web_demo.py`
-   * `WeClone/weclone/server/api_service.py`
+   <details>
+      <summary><strong>方法二（不推荐）</strong></summary>
 
-   插入如下代码（必须放在文件开头、其他导入语句之前）：
 
-   ```python
-   import sys
-   import types
-   from unittest.mock import MagicMock
-   
-   fake_vllm_engine = types.ModuleType('vllm_engine')
-   fake_vllm_engine.VllmEngine = MagicMock
-   sys.modules['llamafactory.chat.vllm_engine'] = fake_vllm_engine
-   
-   # 以下为原始文件的其他代码
-   ```
+      - 注释掉 vLLM 引用
+
+      打开 `WeClone/weclone/data/clean/strategies.py`，将 `vLLM` 的导入语句注释掉：
+
+      ```python
+      # from weclone.core.inference.vllm_infer import infer as infer  # 注释此行
+      ```
+
+      完整的导入部分如下（供参考）：
+
+      ```python
+      import json
+      import pandas as pd
+      from abc import ABC, abstractmethod
+      from dataclasses import dataclass
+      from typing import Any, Dict, List, Union
+      from langchain_core.prompts import PromptTemplate
+      from weclone.data.models import QaPair, CutMessage, QaPairScore
+      from weclone.prompts.clean_data import CLEAN_PROMPT
+      # from weclone.core.inference.vllm_infer import infer as infer
+      from weclone.utils.log import logger
+      ```
+
+      - **禁用数据清洗功能**
+
+      打开配置文件 `settings.jsonc`，修改 `clean_dataset` 配置项：
+
+      ```json
+      "clean_dataset": {
+         "enable_clean": false,  // 将 true 改为 false，禁用数据清洗
+         "clean_strategy": "llm",
+         "llm": {
+            "accept_score": 2  // 可接受的 LLM 打分阈值（1分最差，5分最好）
+         }
+      }
+      ```
+
+      - **屏蔽 llamafactory 自动加载 vLLM**
+
+      `llamafactory` 导入时可能尝试加载 `vllm_engine`，在 Windows 上会报错。为避免问题，在以下文件最顶部添加 mock 脚本：
+
+      * `WeClone/weclone/eval/web_demo.py`
+      * `WeClone/weclone/server/api_service.py`
+
+      插入如下代码（必须放在文件开头、其他导入语句之前）：
+
+      ```python
+      import sys
+      import types
+      from unittest.mock import MagicMock
+      
+      fake_vllm_engine = types.ModuleType('vllm_engine')
+      fake_vllm_engine.VllmEngine = MagicMock
+      sys.modules['llamafactory.chat.vllm_engine'] = fake_vllm_engine
+      
+      # 以下为原始文件的其他代码
+      ```
 
    </details>
-
 ---
 
 **到这里，恭喜你完成了全部的环境配置。你已经完成了整个项目部署最难的部分！！！**

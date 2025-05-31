@@ -59,7 +59,8 @@ export default defineConfig({
         collapsed: false,
         items: [
           { text: 'AstrBot', link: '/chatbot/AstrBot' },
-          { text: 'LangBot', link: '/chatbot/LangBot' }
+          { text: 'LangBot', link: '/chatbot/LangBot' },
+          { text: 'Dify', link: '/chatbot/Dify' }
         ]
       },
     ],

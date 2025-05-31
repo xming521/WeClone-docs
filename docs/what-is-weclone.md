@@ -4,7 +4,7 @@
 
 WeClone 是一个一站式解决方案，它通过分析你的微信聊天记录，微调大语言模型（LLM），让模型说出“你那味儿”的话，并将其接入聊天机器人，打造出专属于你的数字分身。
 
-<details>   <summary>点击展开查看我的训练效果图</summary>   <div style="display: flex; justify-content: center; align-items: stretch; gap: 10px; margin-top: 10px;">     <img src="https://blog-img.051088.xyz/%E6%9C%80%E7%BB%88%E6%95%88%E6%9E%9C1.png" alt="图1" style="max-width: 55%; object-fit: contain;" />     <img src="https://blog-img.051088.xyz/%E6%9C%80%E7%BB%88%E6%95%88%E6%9E%9C.png" alt="图2" style="max-width: 35%; object-fit: contain;" />   </div> </details>
+<details>   <summary>查看训练效果图（点击展开）</summary>   <div style="display: flex; justify-content: center; align-items: stretch; gap: 10px; margin-top: 10px;">     <img src="https://blog-img.051088.xyz/%E6%9C%80%E7%BB%88%E6%95%88%E6%9E%9C1.png" alt="图1" style="max-width: 55%; object-fit: contain;" />     <img src="https://blog-img.051088.xyz/%E6%9C%80%E7%BB%88%E6%95%88%E6%9E%9C.png" alt="图2" style="max-width: 35%; object-fit: contain;" />   </div> </details>
 
 ------
 

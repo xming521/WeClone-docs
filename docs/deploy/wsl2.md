@@ -47,25 +47,15 @@
 
    - [为 WSL2 一键设置代理 - 知乎](https://zhuanlan.zhihu.com/p/153124468)
 
-
-2. **创建并激活虚拟环境 (使用 uv)：**
+3. **创建并激活虚拟环境 (使用 uv)：**
    在 `WeClone` 项目根目录下执行：
 
-   ```bash
+    ```bash
    uv venv .venv --python=3.10  # 你可以指定已安装的 Python 3.10+ 版本
    source .venv/bin/activate
-   ```
+    ```
 
-   激活成功后，你的命令行提示符前通常会显示 `(.venv)`。
-
-3. **（直接跳过）手动安装 `pytorch`**（现在已经不需要了，WeClone的pyproject.toml默认使用了清华源）
-
-   <details>
-     <summary>手动安装 PyTorch 参考教程</summary>
-     <p>由于国内环境，和其他包一起安装 PyTorch 大概率会出错，所以最好先在环境内安装好 PyTorch。推荐从一些国内镜像源下载好 PyTorch 安装包后在本地离线安装。可以参考下面的教程，但是注意教程中使用的是下载官方包的链接，需要替换成国内镜像源的对应网站。</p>
-     <p><strong>参考教程：</strong><a href="https://blog.csdn.net/weixin_44956153/article/details/142303905" target="_blank">PyTorch 离线版本安装教程</a></p>
-   </details>
-
+    激活成功后，你的命令行提示符前通常会显示 `(.venv)`。
 
 4. **安装项目主要依赖：**
 
@@ -73,9 +63,21 @@
    uv pip install --group main -e .
    ```
 
-   此命令将读取项目中依赖配置并安装所有库。~~（如果项目担心重复安装torch，你可以考虑临时将其注释掉或在安装时用 pip 避免重复安装）。~~
+   此命令将读取项目中依赖配置并安装所有库。
 
-5. **测试 CUDA 环境 (NVIDIA GPU 用户)：**
+
+5. **（ `pytorch`安装失败再看）手动安装 `pytorch`**
+
+
+    <details>
+      <summary>手动安装 PyTorch 参考教程</summary>
+      <p> 网络环境不稳定的情况下安装PyTorch有一定概率会出错，所以可以在环境内安装好 PyTorch。推荐从一些国内镜像源下载好 PyTorch 安装包后在本地离线安装。可以参考下面的教程，但是注意教程中使用的是下载官方包的链接，需要替换成国内镜像源的对应网站。</p>
+      <p><strong>参考教程：</strong><a href="https://blog.csdn.net/weixin_44956153/article/details/142303905" target="_blank">PyTorch 离线版本安装教程</a></p>
+      安装完后记得重新跑一下`uv pip install --group main -e .`把漏掉的包重新安装上
+    </details>
+
+
+6. **测试 CUDA 环境 (NVIDIA GPU 用户)：**
    安装完依赖后（特别是 PyTorch），运行以下命令测试 CUDA 是否配置正确并能被 PyTorch 识别：
 
    ```bash
@@ -84,7 +86,7 @@
 
    如果 `CUDA是否可用:` 显示 `True`，则表示配置成功。
 
-6. **复制配置文件模板**
+7. **复制配置文件模板**
 
    将配置文件模板复制一份并重命名为`settings.jsonc`，后续配置修改在此文件进行：
 
@@ -92,8 +94,21 @@
    cp settings.template.jsonc settings.jsonc
    ```
 
-7. **(可选) 安装 FlashAttention：**
+8. **(可选) 安装 FlashAttention：**
    为了加速训练和推理（如果你的硬件支持），可以尝试安装 FlashAttention。
+
+   可以直接尝试：
+
+   ```bash
+   uv pip install flash-attn --no-build-isolation
+   ```
+
+   > ⚠️Flash Attention 仅适用于 Turing、Ampere、Ada 和 Hopper 架构的 NVIDIA GPU（如 A100、H100、T4、RTX 2080、RTX 3090 等），不支持 Volta 架构的 V100。
+
+   <details>
+
+
+   <summary>如果失败在用下面方法：</summary>
 
    **再次检查本地python、torch、cuda的版本**（如果你很清楚你当前的配置可以不用检查）
 
@@ -123,7 +138,11 @@
    pip install flash_attn-2.7.4.post1+cu12torch2.6cxx11abiTRUE-cp310-cp310-linux_x86_64.whl
    ```
 
-8. **Linux编辑文件操作教程**（如果你不熟悉Linux的基本操作这可能会帮到你）
+   </details>
+
+   
+
+9. **Linux编辑文件操作教程**（如果你不熟悉Linux的基本操作这可能会帮到你）
 
    在后续涉及到修改文件时候，可以采用以下两种方法：
 
@@ -152,7 +171,6 @@
       `鼠标右键`是粘贴外部内容。
 
    3. 修改后按 `Ctrl + O` 保存，按 `Enter` 确认；再按 `Ctrl + X` 退出。
-
 ---
 
 **到这里，恭喜你完成了全部的环境配置。你已经完成了整个项目部署最难的部分！！！**

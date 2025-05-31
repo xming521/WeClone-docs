@@ -13,4 +13,4 @@
 <img width="400px" alt="image" src="https://github.com/user-attachments/assets/dbb0fd0a-f760-42db-acd0-bb99c859b52e" />
 
 ---
-**现在，你的专属数字分身应该已经成功部署到聊天机器人平台了！快去和“它”聊聊天，看看效果如何吧。**
+**现在，你的专属数字分身应该已经成功部署到聊天机器人平台了！快去和“它”聊聊天，看看效果如何吧~**

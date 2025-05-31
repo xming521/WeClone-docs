@@ -8,7 +8,7 @@
 
    [使用 Windows 一键安装器部署 AstrBot | AstrBot](https://astrbot.app/deploy/astrbot/windows.html)
 
-2. **启动 WeClone API 服务：** 确保你的 `weclone-cli server` 正在运行，并且 AstrBot 可以访问到该服务的地址和端口 (例如，如果 AstrBot 和 API 服务在同一台机器上，可能是 `http://127.0.0.1:8005/v1`）。
+2. **启动 WeClone API 服务：** 确保你的 `weclone-cli server` 正在运行，并且 AstrBot 可以访问到该服务的地址和端口 （例如，如果 AstrBot 和 API 服务在同一台机器上，可能是 `http://127.0.0.1:8005/v1`）。
 
 3. **在 AstrBot 中新增服务提供商：**
 
@@ -38,4 +38,4 @@
 > 经常检查 `api_service.py` 的日志输出，确保 AstrBot 发送给大模型服务的请求参数 (如 system prompt, temperature 等) 与你微调和测试时期望的一致。
 
 ---
-**现在，你的专属数字分身应该已经成功部署到聊天机器人平台了！快去和“它”聊聊天，看看效果如何吧。**
+**现在，你的专属数字分身应该已经成功部署到聊天机器人平台了！快去和“它”聊聊天，看看效果如何吧~**
