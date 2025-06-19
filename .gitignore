@@ -5,3 +5,4 @@ node_modules/
 .idea
 */cache/*
 */.cache/*
+docs/.vitepress/cache/*

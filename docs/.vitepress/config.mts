@@ -21,7 +21,7 @@ export default defineConfig({
 
     nav: [
       { text: '主页', link: '/' },
-      { text: '开始', link: '/what-is-weclone' }
+      { text: '文档', link: '/what-is-weclone' }
     ],
 
     sidebar: [
@@ -29,7 +29,8 @@ export default defineConfig({
         text: '简介',
         collapsed: false,
         items: [
-          { text: '什么是WeClone', link: '/what-is-weclone' }
+          { text: '什么是WeClone', link: '/what-is-weclone' },
+          { text: 'FAQ', link: '/FAQ' }
         ]
       },
       {
