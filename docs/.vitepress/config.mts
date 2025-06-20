@@ -7,15 +7,16 @@ export default defineConfig({
       label: '简体中文',
       lang: 'zh'
     },
-    // en: {
-    //   label: 'English',
-    //   lang: 'en', // 可选，将作为 `lang` 属性添加到 `html` 标签中
-    //   // link: '/en/' // 默认 /fr/ -- 显示在导航栏翻译菜单上，可以是外部的
-    // }
+    en: {
+      label: 'English',
+      lang: 'en', // 可选，将作为 `lang` 属性添加到 `html` 标签中
+      // link: '/en/' // 默认 /fr/ -- 显示在导航栏翻译菜单上，可以是外部的
+    }
   },
   title: "WeClone",
   description: "One-stop solution for creating your digital avatar from chat history",
   head: [['link', { rel: 'icon', href: '/img/logo.svg' }]],
+  lastUpdated: true,
   themeConfig: {
     // https://vitepress.dev/reference/default-theme-config
 
@@ -86,5 +87,7 @@ export default defineConfig({
       message: '联系我们：<a href="mailto:hello@weclone.love" style="color: var(--vp-c-brand-1); text-decoration: none;">✉️ hello@weclone.love</a>',
       copyright: 'Copyright © 2025 WeClone. All rights reserved.'
     },
+    
   }
+  
 })
