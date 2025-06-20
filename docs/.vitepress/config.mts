@@ -83,7 +83,7 @@ export default defineConfig({
       }
     ],
     footer: {
-      message: '联系我们：<a href="mailto:hello@weclone.love" style="color: var(--vp-c-brand-1); text-decoration: none;">📧 hello@weclone.love</a>',
+      message: '联系我们：<a href="mailto:hello@weclone.love" style="color: var(--vp-c-brand-1); text-decoration: none;">✉️ hello@weclone.love</a>',
       copyright: 'Copyright © 2025 WeClone. All rights reserved.'
     },
   }
