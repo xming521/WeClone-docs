@@ -23,7 +23,10 @@ export default defineConfig({
       { text: '主页', link: '/' },
       { text: '文档', link: '/what-is-weclone' }
     ],
-
+    outline: {
+      level: [2, 3], // 显示 h2 和 h3 标题
+      label: '目录' // 自定义标题，默认是 "On this page"
+    },
     sidebar: [
       {
         text: '简介',
@@ -39,12 +42,12 @@ export default defineConfig({
         items: [
           { text: '硬件要求', link: '/deploy/hardware' },
           {
-            text:'环境配置',
+            text: '环境配置',
             collapsed: true,
-            items:[ 
-            { text: 'Windows', link: '/deploy/Windows' },
-            { text: 'WSL2', link: '/deploy/wsl2' },
-            { text: 'Linux', link: '/deploy/Linux' }
+            items: [
+              { text: 'Windows', link: '/deploy/Windows' },
+              { text: 'WSL2', link: '/deploy/wsl2' },
+              { text: 'Linux', link: '/deploy/Linux' }
             ]
           },
           { text: '导出聊天记录', link: '/deploy/export-chat-history' },
