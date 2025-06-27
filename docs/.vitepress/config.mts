@@ -42,21 +42,14 @@ export default defineConfig({
         collapsed: false,
         items: [
           { text: '硬件要求', link: '/deploy/hardware' },
-          {
-            text: '环境配置',
-            collapsed: true,
-            items: [
-              { text: 'Windows', link: '/deploy/Windows' },
-              { text: 'WSL2', link: '/deploy/wsl2' },
-              { text: 'Linux', link: '/deploy/Linux' }
-            ]
-          },
+          { text: '环境配置', link: '/deploy/environment' },
           { text: '导出聊天记录', link: '/deploy/export-chat-history' },
           { text: '模型下载', link: '/deploy/model_download' },
           { text: '数据预处理', link: '/deploy/data_preprocessing' },
           { text: '修改配置文件', link: '/deploy/override-settings' },
           { text: '模型微调', link: '/deploy/model_finetuning' },
           { text: '模型推理', link: '/deploy/model_inference' },
+
         ]
       },
       {
@@ -83,11 +76,15 @@ export default defineConfig({
         ariaLabel: '加入 Telegram 群组'
       }
     ],
+    editLink: {
+      pattern: 'https://github.com/xming521/WeClone-docs/blob/main/docs/:path',
+      text: 'Edit this page on GitHub'
+    },
     footer: {
       message: '联系我们：<a href="mailto:hello@weclone.love" style="color: var(--vp-c-brand-1); text-decoration: none;">✉️ hello@weclone.love</a>',
       copyright: 'Copyright © 2025 WeClone. All rights reserved.'
     },
-    
+
   }
-  
+
 })
