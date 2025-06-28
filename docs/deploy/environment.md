@@ -34,7 +34,7 @@ python -c "import torch; print('CUDA是否可用:', torch.cuda.is_available());"
 uv pip install flash-attn --no-build-isolation
 ```
 > [!NOTE]
-> 版本问题可以使用 **FlashAttention** 的[prebuild-wheels](flash-attention-prebuild-wheels)的预编译包安装。
+> 版本问题可以使用 **FlashAttention** 的[prebuild-wheels](https://github.com/mjun0812/flash-attention-prebuild-wheels/releases)的预编译包安装。
 
 ## Windows
 

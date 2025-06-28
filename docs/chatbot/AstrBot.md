@@ -32,7 +32,7 @@
    <img src="https://blog-img.051088.xyz/AstrBot%E6%95%99%E7%A8%8B01.png"/>
 
 7. **调整采样参数：**
-   根据你在浏览器 Demo 或其他测试中得到的最佳效果，在 AstrBot 中调整模型的采样参数，如 `temperature`, `top_p`, `top_k` 等。具体配置方法请参考 AstrBot 文档中关于[配置自定义模型参数](https://www.google.com/search?q=https://astrbot.app/config/model-config.html%23%25E9%2585%258D%25E7%25BD%25AE%25E8%2587%25AA%25E5%25AE%259A%25E4%25B9%2589%25E7%259A%2584%25E6%25A8%25A1%25E5%259E%258B%25E5%258F%2582%25E6%2595%25B0)的部分。
+   根据你在浏览器 Demo 或其他测试中得到的最佳效果，在 AstrBot 中调整模型的采样参数，如 `temperature`, `top_p`, `top_k` 等。具体配置方法请参考 AstrBot 文档中关于[配置自定义模型参数](https://astrbot.app/config/model-config.html#配置自定义的模型参数)的部分。
 
 > [!TIP]
 > 经常检查 `api_service.py` 的日志输出，确保 AstrBot 发送给大模型服务的请求参数 (如 system prompt, temperature 等) 与你微调和测试时期望的一致。
