@@ -34,22 +34,22 @@ export default defineConfig({
         collapsed: false,
         items: [
           { text: '什么是WeClone', link: '/what-is-weclone' },
-          { text: 'FAQ', link: '/FAQ' }
+          { text: '社区资源', link: '/community-resources' },
+          { text: 'FAQ', link: '/FAQ' },
         ]
       },
       {
-        text: '部署',
+        text: '部署WeClone',
         collapsed: false,
         items: [
           { text: '硬件要求', link: '/deploy/hardware' },
           { text: '环境配置', link: '/deploy/environment' },
           { text: '导出聊天记录', link: '/deploy/export-chat-history' },
+          { text: '修改配置文件', link: '/deploy/override-settings' },
           { text: '模型下载', link: '/deploy/model_download' },
           { text: '数据预处理', link: '/deploy/data_preprocessing' },
-          { text: '修改配置文件', link: '/deploy/override-settings' },
           { text: '模型微调', link: '/deploy/model_finetuning' },
           { text: '模型推理', link: '/deploy/model_inference' },
-
         ]
       },
       {
