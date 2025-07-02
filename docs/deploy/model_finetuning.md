@@ -1,10 +1,8 @@
 # 微调模型
 
-配置完成后，就可以开始训练了。
 
 ## 单卡训练
 
-在激活虚拟环境的命令行中，运行：
 
 ```bash
 weclone-cli train-sft
@@ -24,9 +22,6 @@ weclone-cli train-sft
    uv pip install deepspeed
    ```
 
-   > [!WARNING]
-   > Deepspeed 在 Windows 上的原生支持可能有限或配置复杂。官方主要支持 Linux。如果遇到安装或运行问题，可能需要查阅 Deepspeed 官方文档或社区寻求 Windows 解决方案，或者考虑在 WSL2 环境下使用 Deepspeed。
-
 2. **配置 Deepspeed：**
    在 `settings.jsonc` 中，找到 `deepspeed` 配置项，并取消其注释或根据需要填写 Deepspeed 的 JSON 配置文件路径。
 
@@ -36,6 +31,30 @@ weclone-cli train-sft
    deepspeed --num_gpus=<使用显卡数量> weclone/train/train_sft.py
    ```
 
-   例如，使用2张显卡：`deepspeed --num_gpus=2 weclone/train/train_sft.py`
 
 训练完成后，微调好的 LoRA 适配器权重会保存在你 `settings.jsonc` 中指定的 `output_dir`。
+
+
+
+## **启用 QLoRA（可选配置）**
+
+如果你希望进一步减少显存消耗，可以开启 **QLoRA 量化训练**。
+
+在 `settings.jsonc` 的 `common_args` 字段中添加以下配置：
+
+```json
+"quantization_bit": 4,
+"quantization_type": "nf4",
+"double_quantization": true,
+"quantization_method": "bitsandbytes"
+```
+
+> [!NOTE]
+>
+> - `quantization_bit` 支持值：2 / 4 / 8，数值越低显存越省，但推理速度和效果可能略有下降。
+>
+> - 如果遇到报错`ImportError: Please install bitsandbytes>=0.45.3`，可以尝试重新安装`bitsandbytes`：
+>
+>   ```bash
+>   uv pip install bitsandbytes>=0.39.0
+>   ```
