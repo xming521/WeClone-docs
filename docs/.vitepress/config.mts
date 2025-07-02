@@ -22,7 +22,7 @@ export default defineConfig({
 
     nav: [
       { text: '主页', link: '/' },
-      { text: '文档', link: '/what-is-weclone' }
+      { text: '文档', link: '/introduce/what-is-weclone' }
     ],
     outline: {
       level: [2, 3], // 显示 h2 和 h3 标题
@@ -33,9 +33,9 @@ export default defineConfig({
         text: '简介',
         collapsed: false,
         items: [
-          { text: '什么是WeClone', link: '/what-is-weclone' },
-          { text: '社区资源', link: '/community-resources' },
-          { text: 'FAQ', link: '/FAQ' },
+          { text: '什么是WeClone', link: '/introduce/what-is-weclone' },
+          { text: '社区资源', link: '/introduce/community-resources' },
+          { text: 'FAQ', link: '/introduce/FAQ' },
         ]
       },
       {
