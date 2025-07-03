@@ -30,7 +30,7 @@ export default defineConfig({
     },
     sidebar: [
       {
-        text: '简介',
+        text: '介绍',
         collapsed: false,
         items: [
           { text: '什么是WeClone', link: '/introduce/what-is-weclone' },
