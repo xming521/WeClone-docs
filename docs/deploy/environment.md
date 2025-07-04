@@ -3,11 +3,11 @@
 
 ## Linux
 
-1. cuda安装(已安装可跳过，**要求版本12.6及以上**)：[LLaMA Factory](https://llamafactory.readthedocs.io/zh-cn/latest/getting_started/installation.html#cuda) 
+1. cuda安装(已安装可跳过，**要求版本12.6及以上**)：[LLaMA Factory环境安装文档](https://llamafactory.readthedocs.io/zh-cn/latest/getting_started/installation.html#cuda) 
 
-2. 建议使用 [uv](https://docs.astral.sh/uv/) 安装依赖，这是一个非常快速的 Python 环境管理器，[官方安装方式](https://docs.astral.sh/uv/getting-started/installation/)。
+2. 建议使用 [uv](https://docs.astral.sh/uv/) 安装依赖，这是一个非常快速的 Python 环境管理器，安装uv参考[ UV 官方文档](https://docs.astral.sh/uv/getting-started/installation/)。
 
-3. 安装uv后，您可以使用以下命令创建一个新的Python环境并安装依赖项：
+3. 安装uv后，使用以下命令创建一个新的Python环境并安装依赖项：
 ```bash
 git clone https://github.com/xming521/WeClone.git && cd WeClone
 uv venv .venv --python=3.10
@@ -22,7 +22,7 @@ cp settings.template.jsonc settings.jsonc
 - 微调**多模态模型**时，请使用[examples/mllm.template.jsonc](https://github.com/xming521/WeClone/blob/master/examples/mllm.template.jsonc)作为配置文件。
 
 > [!NOTE]
-> 训练以及推理相关配置统一在文件`settings.jsonc`
+> 训练以及推理等所有配置统一在文件`settings.jsonc`
 
 5.使用以下命令测试CUDA环境是否正确配置并可被PyTorch识别(NVIDIA GPU 用户)：
 ```bash
@@ -34,11 +34,11 @@ python -c "import torch; print('CUDA是否可用:', torch.cuda.is_available());"
 uv pip install flash-attn --no-build-isolation
 ```
 > [!NOTE]
-> 版本问题可以使用 **FlashAttention** 的[prebuild-wheels](https://github.com/mjun0812/flash-attention-prebuild-wheels/releases)的预编译包安装。
+> 版本问题可以使用 **FlashAttention** 的 [prebuild-wheels](https://github.com/mjun0812/flash-attention-prebuild-wheels/releases) 的预编译包安装。
 
 ## Windows
 
-Windows环境下运行WeClone未进行严格测试，并且不能使用本地模型清洗数据，建议使用WSL2（GPU性能损耗约5%），请参考[WSL2](https://learn.microsoft.com/zh-cn/windows/wsl/install)安装。
+Windows 环境下运行 WeClone 未进行严格测试，并且不能使用本地模型清洗数据，建议使用 WSL2（ GPU 性能损耗约 5%），请参考 [WSL2](https://learn.microsoft.com/zh-cn/windows/wsl/install) 安装。
 
 
 

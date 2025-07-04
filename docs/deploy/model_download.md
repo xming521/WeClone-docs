@@ -33,7 +33,8 @@ uv pip install modelscope
 ```bash
 modelscope download --model Qwen/Qwen2.5-7B-Instruct --local_dir ./models/Qwen2.5-7B-Instruct
 ```
-> ⚠️ 模型文件较大，下载时间可能较长，请确保磁盘空间充足（建议至少 20GB）。
+> ⚠️ 模型文件较大，下载时间可能较长，请确保磁盘空间充足（建议至少 20GB）。<br>
+下载过程较长，连接可能中断，增量下载重试即可。
 
 
 ## 方法二：使用`Git`安装

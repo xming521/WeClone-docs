@@ -22,7 +22,7 @@ weclone-cli train-sft
    uv pip install deepspeed
    ```
 
-2. **配置 Deepspeed：**
+2. **配置 Deepspeed** <br>
    在 `settings.jsonc` 中，找到 `deepspeed` 配置项，并取消其注释或根据需要填写 Deepspeed 的 JSON 配置文件路径。
 
 3. **启动多卡训练：**
