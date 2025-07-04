@@ -5,7 +5,7 @@
 - ##### 拉取最新代码，并更新环境 `uv pip install --group main -e .` 。
 - ##### 检查模型是否下载完整，重新执行模型下载指令。
 - ##### Issues： 查看 WeClone GitHub 仓库的 [Issues](https://github.com/xming521/WeClone/issues) 和 [Discussions](https://github.com/xming521/WeClone/discussions) 是否有类似问题。
-- ##### 使用 [DeepWiki](https://deepwiki.com/xming521/WeClone) 了解更多信息。
+- ##### 使用 [DeepWiki](https://deepwiki.com/xming521/WeClone) 直接与源码对话。
 另外,可参考本页面常见问题。<br>
 如果问题没有解决，请在[Issues](https://github.com/xming521/WeClone/issues)中提出。
 :::

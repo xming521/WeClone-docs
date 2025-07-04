@@ -5,10 +5,17 @@ outline: false
 
 你是否设想过——你的聊天风格、口头禅，甚至独特的表达习惯，能够被 AI 学会，并在数字世界中“复刻”一个你，这会是怎样的体验？ [WeClone](https://github.com/xming521/WeClone) 正是在这样一个愿景下诞生的尝试。
 
-WeClone 是从聊天记录创造数字分身的一站式解决方案，它可以通过你的微信聊天记录，微调大语言模型，让模型说出“你那味儿”的话，并将其接入聊天机器人，打造出专属于你的数字分身。
+WeClone 是从聊天记录创造数字分身的一站式解决方案，它可以通过使用聊天记录微调大语言模型，让模型说出“你那味儿”的话，并将其接入聊天机器人，打造出专属于你的数字分身。
 
-<details>   <summary>查看训练效果图（点击展开）</summary>   <div style="display: flex; justify-content: center; align-items: stretch; gap: 10px; margin-top: 10px;">     <img src="https://blog-img.051088.xyz/%E6%9C%80%E7%BB%88%E6%95%88%E6%9E%9C1.png" alt="图1" style="max-width: 55%; object-fit: contain;" />     <img src="https://blog-img.051088.xyz/%E6%9C%80%E7%BB%88%E6%95%88%E6%9E%9C.png" alt="图2" style="max-width: 35%; object-fit: contain;" />   </div> </details>
+> ##### [社区社群](./community-resources.md)均部署了使用WeClone微调后的Bot，更多有趣案例也可以移步[小红书](https://www.xiaohongshu.com/user/profile/628109730000000021029de4)
 
+::: details 查看训练效果图（点击展开）
+<div style="display: flex; flex-wrap: wrap; gap: 10px;">
+<img src="/screenshots/1.jpg" alt="WeClone训练效果演示1" style="width: 52%; min-width: 150px;"> 
+<img src="/screenshots/2.jpg" alt="WeClone训练效果演示2" style="width: 52%; min-width: 150px;">
+<img src="/screenshots/3.jpg" alt="WeClone训练效果演示3" style="width: 52%; min-width: 150px;">
+</div>
+:::
 
 ::: tip
 WeClone 项目仍在快速更新迭代中，当前效果并非最终状态。
@@ -36,9 +43,8 @@ WeClone 项目仍在快速更新迭代中，当前效果并非最终状态。
 
 
 **用户使用前需慎重阅读并理解本免责声明的所有内容，确保在使用本项目时严格遵守相关规定。**
-<details>
-<summary>点击查看免责条款</summary>
 
+::: details 点击查看免责条款
 ### 1. 使用风险自担
 - 用户在使用本项目时，应充分理解并承担所有相关风险
 - **本项目作者不对因使用本项目而产生的任何直接或间接损失承担责任**
@@ -91,5 +97,5 @@ WeClone 项目仍在快速更新迭代中，当前效果并非最终状态。
 一旦您下载、克隆、修改、分发或以任何方式使用本项目的代码或模型，即表示您已完整阅读、理解并同意无条件接受本免责声明的全部条款。
 
 
-</details>  
+:::
 
