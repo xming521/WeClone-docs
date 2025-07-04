@@ -12,9 +12,9 @@ weclone-cli webchat-demo
 
 ## 使用 API 接口进行推理
 
-WeClone 提供了一个 API 服务，可以供其他应用程序调用。
+WeClone 提供了一个 API 服务，可以供其他应用程序调用，如聊天机器人平台等。
 
-1. **启动 API 服务：**
+1. **启动 API 服务**
 
    ```bash
    weclone-cli server
@@ -22,8 +22,10 @@ WeClone 提供了一个 API 服务，可以供其他应用程序调用。
 
    服务启动后，通常会监听在 `http://127.0.0.1:8005/v1` 。
 
-2. **通过 API 调用：**
-   你可以使用任何 HTTP客户端向该 API 发送请求。API 兼容 OpenAI 的格式。
+2. **通过 API 调用**
+   <br>
+   你可以使用任何 HTTP客户端向该 API 发送请求。<br>
+   API 兼容 OpenAI 的格式。
 
 ## 使用常见聊天问题测试
 

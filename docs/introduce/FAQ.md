@@ -1,11 +1,13 @@
 # FAQ
 
 ::: tip
-- ##### 请先拉取最新代码，并重新执行`uv pip install --group main -e .`检查问题是否已经解决。
-- ##### 再次执行模型下载指令，检查模型是否下载完整，增量下载不会覆盖已下载的模型。
-- ##### 建议使用[DeepWiki](https://deepwiki.com/xming521/WeClone)解决问题。
+遇到问题时，可以逐步尝试以下方法，并检查是否解决：
+- ##### 拉取最新代码，并更新环境 `uv pip install --group main -e .` 。
+- ##### 检查模型是否下载完整，重新执行模型下载指令。
 - ##### Issues： 查看 WeClone GitHub 仓库的 [Issues](https://github.com/xming521/WeClone/issues) 和 [Discussions](https://github.com/xming521/WeClone/discussions) 是否有类似问题。
-- ##### 如果问题没有解决，请在[Issues](https://github.com/xming521/WeClone/issues)中提出。
+- ##### 使用 [DeepWiki](https://deepwiki.com/xming521/WeClone) 了解更多信息。
+另外,可参考本页面常见问题。<br>
+如果问题没有解决，请在[Issues](https://github.com/xming521/WeClone/issues)中提出。
 :::
 
 ### 设备显存不够/Out-of-memory怎么办？
@@ -20,7 +22,8 @@
 ---
 
 ### 微调后效果不理想怎么办？
-- 使用更大的模型，更多的数据来进行微调。**7B模型一般效果很差，14B勉强及格，32B效果较好**。
+- 使用更大参数规模的模型、更多的聊天记录数据来进行微调。
+    - **7B模型一般效果很差，14B勉强及格，32B效果较好**。
 - 使用多模态模型来微调，减少数据集cut的次数。
 - 启用数据清洗。
 ---
@@ -30,5 +33,5 @@
 - [![更方便的Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/hiyouga/LLaMA-Factory)
 - [LLaMA-Factory| FAQs | 常见问题](https://github.com/hiyouga/LLaMA-Factory/issues/4614) 
 
-### 聊天记录打开乱码
+### 聊天记录CSV文件打开乱码
 不要使用Excel打开，使用IDE例如vscode打开。
