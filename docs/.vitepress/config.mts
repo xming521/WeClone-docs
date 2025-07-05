@@ -4,65 +4,121 @@ import { defineConfig } from 'vitepress'
 export default defineConfig({
   locales: {
     root: {
-      label: '简体中文',
-      lang: 'zh'
+      label: 'English',
+      lang: 'en'
     },
     en: {
       label: 'English',
-      lang: 'en', // 可选，将作为 `lang` 属性添加到 `html` 标签中
-      // link: '/en/' // 默认 /fr/ -- 显示在导航栏翻译菜单上，可以是外部的
+      lang: 'en',
+      title: "WeClone",
+      description: "One-stop solution for creating your digital avatar from chat history",
+      themeConfig: {
+        nav: [
+          { text: 'Home', link: '/en/' },
+          { text: 'Documentation', link: '/en/introduce/what-is-weclone' }
+        ],
+        sidebar: [
+          {
+            text: 'Introduction',
+            collapsed: false,
+            items: [
+              { text: 'What is WeClone', link: '/en/introduce/what-is-weclone' },
+              { text: 'Community Resources', link: '/en/introduce/community-resources' },
+              { text: 'FAQ', link: '/en/introduce/FAQ' },
+            ]
+          },
+          {
+            text: 'Deploy WeClone',
+            collapsed: false,
+            items: [
+              { text: 'Hardware Requirements', link: '/en/deploy/hardware' },
+              { text: 'Environment Setup', link: '/en/deploy/environment' },
+              { text: 'Export Chat History', link: '/en/deploy/export-chat-history' },
+              { text: 'Override Settings', link: '/en/deploy/override-settings' },
+              { text: 'Model Download', link: '/en/deploy/model_download' },
+              { text: 'Data Preprocessing', link: '/en/deploy/data_preprocessing' },
+              { text: 'Model Fine-tuning', link: '/en/deploy/model_finetuning' },
+              { text: 'Model Inference', link: '/en/deploy/model_inference' },
+            ]
+          },
+          {
+            text: 'Deploy to Chatbot',
+            collapsed: false,
+            items: [
+              { text: 'AstrBot', link: '/en/chatbot/AstrBot' },
+              { text: 'LangBot', link: '/en/chatbot/LangBot' },
+              { text: 'Dify', link: '/en/chatbot/Dify' }
+            ]
+          },
+        ],
+        outline: {
+          level: [2, 3],
+          label: 'On this page'
+        },
+        editLink: {
+          pattern: 'https://github.com/xming521/WeClone-docs/blob/main/docs/:path',
+          text: 'Edit this page on GitHub'
+        }
+      }
+    },
+    zh: {
+      label: '简体中文',
+      lang: 'zh',
+      title: "WeClone",
+      description: "一站式解决方案，从聊天记录创建您的数字化身",
+      themeConfig: {
+        nav: [
+          { text: '主页', link: '/zh/' },
+          { text: '文档', link: '/zh/introduce/what-is-weclone' }
+        ],
+        outline: {
+          level: [2, 3],
+          label: '目录'
+        },
+        sidebar: [
+          {
+            text: '介绍',
+            collapsed: false,
+            items: [
+              { text: '什么是WeClone', link: '/zh/introduce/what-is-weclone' },
+              { text: '社区资源', link: '/zh/introduce/community-resources' },
+              { text: 'FAQ', link: '/zh/introduce/FAQ' },
+            ]
+          },
+          {
+            text: '部署WeClone',
+            collapsed: false,
+            items: [
+              { text: '硬件要求', link: '/zh/deploy/hardware' },
+              { text: '环境配置', link: '/zh/deploy/environment' },
+              { text: '导出聊天记录', link: '/zh/deploy/export-chat-history' },
+              { text: '修改配置文件', link: '/zh/deploy/override-settings' },
+              { text: '模型下载', link: '/zh/deploy/model_download' },
+              { text: '数据预处理', link: '/zh/deploy/data_preprocessing' },
+              { text: '模型微调', link: '/zh/deploy/model_finetuning' },
+              { text: '模型推理', link: '/zh/deploy/model_inference' },
+            ]
+          },
+          {
+            text: '部署到聊天机器人',
+            collapsed: false,
+            items: [
+              { text: 'AstrBot', link: '/zh/chatbot/AstrBot' },
+              { text: 'LangBot', link: '/zh/chatbot/LangBot' },
+              { text: 'Dify', link: '/zh/chatbot/Dify' }
+            ]
+          },
+        ],
+        editLink: {
+          pattern: 'https://github.com/xming521/WeClone-docs/blob/main/docs/:path',
+          text: '在 GitHub 上编辑此页面'
+        }
+      }
     }
   },
-  title: "WeClone",
-  description: "One-stop solution for creating your digital avatar from chat history",
   head: [['link', { rel: 'icon', href: '/img/logo.svg' }]],
   lastUpdated: true,
   themeConfig: {
-    // https://vitepress.dev/reference/default-theme-config
-
-    nav: [
-      { text: '主页', link: '/' },
-      { text: '文档', link: '/introduce/what-is-weclone' }
-    ],
-
-    outline: {
-      level: [2, 3], // 显示 h2 和 h3 标题
-      label: '目录' // 自定义标题，默认是 "On this page"
-    },
-    sidebar: [
-      {
-        text: '介绍',
-        collapsed: false,
-        items: [
-          { text: '什么是WeClone', link: '/introduce/what-is-weclone' },
-          { text: '社区资源', link: '/introduce/community-resources' },
-          { text: 'FAQ', link: '/introduce/FAQ' },
-        ]
-      },
-      {
-        text: '部署WeClone',
-        collapsed: false,
-        items: [
-          { text: '硬件要求', link: '/deploy/hardware' },
-          { text: '环境配置', link: '/deploy/environment' },
-          { text: '导出聊天记录', link: '/deploy/export-chat-history' },
-          { text: '修改配置文件', link: '/deploy/override-settings' },
-          { text: '模型下载', link: '/deploy/model_download' },
-          { text: '数据预处理', link: '/deploy/data_preprocessing' },
-          { text: '模型微调', link: '/deploy/model_finetuning' },
-          { text: '模型推理', link: '/deploy/model_inference' },
-        ]
-      },
-      {
-        text: '部署到聊天机器人',
-        collapsed: false,
-        items: [
-          { text: 'AstrBot', link: '/chatbot/AstrBot' },
-          { text: 'LangBot', link: '/chatbot/LangBot' },
-          { text: 'Dify', link: '/chatbot/Dify' }
-        ]
-      },
-    ],
     search: {
       provider: 'local'
     },
@@ -84,15 +140,9 @@ export default defineConfig({
         ariaLabel: '关注小红书'
       }
     ],
-    editLink: {
-      pattern: 'https://github.com/xming521/WeClone-docs/blob/main/docs/:path',
-      text: 'Edit this page on GitHub'
-    },
     footer: {
       message: '联系我们：<a href="mailto:hello@weclone.love" style="color: var(--vp-c-brand-1); text-decoration: none;">✉️ hello@weclone.love</a>',
       copyright: 'Copyright © 2025 WeClone. All rights reserved.'
     },
-
   }
-
 })
