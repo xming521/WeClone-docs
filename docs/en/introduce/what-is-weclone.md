@@ -1,101 +1,97 @@
 ---
 outline: false
 ---
-# WeClone：从聊天记录创造数字分身的一站式解决方案
+# WeClone: A One-Stop Solution for Creating Digital Avatars from Your Chat History
 
-你是否设想过——你的聊天风格、口头禅，甚至独特的表达习惯，能够被 AI 学会，并在数字世界中“复刻”一个你，这会是怎样的体验？ [WeClone](https://github.com/xming521/WeClone) 正是在这样一个愿景下诞生的尝试。
+Have you ever imagined what it would be like if an AI could learn your chat style, your catchphrases, and even your unique expressions to "replicate" you in the digital world? [WeClone](https://github.com/xming521/WeClone) is an experiment born from this vision.
 
-WeClone 是从聊天记录创造数字分身的一站式解决方案，它可以通过使用聊天记录微调大语言模型，让模型说出“你那味儿”的话，并将其接入聊天机器人，打造出专属于你的数字分身。
+WeClone is a one-stop solution for creating digital avatars from chat history. By fine-tuning a large language model with your chat records, it enables the model to speak in your "voice" and integrates it with chatbots to create your very own digital twin.
 
-> ##### [社区社群](./community-resources.md)均部署了使用WeClone微调后的Bot，更多有趣案例也可以移步[小红书](https://www.xiaohongshu.com/user/profile/628109730000000021029de4)
+> ##### Bots fine-tuned with WeClone are deployed in our [Community Resources](./community-resources.md). For more interesting case studies, you can also visit our [Xiaohongshu](https://www.xiaohongshu.com/user/profile/628109730000000021029de4).
 
-::: details 查看训练效果图（点击展开）
+> [!NOTE]
+> We're looking for interesting examples of native English speakers chatting with WeClone!
+> Feel free to share them with us on Twitter.
+
+::: details View Training Screenshots (Click to expand)
 <div style="display: flex; flex-wrap: wrap; gap: 10px;">
-<img src="/screenshots/1.jpg" alt="WeClone训练效果演示1" style="width: 52%; min-width: 150px;"> 
-<img src="/screenshots/2.jpg" alt="WeClone训练效果演示2" style="width: 52%; min-width: 150px;">
-<img src="/screenshots/3.jpg" alt="WeClone训练效果演示3" style="width: 52%; min-width: 150px;">
+<img src="/screenshots/1.jpg" alt="WeClone Training Demo 1" style="width: 52%; min-width: 150px;">
+<img src="/screenshots/2.jpg" alt="WeClone Training Demo 2" style="width: 52%; min-width: 150px;">
+<img src="/screenshots/3.jpg" alt="WeClone Training Demo 3" style="width: 52%; min-width: 150px;">
 </div>
 :::
 
 ::: tip
-WeClone 项目仍在快速更新迭代中，当前效果并非最终状态。
-微调效果受诸多因素影响，如模型参数规模、对话数据量和质量等。通常来说，**模型参数越大、对话数据越多、表达风格越一致，微调后对话效果越接近原始人格特征**。
+The WeClone project is still under rapid iteration, and the current results are not final.
+The effectiveness of fine-tuning is influenced by many factors, such as the model's parameter size, and the volume and quality of the dialogue data. Generally, **the larger the model parameters, the more dialogue data, and the more consistent the expression style, the closer the fine-tuned dialogue effect will be to the original personality traits**.
 :::
 
-
-在正式开始前，请注意：
+Before you begin, please note:
 
 ::: warning
-妥善保护个人聊天记录，避免泄露隐私信息，**切勿上传至公共平台**。<br> 确保本项目不被用于任何非法用途, 使用者应对自己的数据使用和行为承担全部责任。
+Properly protect your personal chat records to prevent the leakage of private information. **Do not upload them to public platforms**.<br> Ensure this project is not used for any illegal purposes. Users are solely responsible for their use of data and their actions.
 :::
 
-
-
-## ⚠️ 免责声明
+## ⚠️ Disclaimer
 > [!CAUTION]
-> ##### WeClone 目前未与任何平台合作，未发行任何数字货币。
-> ##### 唯一官方网站：[weclone.love](https://www.weclone.love)，谨防仿冒。
+> ##### WeClone is not currently affiliated with any platform and has not issued any digital currency.
+> ##### The only official website is [weclone.love](https://www.weclone.love). Beware of imitations.
 
 > [!CAUTION]
-> **本项目仅供学习、研究和实验用途。用于生产环境存在较大风险，请谨慎评估。**  
-> **请勿用于非法用途，后果自负。**
+> **This project is for learning, research, and experimental purposes only. Using it in a production environment carries significant risks. Please evaluate carefully.**
+> **Do not use for illegal purposes. You are responsible for your own actions.**
 
+**Users must carefully read and understand the entire content of this disclaimer before use and ensure strict compliance with its provisions when using this project.**
 
+::: details Click to view Disclaimer Terms
+### 1. Assumption of Risk
+- Users should fully understand and assume all related risks when using this project.
+- **The author of this project is not responsible for any direct or indirect losses arising from the use of this project.**
+- This includes, but is not limited to: data loss, economic loss, legal disputes, damage to personal reputation, impact on social relationships, psychological trauma, career setbacks, and damage to business reputation.
 
-**用户使用前需慎重阅读并理解本免责声明的所有内容，确保在使用本项目时严格遵守相关规定。**
+### 2. Production Environment Risk Warning
+- **Users assume all risks for using this project for commercial purposes or providing services to others.**
+- The user is solely responsible for all consequences that may arise from use in a production environment (including but not limited to service interruptions, data security issues, user complaints, legal liabilities, etc.).
+- **It is recommended to conduct thorough testing, validation, and risk assessment before using in a production environment.**
 
-::: details 点击查看免责条款
-### 1. 使用风险自担
-- 用户在使用本项目时，应充分理解并承担所有相关风险
-- **本项目作者不对因使用本项目而产生的任何直接或间接损失承担责任**
-- 包括但不限于：数据丢失、经济损失、法律纠纷、个人名誉损害、社会关系影响、心理创伤、职业发展受阻、商业信誉受损等
+### 3. Unreliability of Model Output
+- The fine-tuned model may produce inaccurate, harmful, or misleading content.
+- The model's output does not represent the views or intentions of the real person.
+- Users should manually review and verify the model's output.
 
-### 2. 生产环境风险警告
-- **用于商业用途或对外提供服务需自行承担全部风险**
-- 生产环境使用可能导致的所有后果（包括但不限于服务中断、数据安全问题、用户投诉、法律责任等）完全由用户承担
-- **建议在生产环境使用前进行充分的测试、验证和风险评估**
+### 4. Data Security and Privacy
+- Users must ensure that the uploaded chat records and other data comply with relevant laws and regulations.
+- Users must obtain **appropriate authorization from the individuals involved in the data**.
+- This project is not responsible for **data leakage or privacy violations**.
 
-### 3. 模型输出不可靠性
-- 微调后的模型可能产生不准确、有害或误导性的内容
-- 模型输出不代表真实人物的观点或意图
-- 用户应对模型输出进行人工审核和验证
+### 5. Legal Compliance
+- **Users must ensure that their use of this project complies with local laws and regulations.**
+- This includes laws related to artificial intelligence, data protection, and intellectual property.
+- **The user is responsible for the consequences of any illegal use.**
 
-### 4. 数据安全与隐私
-- 用户应确保上传的聊天记录等数据符合相关法律法规
-- 用户应获得**数据相关人员的适当授权**
-- 本项目不对**数据泄露或隐私侵犯**承担责任
+### 6. Limitation of Technical Support
+- This project is provided "as is," without any express or implied warranties.
+- The author does not commit to providing ongoing technical support or maintenance.
+- The stability, reliability, or suitability of the project is not guaranteed.
 
-### 5. 法律合规
-- **用户应确保使用本项目符合当地法律法规**
-- 涉及人工智能、数据保护、知识产权等相关法律
-- **违法使用造成的后果由用户承担**
+## Usage Suggestions
 
-### 6. 技术支持限制
-- 本项目按"现状"提供，不提供任何明示或暗示的保证
-- 作者不承诺提供持续的技术支持或维护
-- 不保证项目的稳定性、可靠性或适用性
+### Mandatory Bot Identity
+**When using a digital avatar generated by this project, it is strongly recommended to:**
+- Clearly identify it as an "AI Bot" or "Digital Avatar" at the beginning of each conversation.
+- Prominently display "This is AI-generated content" in the user interface.
+- Avoid misleading users into thinking they are conversing with a real human, which could create risks.
 
-## 使用建议
+### Risk Assessment Suggestions
 
-### 强制性Bot身份标识
-**使用本项目生成的数字分身时，强烈建议：**
-- 在每次对话开始时明确标识为"AI Bot"或"数字分身"
-- 在用户界面显著位置标注"此为AI生成内容"
-- 避免让用户误认为是真实人类在对话，从而造成风险
+If it is necessary to use this in a production environment, it is recommended to:
+1. Conduct comprehensive security testing.
+2. Establish a robust content moderation mechanism.
+3. Develop an emergency response plan.
+4. Purchase appropriate insurance coverage.
+5. Consult with legal professionals.
 
-### 风险评估建议
+This disclaimer may be revised as the project is updated. Users should check the latest version regularly. Continued use of this project constitutes acceptance of the latest disclaimer terms.
 
-如确需在生产环境使用，建议：
-1. 进行全面的安全性测试
-2. 建立完善的内容审核机制
-3. 制定应急响应预案
-4. 购买相应的保险保障
-5. 咨询法律专业人士意见
-
-本免责声明可能随项目更新而修订，用户应定期查看最新版本。继续使用本项目即表示同意最新的免责声明条款。
-
-一旦您下载、克隆、修改、分发或以任何方式使用本项目的代码或模型，即表示您已完整阅读、理解并同意无条件接受本免责声明的全部条款。
-
-
+By downloading, cloning, modifying, distributing, or otherwise using the code or models of this project, you acknowledge that you have read, understood, and unconditionally agree to all terms of this disclaimer.
 :::
-

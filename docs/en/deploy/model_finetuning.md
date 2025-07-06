@@ -1,46 +1,46 @@
-# 微调模型
+# Fine-tuning the Model
 
 
-## 单卡训练
+## Single-Card Training
 
 
 ```bash
 weclone-cli train-sft
 ```
 
-> 多卡环境单卡训练，需要先执行 `export CUDA_VISIBLE_DEVICES=0`
+> For single-card training in a multi-card environment, you first need to run `export CUDA_VISIBLE_DEVICES=0`
 
-训练脚本会读取 `settings.jsonc` 中的配置并开始微调。留意终端输出，观察 loss 是否在正常下降。
+The training script will read the configuration from `settings.jsonc` and start fine-tuning. Pay attention to the terminal output to see if the loss is decreasing normally.
 
-## 多卡训练
+## Multi-Card Training
 
-如果你有多张 NVIDIA GPU 并希望进行多卡训练：
+If you have multiple NVIDIA GPUs and want to perform multi-card training:
 
-1. **安装 Deepspeed：**
+1. **Install Deepspeed:**
 
    ```bash
    uv pip install deepspeed
    ```
 
-2. **配置 Deepspeed** <br>
-   在 `settings.jsonc` 中，找到 `deepspeed` 配置项，并取消其注释或根据需要填写 Deepspeed 的 JSON 配置文件路径。
+2. **Configure Deepspeed** <br>
+   In `settings.jsonc`, find the `deepspeed` configuration item and uncomment it or fill in the path to the Deepspeed JSON configuration file as needed.
 
-3. **启动多卡训练：**
+3. **Start multi-card training:**
 
    ```bash
-   deepspeed --num_gpus=<使用显卡数量> weclone/train/train_sft.py
+   deepspeed --num_gpus=<number_of_gpus_to_use> weclone/train/train_sft.py
    ```
 
 
-训练完成后，微调好的 LoRA 适配器权重会保存在你 `settings.jsonc` 中指定的 `output_dir`。
+After the training is complete, the fine-tuned LoRA adapter weights will be saved in the `output_dir` you specified in `settings.jsonc`.
 
 
 
-## **启用 QLoRA（可选配置）**
+## **Enable QLoRA (Optional Configuration)**
 
-如果你希望进一步减少显存消耗，可以开启 **QLoRA 量化训练**。
+If you want to further reduce video memory consumption, you can enable **QLoRA quantized training**.
 
-在 `settings.jsonc` 的 `common_args` 字段中添加以下配置：
+Add the following configuration to the `common_args` field in `settings.jsonc`:
 
 ```json
 "quantization_bit": 4,
@@ -51,9 +51,9 @@ weclone-cli train-sft
 
 > [!NOTE]
 >
-> - `quantization_bit` 支持值：2 / 4 / 8，数值越低显存越省，但推理速度和效果可能略有下降。
+> - `quantization_bit` supports values: 2 / 4 / 8. The lower the value, the more video memory is saved, but the inference speed and effect may be slightly reduced.
 >
-> - 如果遇到报错`ImportError: Please install bitsandbytes>=0.45.3`，可以尝试重新安装`bitsandbytes`：
+> - If you encounter the error `ImportError: Please install bitsandbytes>=0.45.3`, you can try reinstalling `bitsandbytes`:
 >
 >   ```bash
 >   uv pip install bitsandbytes>=0.39.0

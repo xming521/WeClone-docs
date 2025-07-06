@@ -1,47 +1,37 @@
-# 模型下载
+# Model Download
 
-WeClone 默认使用 Qwen2.5-7B-Instruct 模型，你也可以选择其他你想要使用的模型（不推荐使用思考模型）。
+WeClone uses the Qwen2.5-VL-7B model by default, but you can choose other models you want to use (thinking models are not recommended).
 
 ::: tip
-7B模型一般效果较差(也有反馈还可以的，这可能和数据有关)，14B勉强及格，32B效果较好。
+7B models generally have poor results (although some feedback suggests they can be acceptable, which may be related to the data), 14B is barely acceptable, and 32B is better.
 :::
 
-如果你选择了其他模型、将模型下载到了其他目录，请在 `settings.jsonc` 中修改：
+If you have chosen another model or downloaded the model to a different directory, please modify it in `settings.jsonc`:
 
 ```json
 "common_args": {
-    "model_name_or_path": "你的模型路径",
-    "template": "你的模型模板",
+    "model_name_or_path": "your_model_path",
+    "template": "your_model_template",
     ...
 },
 "train_sft_args": {
-    "lora_target": "需要微调的模型的模块名称", // 例如："q_proj", "k_proj", "v_proj", "o_proj"
+    "lora_target": "module_names_of_the_model_to_be_fine-tuned", // e.g., "q_proj", "k_proj", "v_proj", "o_proj"
     ...
 },
 ```
 
-## 方法一：使用 `ModelScope` 命令行工具下载（国内推荐使用）
-
-首先安装 `modelscope` 库：
+## Method 1: Download using the `Hugging Face` command-line tool
 
 ```bash
-uv pip install modelscope
+huggingface-cli download Qwen/Qwen2.5-7B-Instruct --local-dir ./models/Qwen2.5-7B-Instruct --local-dir-use-symlinks False
 ```
-
-在项目根目录执行下面的命令：
-
-```bash
-modelscope download --model Qwen/Qwen2.5-7B-Instruct --local_dir ./models/Qwen2.5-7B-Instruct
-```
-> ⚠️ 模型文件较大，下载时间可能较长，请确保磁盘空间充足（建议至少 20GB）。<br>
-下载过程较长，连接可能中断，增量下载重试即可。
+> ⚠️ The model file is large, and the download may take a long time. Please ensure you have sufficient disk space (at least 20GB is recommended).<br>
+The download process is long, and the connection may be interrupted. You can resume with an incremental download.
 
 
-## 方法二：使用`Git`安装
+## Method 2: Install using `Git`
 
 ```bash
 git lfs install
-git clone https://www.modelscope.cn/Qwen/Qwen2.5-7B-Instruct.git models/Qwen2.5-7B-Instruct
+git clone https://huggingface.co/Qwen/Qwen2.5-VL-7B-Instruct models/Qwen2.5-VL-7B-Instruct
 ```
-
-

@@ -4,34 +4,32 @@ layout: home
 
 hero:
   name: "WeClone"
-  text: "从聊天记录创造数字分身的一站式解决方案"
-  tagline: 数字克隆/数字分身/数字永生/LLM/聊天机器人/LoRA
+  text: "One-stop Solution for Creating Digital Avatars"
+  tagline: Digital Clone / Digital Avatar / Digital Immortality / LLM / Chatbot
   image: 
     src: /img/logo_plain.png
     alt: "weclone-hero-image"
   actions:
     - theme: brand
-      text: 快速开始
-      link: /introduce/what-is-weclone
+      text: Get Started
+      link: /en/introduce/what-is-weclone
     - theme: alt
-      text: GitHub仓库
+      text: GitHub Repository
       link: https://github.com/xming521/WeClone/
 
 features:
   - icon: 💫 
-    title: 全链路数字分身打造
-    details: 覆盖从聊天数据导出、预处理、模型微调到部署的完整流程，快速生成属于你的智能体。
+    title: Full-Lifecycle Digital Avatar Creation
+    details: Covers the complete process from chat data exporting, preprocessing, model fine-tuning, to deployment.
 
   - icon: 💬
-    title:  私人化语言模型微调
-    details: 基于微信聊天记录对大模型进行微调，让你的数字分身说话方式更贴近真实的你。
+    title:  Fine-tuning with Private Data
+    details: Fine-tune large language models with personal data like chat history to make your digital avatar's speaking style closer to your own.
 
   - icon: 🔗
-    title:  多平台智能接入
-    details: 一键绑定微信、QQ、Telegram、企业微信、飞书机器人，实现多端智能互动。
+    title:  Multi-platform Smart Integration
+    details: Connect with Telegram, Discord, Slack, WeChat, and QQ for multi-platform intelligent interaction.
 
   - icon: 🛡️
-    title:  隐私与本地安全保障
-    details: 内置隐私信息过滤机制，支持本地部署和微调，数据全程可控，安全有保障。
----
-
+    title:  Privacy and Security
+    details: Built-in privacy filtering, supports local deployment and fine-tuning for controllable personal information security.

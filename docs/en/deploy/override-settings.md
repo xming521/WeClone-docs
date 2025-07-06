@@ -1,26 +1,22 @@
-# 修改配置文件 (`settings.jsonc`)
+# Override Settings (`settings.jsonc`)
 
-## common_args 
-通用参数配置，所有功能都会使用这个参数
+## common_args
+General parameter configuration, used by all functions.
 
-## cli_args 
-命令行参数配置
-## make_dataset_args 
+## cli_args
+Command line parameter configuration.
 
-数据处理参数配置
-## train_sft_args 
-SFT训练参数配置，支持`LLaMA Factory`的所有参数：[参数介绍 - LLaMA Factory](https://llamafactory.readthedocs.io/zh-cn/latest/advanced/arguments.html)
+## make_dataset_args
+Data processing parameter configuration.
 
-## infer_args 
-推理参数配置
+## train_sft_args
+SFT training parameter configuration, supports all parameters of `LLaMA Factory`: [Parameter Introduction - LLaMA Factory](https://llamafactory.readthedocs.io/en/latest/advanced/arguments.html)
 
-## vllm_args 
-vLLM相关参数配置
+## infer_args
+Inference parameter configuration.
 
-## test_model_args 
-模型测试参数配置
+## vllm_args
+vLLM related parameter configuration.
 
-
-
-
-
+## test_model_args
+Model testing parameter configuration.

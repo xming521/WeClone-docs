@@ -1,16 +1,16 @@
-# 通过 LangBot 部署到聊天机器人
+# Deploy to a Chatbot via LangBot
 
-[LangBot](https://github.com/RockChinQ/LangBot) 是一个开源的接入全球多种即时通信平台的 LLM 机器人平台，适合各种场景使用。
+[LangBot](https://github.com/RockChinQ/LangBot) is an open-source LLM robot platform that connects to various instant messaging platforms worldwide and is suitable for various scenarios.
 
-1. [部署 LangBot](https://github.com/RockChinQ/LangBot#-%E5%BC%80%E5%A7%8B%E4%BD%BF%E7%94%A8)
-2. 在 LangBot 中添加一个机器人
-4. 在模型页添加新模型，名称`gpt-3.5-turbo`，供应商选择 OpenAI，填写 请求 URL 为 WeClone 的地址，详细连接方式可以参考[文档](https://docs.langbot.app/zh/workshop/network-details.html)，API Key 任意填写。
+1. [Deploy LangBot](https://github.com/RockChinQ/LangBot#-%E5%BC%80%E5%A7%8B%E4%BD%BF%E7%94%A8)
+2. Add a robot in LangBot
+4. Add a new model on the model page, name it `gpt-3.5-turbo`, select OpenAI as the provider, and fill in the request URL with the WeClone address. For detailed connection methods, please refer to the [documentation](https://docs.langbot.app/zh/workshop/network-details.html). You can fill in any API Key.
 
 <img width="400px" alt="image" src="https://github.com/user-attachments/assets/fc167dea-7c93-4d94-9c5f-db709d0320ba" />
 
-6. 在流水线配置中选择刚才添加的模型，或修改提示词配置
+6. Select the newly added model in the pipeline configuration, or modify the prompt configuration.
 
 <img width="400px" alt="image" src="https://github.com/user-attachments/assets/dbb0fd0a-f760-42db-acd0-bb99c859b52e" />
 
 ---
-**现在，你的专属数字分身应该已经成功部署到聊天机器人平台了！快去和“它”聊聊天，看看效果如何吧~**
+**Now, your exclusive digital avatar should be successfully deployed to the chatbot platform! Go and chat with "it" to see how it works~**

@@ -1,37 +1,37 @@
 # FAQ
 
 ::: tip
-遇到问题时，可以逐步尝试以下方法，并检查是否解决：
-- ##### 拉取最新代码，并更新环境 `uv pip install --group main -e .` 。
-- ##### 检查模型是否下载完整，重新执行模型下载指令。
-- ##### Issues： 查看 WeClone GitHub 仓库的 [Issues](https://github.com/xming521/WeClone/issues) 和 [Discussions](https://github.com/xming521/WeClone/discussions) 是否有类似问题。
-- ##### 使用 [DeepWiki](https://deepwiki.com/xming521/WeClone) 直接与源码对话。
-另外,可参考本页面常见问题。<br>
-如果问题没有解决，请在[Issues](https://github.com/xming521/WeClone/issues)中提出。
+When you encounter a problem, you can try the following methods step by step and check if the problem is resolved:
+- ##### Pull the latest code and update the environment with `uv pip install --group main -e .`.
+- ##### Check if the model is downloaded completely and re-run the model download command.
+- ##### Issues: Check the [Issues](https://github.com/xming521/WeClone/issues) and [Discussions](https://github.com/xming521/WeClone/discussions) of the WeClone GitHub repository for similar problems.
+- ##### Use [DeepWiki](https://deepwiki.com/xming521/WeClone) to talk directly to the source code.
+Also, you can refer to the common questions on this page.<br>
+If the problem is not resolved, please raise it in [Issues](https://github.com/xming521/WeClone/issues).
 :::
 
-### 设备显存不够/Out-of-memory怎么办？
-- 调整训练参数
-    1. 降低批处理大小 per_device_train_batch_size: 1
-    2. 降低最大序列长度 cutoff_len: 512
-    3. 替换模型算子 enable_liger_kernel: true 和 use_unsloth_gc: true
-    4. 使用 DeepSpeed ZeRO-3 或 FSDP 将模型权重拆分到多个设备或使用 CPU Offloading
-    5. 设置 quantization_bit: 4 量化模型参数（仅限于 LoRA 方法）
-- 可以先租用在线云平台的GPU进行微调，再将微调后的model_output文件夹下载到本地，在本地部署推理。
-- 多模态模型减少`image_max_pixels`和`max_image_num`。
+### What to do if the device memory is insufficient/Out-of-memory?
+- Adjust training parameters
+    1. Reduce the batch size: `per_device_train_batch_size: 1`
+    2. Reduce the maximum sequence length: `cutoff_len: 512`
+    3. Replace model operators: `enable_liger_kernel: true` and `use_unsloth_gc: true`
+    4. Use DeepSpeed ZeRO-3 or FSDP to split model weights across multiple devices or use CPU Offloading
+    5. Set `quantization_bit: 4` to quantize model parameters (only for the LoRA method)
+- You can first rent a GPU on an online cloud platform for fine-tuning, then download the fine-tuned `model_output` folder to your local machine for deployment and inference.
+- For multimodal models, reduce `image_max_pixels` and `max_image_num`.
 ---
 
-### 微调后效果不理想怎么办？
-- 使用更大参数规模的模型、更多的聊天记录数据来进行微调。
-    - **7B模型一般效果很差，14B勉强及格，32B效果较好**。
-- 使用多模态模型来微调，减少数据集cut的次数。
-- 启用数据清洗。
+### What to do if the fine-tuning effect is not ideal?
+- Use a model with a larger parameter scale and more chat history data for fine-tuning.
+    - **7B models generally have poor results, 14B is barely acceptable, and 32B is better**.
+- Use a multimodal model for fine-tuning to reduce the number of dataset cuts.
+- Enable data cleaning.
 ---
 
 
-### LLaMA-Factory微调相关问题：  
-- [![更方便的Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/hiyouga/LLaMA-Factory)
-- [LLaMA-Factory| FAQs | 常见问题](https://github.com/hiyouga/LLaMA-Factory/issues/4614) 
+### LLaMA-Factory fine-tuning related questions:
+- [![Ask DeepWiki for more convenience](https://deepwiki.com/badge.svg)](https://deepwiki.com/hiyouga/LLaMA-Factory)
+- [LLaMA-Factory| FAQs | Common Questions](https://github.com/hiyouga/LLaMA-Factory/issues/4614)
 
-### 聊天记录CSV文件打开乱码
-不要使用Excel打开，使用IDE例如vscode打开。
+### The chat history CSV file opens with garbled characters
+Do not use Excel to open it. Use an IDE such as VS Code.

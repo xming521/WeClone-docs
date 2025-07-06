@@ -3,10 +3,6 @@ import { defineConfig } from 'vitepress'
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
   locales: {
-    root: {
-      label: 'English',
-      lang: 'en'
-    },
     en: {
       label: 'English',
       lang: 'en',
@@ -34,7 +30,6 @@ export default defineConfig({
               { text: 'Hardware Requirements', link: '/en/deploy/hardware' },
               { text: 'Environment Setup', link: '/en/deploy/environment' },
               { text: 'Export Chat History', link: '/en/deploy/export-chat-history' },
-              { text: 'Override Settings', link: '/en/deploy/override-settings' },
               { text: 'Model Download', link: '/en/deploy/model_download' },
               { text: 'Data Preprocessing', link: '/en/deploy/data_preprocessing' },
               { text: 'Model Fine-tuning', link: '/en/deploy/model_finetuning' },
@@ -48,6 +43,13 @@ export default defineConfig({
               { text: 'AstrBot', link: '/en/chatbot/AstrBot' },
               { text: 'LangBot', link: '/en/chatbot/LangBot' },
               { text: 'Dify', link: '/en/chatbot/Dify' }
+            ]
+          },
+          {
+            text: 'Configure WeClone',
+            collapsed: false,
+            items: [
+              { text: 'WeClone Configuration', link: '/en/config/weclone-config' },
             ]
           },
         ],
@@ -92,11 +94,17 @@ export default defineConfig({
               { text: '硬件要求', link: '/zh/deploy/hardware' },
               { text: '环境配置', link: '/zh/deploy/environment' },
               { text: '导出聊天记录', link: '/zh/deploy/export-chat-history' },
-              { text: '修改配置文件', link: '/zh/deploy/override-settings' },
               { text: '模型下载', link: '/zh/deploy/model_download' },
               { text: '数据预处理', link: '/zh/deploy/data_preprocessing' },
               { text: '模型微调', link: '/zh/deploy/model_finetuning' },
               { text: '模型推理', link: '/zh/deploy/model_inference' },
+            ]
+          },
+          {
+            text: '配置WeClone',
+            collapsed: false,
+            items: [
+              { text: 'WeClone 配置文件', link: '/zh/config/weclone-config' },
             ]
           },
           {
@@ -141,7 +149,7 @@ export default defineConfig({
       }
     ],
     footer: {
-      message: '联系我们：<a href="mailto:hello@weclone.love" style="color: var(--vp-c-brand-1); text-decoration: none;">✉️ hello@weclone.love</a>',
+      message: 'Contact Us：<a href="mailto:hello@weclone.love" style="color: var(--vp-c-brand-1); text-decoration: none;">✉️ hello@weclone.love</a>',
       copyright: 'Copyright © 2025 WeClone. All rights reserved.'
     },
   }

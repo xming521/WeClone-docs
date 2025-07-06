@@ -1,28 +1,28 @@
 ---
 pageClass: wide-page
 ---
-# 所需硬件配置
+# Required Hardware Configuration
 
-运行 WeClone（尤其是模型微调阶段）对显存有较高要求。推荐使用独立 GPU 设备或云端 GPU 租赁服务，不建议在集成显卡或仅使用 CPU 的环境下运行。
+Running WeClone (especially during the model fine-tuning phase) has high requirements for video memory. It is recommended to use a dedicated GPU device or a cloud GPU rental service. Running on integrated graphics or with only a CPU is not recommended.
 
-项目默认使用 [`Qwen2.5-7B-Instruct`](https://www.modelscope.cn/models/Qwen/Qwen2.5-7B-Instruct) 模型，并采用 **LoRA** 方法进行微调，显存需求约为 **16GB**。<br>
-同时，请预留 **20GB 以上硬盘空间**，以存储模型文件、中间结果和缓存数据。
+The project uses the [`Qwen2.5-7B-Instruct`](https://www.modelscope.cn/models/Qwen/Qwen2.5-7B-Instruct) model by default and employs the **LoRA** method for fine-tuning, which requires approximately **16GB** of video memory.<br>
+Additionally, please reserve **more than 20GB of hard disk space** to store model files, intermediate results, and cached data.
 
-下表列出了不同模型规模与微调方法所需的显存估算，多模态模型根据图片大小和数量会占用更多显存：
+The following table lists the estimated video memory requirements for different model sizes and fine-tuning methods. Multimodal models will occupy more video memory depending on the size and number of images:
 
-| 微调方法                        | 精度 (bits) | 7B 模型 | 14B 模型 | 30B 模型 | 70B 模型 | `x`B 模型 |
-| ------------------------------- | ----------- | ------- | -------- | -------- | -------- | --------- |
-| Full (`bf16` / `fp16`)          | 32          | 120GB   | 240GB    | 600GB    | 1200GB   | `18x` GB  |
-| Full (`pure_bf16`)              | 16          | 60GB    | 120GB    | 300GB    | 600GB    | `8x` GB   |
-| Freeze / LoRA / GaLore / APOLLO | 16          | 16GB    | 32GB     | 64GB     | 160GB    | `2x` GB   |
-| QLoRA                           | 8           | 10GB    | 20GB     | 40GB     | 80GB     | `x` GB    |
-| QLoRA                           | 4           | 6GB     | 12GB     | 24GB     | 48GB     | `x/2` GB  |
-| QLoRA                           | 2           | 4GB     | 8GB      | 16GB     | 24GB     | `x/4` GB  |
+| Fine-tuning Method | Precision (bits) | 7B Model | 14B Model | 30B Model | 70B Model | `x`B Model |
+|---|---|---|---|---|---|---|
+| Full (`bf16` / `fp16`) | 32 | 120GB | 240GB | 600GB | 1200GB | `18x` GB |
+| Full (`pure_bf16`) | 16 | 60GB | 120GB | 300GB | 600GB | `8x` GB |
+| Freeze / LoRA / GaLore / APOLLO | 16 | 16GB | 32GB | 64GB | 160GB | `2x` GB |
+| QLoRA | 8 | 10GB | 20GB | 40GB | 80GB | `x` GB |
+| QLoRA | 4 | 6GB | 12GB | 24GB | 48GB | `x/2` GB |
+| QLoRA | 2 | 4GB | 8GB | 16GB | 24GB | `x/4` GB |
 
 
-如果你希望启用 QLoRA 微调方式，请查阅后续章节 “[修改配置文件](override-settings.md)” 了解如何切换微调策略。
+If you wish to enable the QLoRA fine-tuning method, please refer to the subsequent chapter "[Override Settings](override-settings.md)" to learn how to switch the fine-tuning strategy.
 
 ::: tip
-显存 ≥16GB：推荐使用默认的 LoRA 微调方案。    
-显存 <16GB：可考虑切换至 QLoRA 或选择更小参数量的模型。
+Video Memory ≥16GB: The default LoRA fine-tuning scheme is recommended.
+Video Memory <16GB: Consider switching to QLoRA or choosing a model with a smaller number of parameters.
 :::
