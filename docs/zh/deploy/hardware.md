@@ -20,7 +20,7 @@ pageClass: wide-page
 | QLoRA                           | 2           | 4GB     | 8GB      | 16GB     | 24GB     | `x/4` GB  |
 
 
-如果你希望启用 QLoRA 微调方式，请查阅后续章节 “[修改配置文件](override-settings.md)” 了解如何切换微调策略。
+如果你希望启用 QLoRA 微调方式，请查阅后续章节 “[启用 QLoRA（可选配置）](model_finetuning.md#启用-qlora-可选配置)” 了解如何切换微调策略。
 
 ::: tip
 显存 ≥16GB：推荐使用默认的 LoRA 微调方案。    

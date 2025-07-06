@@ -20,7 +20,7 @@ The following table lists the estimated video memory requirements for different 
 | QLoRA | 2 | 4GB | 8GB | 16GB | 24GB | `x/4` GB |
 
 
-If you wish to enable the QLoRA fine-tuning method, please refer to the subsequent chapter "[Override Settings](override-settings.md)" to learn how to switch the fine-tuning strategy.
+If you wish to enable the QLoRA fine-tuning method, please refer to the subsequent chapter "[Enable QLoRA (Optional Configuration)](model_finetuning.md#enable-qlora-optional-configuration)" to learn how to switch the fine-tuning strategy.
 
 ::: tip
 Video Memory ≥16GB: The default LoRA fine-tuning scheme is recommended.
