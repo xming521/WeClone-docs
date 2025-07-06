@@ -18,7 +18,7 @@
             "permanent": false
         },
         {
-            "source": "/((?!zh|en).*)",
+            "source": "/docs/(.*)",
             "has": [
                 {
                     "type": "header",
@@ -26,12 +26,12 @@
                     "value": "(?=.*zh).*"
                 }
             ],
-            "destination": "/zh/$1",
+            "destination": "/zh/docs/$1",
             "permanent": false
         },
         {
-            "source": "/((?!zh|en).*)",
-            "destination": "/en/$1",
+            "source": "/docs/(.*)",
+            "destination": "/en/docs/$1",
             "permanent": false
         }
     ],

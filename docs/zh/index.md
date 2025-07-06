@@ -12,7 +12,7 @@ hero:
   actions:
     - theme: brand
       text: 快速开始
-      link: /zh/introduce/what-is-weclone
+      link: /zh/docs/introduce/what-is-weclone
     - theme: alt
       text: GitHub仓库
       link: https://github.com/xming521/WeClone/
