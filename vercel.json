@@ -16,6 +16,23 @@
             "source": "/",
             "destination": "/en/",
             "permanent": false
+        },
+        {
+            "source": "/((?!zh|en).*)",
+            "has": [
+                {
+                    "type": "header",
+                    "key": "accept-language",
+                    "value": "(?=.*zh).*"
+                }
+            ],
+            "destination": "/zh/$1",
+            "permanent": false
+        },
+        {
+            "source": "/((?!zh|en).*)",
+            "destination": "/en/$1",
+            "permanent": false
         }
     ],
     "rewrites": [
