@@ -11,45 +11,45 @@ export default defineConfig({
       themeConfig: {
         nav: [
           { text: 'Home', link: '/en/' },
-          { text: 'Documentation', link: '/en/introduce/what-is-weclone' }
+          { text: 'Documentation', link: '/en/docs/introduce/what-is-weclone' }
         ],
         sidebar: [
           {
             text: 'Introduction',
             collapsed: false,
             items: [
-              { text: 'What is WeClone', link: '/en/introduce/what-is-weclone' },
-              { text: 'Community Resources', link: '/en/introduce/community-resources' },
-              { text: 'FAQ', link: '/en/introduce/FAQ' },
+              { text: 'What is WeClone', link: '/en/docs/introduce/what-is-weclone' },
+              { text: 'Community Resources', link: '/en/docs/introduce/community-resources' },
+              { text: 'FAQ', link: '/en/docs/introduce/FAQ' },
             ]
           },
           {
             text: 'Deploy WeClone',
             collapsed: false,
             items: [
-              { text: 'Hardware Requirements', link: '/en/deploy/hardware' },
-              { text: 'Environment Setup', link: '/en/deploy/environment' },
-              { text: 'Export Chat History', link: '/en/deploy/export-chat-history' },
-              { text: 'Model Download', link: '/en/deploy/model_download' },
-              { text: 'Data Preprocessing', link: '/en/deploy/data_preprocessing' },
-              { text: 'Model Fine-tuning', link: '/en/deploy/model_finetuning' },
-              { text: 'Model Inference', link: '/en/deploy/model_inference' },
+              { text: 'Hardware Requirements', link: '/en/docs/deploy/hardware' },
+              { text: 'Environment Setup', link: '/en/docs/deploy/environment' },
+              { text: 'Export Chat History', link: '/en/docs/deploy/export-chat-history' },
+              { text: 'Model Download', link: '/en/docs/deploy/model_download' },
+              { text: 'Data Preprocessing', link: '/en/docs/deploy/data_preprocessing' },
+              { text: 'Model Fine-tuning', link: '/en/docs/deploy/model_finetuning' },
+              { text: 'Model Inference', link: '/en/docs/deploy/model_inference' },
             ]
           },
           {
             text: 'Deploy to Chatbot',
             collapsed: false,
             items: [
-              { text: 'AstrBot', link: '/en/chatbot/AstrBot' },
-              { text: 'LangBot', link: '/en/chatbot/LangBot' },
-              { text: 'Dify', link: '/en/chatbot/Dify' }
+              { text: 'AstrBot', link: '/en/docs/chatbot/AstrBot' },
+              { text: 'LangBot', link: '/en/docs/chatbot/LangBot' },
+              { text: 'Dify', link: '/en/docs/chatbot/Dify' }
             ]
           },
           {
             text: 'Configure WeClone',
             collapsed: false,
             items: [
-              { text: 'WeClone Configuration', link: '/en/config/weclone-config' },
+              { text: 'WeClone Configuration', link: '/en/docs/config/weclone-config' },
             ]
           },
         ],
@@ -71,7 +71,7 @@ export default defineConfig({
       themeConfig: {
         nav: [
           { text: '主页', link: '/zh/' },
-          { text: '文档', link: '/zh/introduce/what-is-weclone' }
+          { text: '文档', link: '/zh/docs/introduce/what-is-weclone' }
         ],
         outline: {
           level: [2, 3],
@@ -82,38 +82,38 @@ export default defineConfig({
             text: '介绍',
             collapsed: false,
             items: [
-              { text: '什么是WeClone', link: '/zh/introduce/what-is-weclone' },
-              { text: '社区资源', link: '/zh/introduce/community-resources' },
-              { text: 'FAQ', link: '/zh/introduce/FAQ' },
+              { text: '什么是WeClone', link: '/zh/docs/introduce/what-is-weclone' },
+              { text: '社区资源', link: '/zh/docs/introduce/community-resources' },
+              { text: 'FAQ', link: '/zh/docs/introduce/FAQ' },
             ]
           },
           {
             text: '部署WeClone',
             collapsed: false,
             items: [
-              { text: '硬件要求', link: '/zh/deploy/hardware' },
-              { text: '环境配置', link: '/zh/deploy/environment' },
-              { text: '导出聊天记录', link: '/zh/deploy/export-chat-history' },
-              { text: '模型下载', link: '/zh/deploy/model_download' },
-              { text: '数据预处理', link: '/zh/deploy/data_preprocessing' },
-              { text: '模型微调', link: '/zh/deploy/model_finetuning' },
-              { text: '模型推理', link: '/zh/deploy/model_inference' },
+              { text: '硬件要求', link: '/zh/docs/deploy/hardware' },
+              { text: '环境配置', link: '/zh/docs/deploy/environment' },
+              { text: '导出聊天记录', link: '/zh/docs/deploy/export-chat-history' },
+              { text: '模型下载', link: '/zh/docs/deploy/model_download' },
+              { text: '数据预处理', link: '/zh/docs/deploy/data_preprocessing' },
+              { text: '模型微调', link: '/zh/docs/deploy/model_finetuning' },
+              { text: '模型推理', link: '/zh/docs/deploy/model_inference' },
             ]
           },
           {
             text: '配置WeClone',
             collapsed: false,
             items: [
-              { text: 'WeClone 配置文件', link: '/zh/config/weclone-config' },
+              { text: 'WeClone 配置文件', link: '/zh/docs/config/weclone-config' },
             ]
           },
           {
             text: '部署到聊天机器人',
             collapsed: false,
             items: [
-              { text: 'AstrBot', link: '/zh/chatbot/AstrBot' },
-              { text: 'LangBot', link: '/zh/chatbot/LangBot' },
-              { text: 'Dify', link: '/zh/chatbot/Dify' }
+              { text: 'AstrBot', link: '/zh/docs/chatbot/AstrBot' },
+              { text: 'LangBot', link: '/zh/docs/chatbot/LangBot' },
+              { text: 'Dify', link: '/zh/docs/chatbot/Dify' }
             ]
           },
         ],

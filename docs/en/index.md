@@ -12,7 +12,7 @@ hero:
   actions:
     - theme: brand
       text: Get Started
-      link: /en/introduce/what-is-weclone
+      link: /en/docs/introduce/what-is-weclone
     - theme: alt
       text: GitHub Repository
       link: https://github.com/xming521/WeClone/
