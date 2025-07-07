@@ -22,6 +22,10 @@ The following table lists the estimated video memory requirements for different 
 
 If you wish to enable the QLoRA fine-tuning method, please refer to the subsequent chapter "[Enable QLoRA (Optional Configuration)](model_finetuning.md#enable-qlora-optional-configuration)" to learn how to switch the fine-tuning strategy.
 
+> [!Warning]
+> 
+> The weights fine-tuned using the quantized model cannot be merged back into the original model.
+
 ::: tip
 Video Memory ≥16GB: The default LoRA fine-tuning scheme is recommended.
 Video Memory <16GB: Consider switching to QLoRA or choosing a model with a smaller number of parameters.

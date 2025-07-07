@@ -22,6 +22,10 @@ pageClass: wide-page
 
 如果你希望启用 QLoRA 微调方式，请查阅后续章节 “[启用 QLoRA（可选配置）](model_finetuning.md#启用-qlora-可选配置)” 了解如何切换微调策略。
 
+> [!Warning]
+> 
+> 使用量化后的模型进行微调后权重将无法合并到原模型中。
+
 ::: tip
 显存 ≥16GB：推荐使用默认的 LoRA 微调方案。    
 显存 <16GB：可考虑切换至 QLoRA 或选择更小参数量的模型。
