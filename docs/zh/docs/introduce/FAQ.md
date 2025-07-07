@@ -16,7 +16,8 @@
     2. 降低最大序列长度 cutoff_len: 512
     3. 替换模型算子 enable_liger_kernel: true 和 use_unsloth_gc: true
     4. 使用 DeepSpeed ZeRO-3 或 FSDP 将模型权重拆分到多个设备或使用 CPU Offloading
-    5. 设置 quantization_bit: 4 量化模型参数（仅限于 LoRA 方法）
+    5. 使用量化后的模型微调（权重无法合并到原模型中）
+    6. 设置 quantization_bit: 4 量化模型参数（仅限于 LoRA 方法）
 - 可以先租用在线云平台的GPU进行微调，再将微调后的model_output文件夹下载到本地，在本地部署推理。
 - 多模态模型减少`image_max_pixels`和`max_image_num`。
 ---

@@ -16,7 +16,8 @@ If the problem is not resolved, please raise it in [Issues](https://github.com/x
     2. Reduce the maximum sequence length: `cutoff_len: 512`
     3. Replace model operators: `enable_liger_kernel: true` and `use_unsloth_gc: true`
     4. Use DeepSpeed ZeRO-3 or FSDP to split model weights across multiple devices or use CPU Offloading
-    5. Set `quantization_bit: 4` to quantize model parameters (only for the LoRA method)
+    5. Fine-tune with a quantized model (weights cannot be merged into the original model)
+    6. Set `quantization_bit: 4` to quantize model parameters (only for the LoRA method)
 - You can first rent a GPU on an online cloud platform for fine-tuning, then download the fine-tuned `model_output` folder to your local machine for deployment and inference.
 - For multimodal models, reduce `image_max_pixels` and `max_image_num`.
 ---

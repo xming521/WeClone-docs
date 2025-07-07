@@ -40,6 +40,10 @@ After the training is complete, the fine-tuned LoRA adapter weights will be save
 
 If you want to further reduce video memory consumption, you can enable **QLoRA quantized training**.
 
+> [!Warning]
+> 
+> The weights fine-tuned using the quantized model cannot be merged back into the original model.
+
 Add the following configuration to the `common_args` field in `settings.jsonc`:
 
 ```json

@@ -40,6 +40,11 @@ weclone-cli train-sft
 
 如果你希望进一步减少显存消耗，可以开启 **QLoRA 量化训练**。
 
+> [!Warning]
+> 
+> 使用量化后的模型进行微调后权重将无法合并到原模型中。
+
+
 在 `settings.jsonc` 的 `common_args` 字段中添加以下配置：
 
 ```json
