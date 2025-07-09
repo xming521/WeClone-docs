@@ -36,3 +36,6 @@
 
 ### 聊天记录CSV文件打开乱码
 不要使用Excel打开，使用IDE例如vscode打开。
+
+### Windows环境问题
+- `train_sft_args` 中设置`"dataloader_num_workers": 0` 参数，来解决Windows环境下 `Can't pickle local object` 的问题。
