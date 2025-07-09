@@ -36,3 +36,6 @@ If the problem is not resolved, please raise it in [Issues](https://github.com/x
 
 ### The chat history CSV file opens with garbled characters
 Do not use Excel to open it. Use an IDE such as VS Code.
+
+### Windows Environment Issues
+- Set the `"dataloader_num_workers": 0` parameter in `train_sft_args` to solve the `Can't pickle local object` problem in the Windows environment.
