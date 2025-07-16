@@ -8,11 +8,14 @@
 2. 建议使用 [uv](https://docs.astral.sh/uv/) 安装依赖，这是一个非常快速的 Python 环境管理器，安装uv参考[ UV 官方文档](https://docs.astral.sh/uv/getting-started/installation/)。
 
 3. 安装uv后，使用以下命令创建一个新的Python环境并安装依赖项：
+> [!TIP]
+> 下载速度慢可以尝试使用代理
 ```bash
 git clone https://github.com/xming521/WeClone.git && cd WeClone
 uv venv .venv --python=3.10
 source .venv/bin/activate # windows下执行 .venv\Scripts\activate
-uv pip install --group main -e . -i https://pypi.tuna.tsinghua.edu.cn/simple/ 
+uv pip install --group main -e . #国内用户使用镜像： -i https://pypi.tuna.tsinghua.edu.cn/simple/ 
+uv pip install https://github.com/explosion/spacy-models/releases/download/zh_core_web_sm-3.8.0/zh_core_web_sm-3.8.0-py3-none-any.whl
 ```
 
 4. 将配置文件模板复制一份并重命名为`settings.jsonc`，后续配置修改在此文件进行：

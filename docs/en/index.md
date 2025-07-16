@@ -28,7 +28,7 @@ features:
 
   - icon: 🔗
     title:  Multi-platform Smart Integration
-    details: Connect with Telegram, Discord, Slack, WeChat, and QQ for multi-platform intelligent interaction.
+    details: Connect with Telegram, Discord, Slack, for multi-platform intelligent interaction.
 
   - icon: 🛡️
     title:  Privacy and Security

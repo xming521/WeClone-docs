@@ -1,6 +1,6 @@
 # 通过 AstrBot 部署到聊天机器人
 
-[AstrBot](https://github.com/AstrBotDevs/AstrBot) 是一个支持多平台的 LLM 聊天机器人框架，可以将你的 WeClone 模型部署到 QQ、微信、Telegram 等平台。
+[AstrBot](https://github.com/AstrBotDevs/AstrBot) 是一个支持多平台的 LLM 聊天机器人框架，可以将你的 WeClone 模型部署到 Telegram、Slack、Discord 等平台。
 
 部署步骤：
 
@@ -16,7 +16,7 @@
    * 模型： `gpt-3.5-turbo` 
    * API Key：随意填写几个字母即可，不要留空
 
-4. **在 AstrBot 中部署消息平台：** 配置 AstrBot 以连接到你希望使用的聊天平台 (如微信、QQ 等)。
+4. **在 AstrBot 中部署消息平台：** 配置 AstrBot 以连接到你希望使用的聊天平台。
 
 5. **关闭工具调用 (重要)：**
    微调后的模型主要用于模仿你的语言风格，通常不支持复杂的工具调用。在 AstrBot 对应的聊天平台中，向你的机器人发送指令关闭所有默认工具，以确保能看到微调效果，或者在 AstrBot WebUI中手动关闭工具：

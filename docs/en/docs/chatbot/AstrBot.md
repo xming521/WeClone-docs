@@ -1,6 +1,6 @@
 # Deploy to a Chatbot via AstrBot
 
-[AstrBot](https://github.com/AstrBotDevs/AstrBot) is a multi-platform LLM chatbot framework that can deploy your WeClone model to platforms like QQ, WeChat, and Telegram.
+[AstrBot](https://github.com/AstrBotDevs/AstrBot) is a multi-platform LLM chatbot framework that can deploy your WeClone model to platforms like Telegram, Slack, Discord.
 
 Deployment steps:
 
@@ -16,7 +16,7 @@ Deployment steps:
    * Model: `gpt-3.5-turbo`
    * API Key: Just fill in a few random letters, do not leave it blank.
 
-4. **Deploy a messaging platform in AstrBot:** Configure AstrBot to connect to the chat platform you want to use (e.g., WeChat, QQ, etc.).
+4. **Deploy a messaging platform in AstrBot:** Configure AstrBot to connect to the chat platform you want to use.
 
 5. **Disable tool calls (Important):**
    The fine-tuned model is mainly used to imitate your language style and usually does not support complex tool calls. In the corresponding chat platform in AstrBot, send a command to your bot to turn off all default tools to ensure you can see the fine-tuning effect, or manually turn off the tools in the AstrBot WebUI:
