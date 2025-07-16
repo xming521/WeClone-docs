@@ -28,7 +28,7 @@ features:
 
   - icon: 🔗
     title:  多平台智能接入
-    details: 绑定Telegram、Discord、Slack、微信、QQ，实现多端智能互动。
+    details: 绑定Telegram、Discord、Slack，实现多端智能互动。
 
   - icon: 🛡️
     title:  隐私安全保障

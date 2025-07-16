@@ -14,8 +14,8 @@
 git clone https://github.com/xming521/WeClone.git && cd WeClone
 uv venv .venv --python=3.10
 source .venv/bin/activate # windows下执行 .venv\Scripts\activate
-uv pip install --group main -e . -i https://pypi.tuna.tsinghua.edu.cn/simple/ 
-uv pip install https://github.com/explosion/spacy-models/releases/download/zh_core_web_sm-3.7.0/zh_core_web_sm-3.7.0-py3-none-any.whl -i https://pypi.tuna.tsinghua.edu.cn/simple
+uv pip install --group main -e . #国内用户使用镜像： -i https://pypi.tuna.tsinghua.edu.cn/simple/ 
+uv pip install https://github.com/explosion/spacy-models/releases/download/zh_core_web_sm-3.8.0/zh_core_web_sm-3.8.0-py3-none-any.whl
 ```
 
 4. 将配置文件模板复制一份并重命名为`settings.jsonc`，后续配置修改在此文件进行：
