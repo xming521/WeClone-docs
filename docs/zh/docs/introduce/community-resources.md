@@ -2,10 +2,6 @@
 
 ## 优质教程
 
-* [WeClone：基于 Linux 的部署指南【保姆级教程】](https://blog.051088.xyz/posts/weclone-linux-tutorial/)
-
-* [Windows 部署WeClone教程](https://blog.051088.xyz/2025/05/14/WeClone-%E7%94%A8%E5%BE%AE%E4%BF%A1%E8%81%8A%E5%A4%A9%E8%AE%B0%E5%BD%95%E6%89%93%E9%80%A0%E8%87%AA%E5%B7%B1%E7%9A%84AI%E6%95%B0%E5%AD%97%E5%88%86%E8%BA%AB/)
-
 ## 社区渠道
 
 ### QQ群

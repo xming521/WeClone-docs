@@ -8,22 +8,20 @@
  * -------------------------------------------------------------------------- */
 
 :root {
-
   --vp-home-hero-name-color: transparent;
   --vp-home-hero-name-background: linear-gradient(120deg,
-      #1b75bc,
-      #2bcad8,
-      #19d480);
+      #26d3fe,
+      #fdc15f);
 
-  --vp-home-hero-image-background-image: linear-gradient(-55deg,
-      #2bcad8 45%,
-      #19d480 55%);
-  --vp-home-hero-image-filter: blur(40px);
+  --vp-home-hero-image-background-image: linear-gradient(155deg,
+      #26d3fe 50%,
+      #fdc15f 50%);
+  --vp-home-hero-image-filter: blur(80px);
 
   /* 主要品牌色 */
-  --vp-c-brand-1: #00be8a;
+  --vp-c-brand-1: #0eafff;
   /* 主要品牌色 */
-  --vp-c-brand-2: #34b8de;
+  --vp-c-brand-2: #d7b47b;
   /* 次要品牌色 */
   --vp-c-brand-3: #04c79f;
   /* 第三级品牌色 */
@@ -49,9 +47,9 @@
 
 /* 暗色模式下的主题色调整 */
 .dark {
-  --vp-c-brand-1: #00d095;
+  --vp-c-brand-1: #26a8e9;
   /* 暗色模式下稍微提亮 */
-  --vp-c-brand-2: #42c4ea;
+  --vp-c-brand-2: #e8c792;
   /* 暗色模式下稍微提亮 */
   --vp-c-brand-3: #06d9ab;
   /* 暗色模式下稍微提亮 */
@@ -73,6 +71,10 @@
 .custom-block.tip > ol code,
 .custom-block.tip > div:not([class*='language-']) code {
   background-color: var(--vp-code-bg) !important;
+}
+
+.image-container .VPImage.image-src[alt="weclone-hero-image"] {
+  zoom: 1.5;
 }
 
 /* 自定义组件样式增强 */
@@ -98,7 +100,7 @@
 
 /* 按钮渐变效果 */
 .VPButton.brand {
-  background: linear-gradient(135deg, var(--vp-c-brand-1) 0%, var(--vp-c-brand-2) 100%);
+  background: linear-gradient(125deg, var(--vp-c-brand-1) 25%, var(--vp-c-brand-2) 75%);
   border: none;
   transition: all 0.3s ease;
 }
@@ -159,13 +161,13 @@
 
 @media (min-width: 640px) {
   :root {
-    --vp-home-hero-image-filter: blur(56px);
+    --vp-home-hero-image-filter: blur(112px);
   }
 }
 
 @media (min-width: 960px) {
   :root {
-    --vp-home-hero-image-filter: blur(68px);
+    --vp-home-hero-image-filter: blur(136px);
   }
 }
 

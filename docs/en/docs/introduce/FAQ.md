@@ -23,8 +23,9 @@ If the problem is not resolved, please raise it in [Issues](https://github.com/x
 ---
 
 ### What to do if the fine-tuning effect is not ideal?
+- Adjust fine-tuning parameters, for example: `lora_rank`, `lora_dropout`
 - Use a model with a larger parameter scale and more chat history data for fine-tuning.
-    - **7B models generally have poor results, 14B is barely acceptable, and 32B is better**.
+    - **7B models have average results, 14B is acceptable, and 32B is better**.
 - Use a multimodal model for fine-tuning to reduce the number of dataset cuts.
 - Enable data cleaning.
 ---
