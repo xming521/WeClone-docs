@@ -9,7 +9,7 @@
 3. After installing uv, use the following commands to create a new Python environment and install the dependencies:
 ```bash
 git clone https://github.com/xming521/WeClone.git && cd WeClone
-uv venv .venv --python=3.10
+uv venv .venv --python=3.12
 source .venv/bin/activate # On Windows, run .venv\Scripts\activate
 uv pip install --group main -e . 
 ```

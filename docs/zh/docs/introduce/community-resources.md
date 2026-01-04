@@ -1,5 +1,8 @@
 # 社区资源
 
+## 在线微调
+**大模型实验室 (Lab4AI) (送50元代金券)** : https://www.lab4ai.cn/project/detail?utm_source=weclone1&id=ab83d14684fa45d197f67eddb3d8316c&type=project
+
 ## 优质教程
 
 ## 社区渠道
