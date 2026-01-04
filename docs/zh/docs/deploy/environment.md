@@ -12,7 +12,7 @@
 > 下载速度慢可以尝试使用代理
 ```bash
 git clone https://github.com/xming521/WeClone.git && cd WeClone
-uv venv .venv --python=3.10
+uv venv .venv --python=3.12
 source .venv/bin/activate # windows下执行 .venv\Scripts\activate
 uv pip install --group main -e . #国内用户使用镜像： -i https://pypi.tuna.tsinghua.edu.cn/simple/ 
 uv pip install https://github.com/explosion/spacy-models/releases/download/zh_core_web_sm-3.8.0/zh_core_web_sm-3.8.0-py3-none-any.whl
