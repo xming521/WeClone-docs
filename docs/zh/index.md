@@ -33,3 +33,13 @@ features:
   - icon: 🛡️
     title:  隐私安全保障
     details: 内置隐私信息过滤机制，支持本地部署和微调，个人信息安全可控。
+---
+
+<div class="sponsor-card">
+  <div class="sponsor-card__content">
+    <span class="sponsor-card__label">项目赞助</span>
+    <strong>Infistar.cc 无限星河</strong>
+    <p>一个 API Key 接入 Claude、ChatGPT、Gemini、DeepSeek 等主流模型，为 WeClone 数字分身提供更多选择。</p>
+  </div>
+  <a class="sponsor-card__link" href="https://www.infistar.cc/register?aff=RYD228HX&ref_source=link" target="_blank" rel="noopener noreferrer">领取 5 美元测试额度 →</a>
+</div>

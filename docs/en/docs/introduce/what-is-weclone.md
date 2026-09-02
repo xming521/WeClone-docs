@@ -34,10 +34,6 @@ Properly protect your personal chat records to prevent the leakage of private in
 
 ## ⚠️ Disclaimer
 > [!CAUTION]
-> ##### WeClone is not currently affiliated with any platform and has not issued any digital currency.
-> ##### The only official website is [weclone.love](https://www.weclone.love). Beware of imitations.
-
-> [!CAUTION]
 > **This project is for learning, research, and experimental purposes only. Using it in a production environment carries significant risks. Please evaluate carefully.**
 > **Do not use for illegal purposes. You are responsible for your own actions.**
 

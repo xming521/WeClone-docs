@@ -7,3 +7,4 @@ node_modules/
 */.cache/*
 docs/.vitepress/cache/*
 docs/.vitepress/dist/*
+docs/.vitepress/.temp/*

@@ -179,6 +179,79 @@
   /* 保持比例缩放 */
 }
 
+.sponsor-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  max-width: 760px;
+  margin: 48px auto 0;
+  padding: 16px 20px;
+  border: 1px solid var(--vp-c-divider);
+  border-radius: 12px;
+  background: var(--vp-c-bg-soft);
+}
+
+.sponsor-card__content {
+  min-width: 0;
+}
+
+.sponsor-card__label {
+  display: inline-block;
+  margin-right: 8px;
+  padding: 2px 7px;
+  border-radius: 6px;
+  background: var(--vp-c-brand-soft);
+  color: var(--vp-c-brand-1);
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.sponsor-card p {
+  margin: 5px 0 0;
+  color: var(--vp-c-text-2);
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.sponsor-card__link {
+  flex: none;
+  color: var(--vp-c-brand-1);
+  font-size: 13px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.vp-doc .sponsor-card--docs {
+  margin: 24px 0;
+  border-color: color-mix(in srgb, var(--vp-c-brand-1) 45%, var(--vp-c-divider));
+  background: linear-gradient(110deg, var(--vp-c-brand-soft), var(--vp-c-bg-soft) 55%);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+}
+
+.vp-doc .sponsor-card--docs .sponsor-card__link {
+  padding: 7px 12px;
+  border: 0;
+  border-radius: 8px;
+  background: var(--vp-c-brand-1);
+  color: var(--vp-c-white);
+  transition: background-color 0.2s;
+}
+
+.vp-doc .sponsor-card--docs .sponsor-card__link:hover {
+  border: 0;
+  background: var(--vp-c-brand-2);
+}
+
+@media (max-width: 640px) {
+  .sponsor-card {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 10px;
+    margin: 32px 24px 0;
+  }
+}
+
 /* 减小 h1 后的 h2 的margin-top */
 .vp-doc h1+h2 {
   margin-top: 16px !important;

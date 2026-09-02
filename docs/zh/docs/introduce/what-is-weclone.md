@@ -22,6 +22,15 @@ WeClone 项目仍在快速更新迭代中，当前效果并非最终状态。
 微调效果受诸多因素影响，如模型参数规模、对话数据量和质量等。通常来说，**模型参数越大、对话数据越多、表达风格越一致，微调后对话效果越接近原始人格特征**。
 :::
 
+<div class="sponsor-card sponsor-card--docs">
+  <div class="sponsor-card__content">
+    <span class="sponsor-card__label">赞助伙伴</span>
+    <strong>✨ Infistar.cc 无限星河</strong>
+    <p>感谢 Infistar.cc 无限星河赞助 WeClone。一个 API Key 即可接入 Claude、ChatGPT、Gemini、DeepSeek 等主流模型，价格低至官方渠道 1 折。</p>
+  </div>
+  <a class="sponsor-card__link" href="https://www.infistar.cc/register?aff=RYD228HX&ref_source=link" target="_blank" rel="noopener noreferrer">领取 5 美元测试额度 →</a>
+</div>
+
 
 在正式开始前，请注意：
 
@@ -32,14 +41,10 @@ WeClone 项目仍在快速更新迭代中，当前效果并非最终状态。
 
 
 ## ⚠️ 免责声明
-> [!CAUTION]
-> ##### WeClone 目前未与任何平台合作，未发行任何数字货币。
-> ##### 唯一官方网站：[weclone.love](https://www.weclone.love)，谨防仿冒。
 
 > [!CAUTION]
 > **本项目仅供学习、研究和实验用途。用于生产环境存在较大风险，请谨慎评估。**  
 > **请勿用于非法用途，后果自负。**
-
 
 
 **用户使用前需慎重阅读并理解本免责声明的所有内容，确保在使用本项目时严格遵守相关规定。**
@@ -98,4 +103,3 @@ WeClone 项目仍在快速更新迭代中，当前效果并非最终状态。
 
 
 :::
-
