@@ -1,35 +1,47 @@
 ---
 outline: false
 ---
-# WeClone: A One-Stop Solution for Creating Digital Avatars from Your Chat History
+# What is WeClone
 
-Have you ever imagined what it would be like if an AI could learn your chat style, your catchphrases, and even your unique expressions to "replicate" you in the digital world? [WeClone](https://github.com/xming521/WeClone) is an experiment born from this vision.
+WeClone distills your identity, goals, preferences and current situation from your digital life into a portrait of your life, organized into domains such as work, family and health, that you can review, trace to its sources and share on your own terms. It also analyzes your speaking style. The portrait works as long-term memory for your AI assistants and will power clones with your personal style. Chat history is supported today, with more data sources coming.
 
-WeClone is a one-stop solution for creating digital avatars from chat history. By fine-tuning a large language model with your chat records, it enables the model to speak in your "voice" and integrates it with chatbots to create your very own digital twin.
+## Two routes
 
-> ##### Bots fine-tuned with WeClone are deployed in our [Community Resources](./community-resources.md). For more interesting case studies, you can also visit our [Xiaohongshu](https://www.xiaohongshu.com/user/profile/628109730000000021029de4).
+| Route | What it does | What it needs |
+|---|---|---|
+| [Life portrait and assistants](../profile/build-profile.md) | Extract and organize your portrait, review it fact by fact in the web UI, and share it with Claude Code, Codex and other assistants over MCP | The base install and the Codex CLI or any OpenAI-compatible API. No GPU |
+| [Fine-tuned clone](../deploy/hardware.md) | Fine-tune an open model on your chat history and connect it to bot platforms such as AstrBot and LangBot | An NVIDIA GPU. The default model with LoRA needs about 16GB of VRAM |
+
+Both routes share [Installation](../deploy/environment.md) and [Preparing Data](../deploy/export-chat-history.md), and you can follow just one of them. The agent clone, driven by a large model from your portrait, memories and speaking style, is still in development.
+
+::: tip
+The portrait's extraction prompts are currently in Chinese, and English chats have not been tested yet. The web UI is available in English and Chinese.
+:::
+
+## Fine-tuned clone results
+
+> ##### Bots fine-tuned with WeClone run in our [community channels](./community-resources.md). More examples are on our [Xiaohongshu](https://www.xiaohongshu.com/user/profile/628109730000000021029de4).
 
 > [!NOTE]
 > We're looking for interesting examples of native English speakers chatting with WeClone!
 > Feel free to share them with us on Twitter.
 
-::: details View Training Screenshots (Click to expand)
+::: details View fine-tuning screenshots (click to expand)
 <div style="display: flex; flex-wrap: wrap; gap: 10px;">
-<img src="/screenshots/1.jpg" alt="WeClone Training Demo 1" style="width: 52%; min-width: 150px;">
-<img src="/screenshots/2.jpg" alt="WeClone Training Demo 2" style="width: 52%; min-width: 150px;">
-<img src="/screenshots/3.jpg" alt="WeClone Training Demo 3" style="width: 52%; min-width: 150px;">
+<img src="/screenshots/1.jpg" alt="WeClone fine-tuning demo 1" style="width: 52%; min-width: 150px;">
+<img src="/screenshots/2.jpg" alt="WeClone fine-tuning demo 2" style="width: 52%; min-width: 150px;">
+<img src="/screenshots/3.jpg" alt="WeClone fine-tuning demo 3" style="width: 52%; min-width: 150px;">
 </div>
 :::
 
 ::: tip
-The WeClone project is still under rapid iteration, and the current results are not final.
-The effectiveness of fine-tuning is influenced by many factors, such as the model's parameter size, and the volume and quality of the dialogue data. Generally, **the larger the model parameters, the more dialogue data, and the more consistent the expression style, the closer the fine-tuned dialogue effect will be to the original personality traits**.
+Fine-tuning results depend on the model size and on the amount and quality of the dialogue data. Generally, **the larger the model, the more dialogue data and the more consistent the style, the closer the clone gets to you**.
 :::
 
 Before you begin, please note:
 
 ::: warning
-Properly protect your personal chat records to prevent the leakage of private information. **Do not upload them to public platforms**.<br> Ensure this project is not used for any illegal purposes. Users are solely responsible for their use of data and their actions.
+Properly protect your personal chat records and the portrait built from them to prevent the leakage of private information. **Do not upload them to public platforms**.<br> Ensure this project is not used for any illegal purposes. Users are solely responsible for their use of data and their actions.
 :::
 
 ## ⚠️ Disclaimer
@@ -73,8 +85,8 @@ Properly protect your personal chat records to prevent the leakage of private in
 ## Usage Suggestions
 
 ### Mandatory Bot Identity
-**When using a digital avatar generated by this project, it is strongly recommended to:**
-- Clearly identify it as an "AI Bot" or "Digital Avatar" at the beginning of each conversation.
+**When using a clone generated by this project, it is strongly recommended to:**
+- Clearly identify it as an "AI Bot" or "AI clone" at the beginning of each conversation.
 - Prominently display "This is AI-generated content" in the user interface.
 - Avoid misleading users into thinking they are conversing with a real human, which could create risks.
 

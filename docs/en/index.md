@@ -4,8 +4,8 @@ layout: home
 
 hero:
   name: "WeClone"
-  text: "One-stop Solution for Creating Digital Avatars"
-  tagline: Digital Clone / Digital Avatar / Digital Immortality / LLM / Chatbot
+  text: "Build a portrait of your life"
+  tagline: Assistants that know you. Clones that talk like you.
   image: 
     src: /img/logo_plain.png
     alt: "weclone-hero-image"
@@ -18,18 +18,27 @@ hero:
       link: https://github.com/xming521/WeClone/
 
 features:
-  - icon: 💫 
-    title: Full-Lifecycle Digital Avatar Creation
-    details: Covers the complete process from chat data exporting, preprocessing, model fine-tuning, to deployment.
+  - icon: 🗺️
+    title: Interactive life portrait
+    details: Your portrait is organized by domain and topic. Every fact traces back to its source and can be reviewed and edited. Extraction runs through Codex or any OpenAI-compatible API.
 
-  - icon: 💬
-    title:  Fine-tuning with Private Data
-    details: Fine-tune large language models with personal data like chat history to make your digital avatar's speaking style closer to your own.
+  - icon: 🧠
+    title: Connect AI assistants
+    details: Claude Code, Codex and other assistants read your portrait and domain summaries over MCP. You choose which domains and privacy levels they can read.
 
-  - icon: 🔗
-    title:  Multi-platform Smart Integration
-    details: Connect with Telegram, Discord, Slack, for multi-platform intelligent interaction.
+  - icon: 🎭
+    title: Your own AI clone
+    details: Fine-tune an open model on your chat history and deploy it to Telegram, Discord, Slack, Feishu and more through AstrBot or LangBot. Training data is filtered for personal information.
 
-  - icon: 🛡️
-    title:  Privacy and Security
-    details: Built-in privacy filtering, supports local deployment and fine-tuning for controllable personal information security.
+  - icon: 🗣️
+    title: Speaking style analysis
+    details: 179 style features in ten categories, covering vocabulary, syntax, tone, emotion, rhetoric and conversational rhythm.
+
+  - icon: 🤖
+    title: Agent clone (in development)
+    details: No training required. A large model drives the clone in real time from your portrait, memories and speaking style.
+
+  - icon: 🔒
+    title: Privacy first
+    details: Encrypted local storage by default, a privacy level on every fact, and full control over what is exported and shared.
+---

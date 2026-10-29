@@ -1,5 +1,36 @@
 {
+    "cleanUrls": true,
     "redirects": [
+        {
+            "source": "/:page(what-is-weclone|FAQ|community-resources){.html}?",
+            "destination": "/docs/introduce/:page",
+            "permanent": true
+        },
+        {
+            "source": "/deploy/override-settings{.html}?",
+            "destination": "/docs/config/weclone-config",
+            "permanent": true
+        },
+        {
+            "source": "/:section(introduce|deploy|chatbot|config)/:path*{.html}?",
+            "destination": "/docs/:section/:path*",
+            "permanent": true
+        },
+        {
+            "source": "/:lang(zh|en)/deploy/override-settings{.html}?",
+            "destination": "/:lang/docs/config/weclone-config",
+            "permanent": true
+        },
+        {
+            "source": "/:lang(zh|en)/docs/deploy/override-settings{.html}?",
+            "destination": "/:lang/docs/config/weclone-config",
+            "permanent": true
+        },
+        {
+            "source": "/:lang(zh|en)/:section(introduce|deploy|chatbot|config)/:path*{.html}?",
+            "destination": "/:lang/docs/:section/:path*",
+            "permanent": true
+        },
         {
             "source": "/",
             "has": [
@@ -18,7 +49,7 @@
             "permanent": false
         },
         {
-            "source": "/docs/(.*)",
+            "source": "/docs/:path*{.html}?",
             "has": [
                 {
                     "type": "header",
@@ -26,12 +57,12 @@
                     "value": "(?=.*zh).*"
                 }
             ],
-            "destination": "/zh/docs/$1",
+            "destination": "/zh/docs/:path*",
             "permanent": false
         },
         {
-            "source": "/docs/(.*)",
-            "destination": "/en/docs/$1",
+            "source": "/docs/:path*{.html}?",
+            "destination": "/en/docs/:path*",
             "permanent": false
         }
     ],

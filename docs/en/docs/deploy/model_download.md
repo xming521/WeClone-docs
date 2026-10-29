@@ -1,12 +1,30 @@
 # Model Download
 
-WeClone uses the Qwen2.5-VL-7B model by default, but you can choose other models you want to use (thinking models are not recommended).
+WeClone uses Qwen2.5-7B-Instruct by default. Other models supported by [LLaMA Factory](https://github.com/hiyouga/LLaMA-Factory/tree/main#supported-models) also work (thinking models are not recommended).
 
 ::: tip
-7B models generally have poor results (although some feedback suggests they can be acceptable, which may be related to the data), 14B is barely acceptable, and 32B is better.
+7B models generally give weak results (some users report acceptable results, which may depend on the data), 14B is barely acceptable, and 32B is better.
 :::
 
-If you have chosen another model or downloaded the model to a different directory, please modify it in `settings.jsonc`:
+## Method 1: Hugging Face
+
+```bash
+hf download Qwen/Qwen2.5-7B-Instruct --local-dir models/Qwen2.5-7B-Instruct
+```
+
+## Method 2: ModelScope (recommended in mainland China)
+
+```bash
+uv pip install modelscope
+modelscope download --model Qwen/Qwen2.5-7B-Instruct --local_dir ./models/Qwen2.5-7B-Instruct
+```
+
+> ⚠️ The model files are large and the download may take a while. Make sure you have enough disk space (at least 20GB is recommended).<br>
+If the connection drops, run the command again to resume.
+
+## Using another model
+
+If you chose another model or downloaded it to another directory, change `settings.jsonc`:
 
 ```json
 "common_args": {
@@ -15,23 +33,20 @@ If you have chosen another model or downloaded the model to a different director
     ...
 },
 "train_sft_args": {
-    "lora_target": "module_names_of_the_model_to_be_fine-tuned", // e.g., "q_proj", "k_proj", "v_proj", "o_proj"
+    "lora_target": "module_names_to_fine_tune", // e.g. "q_proj,v_proj"
     ...
 },
 ```
 
-## Method 1: Download using the `Hugging Face` command-line tool
+## Multimodal models
 
-```bash
-huggingface-cli download Qwen/Qwen2.5-7B-Instruct --local-dir ./models/Qwen2.5-7B-Instruct --local-dir-use-symlinks False
-```
-> ⚠️ The model file is large, and the download may take a long time. Please ensure you have sufficient disk space (at least 20GB is recommended).<br>
-The download process is long, and the connection may be interrupted. You can resume with an incremental download.
+To fine-tune a multimodal model, change `settings.jsonc`:
 
+- set `model_name_or_path` to a vision-language model such as `./models/Qwen2.5-VL-7B-Instruct`
+- set `template` to `qwen2_vl`
+- add `"image"` to `include_type`
+- append `,visual.merger.mlp.0,visual.merger.mlp.2` to `lora_target`
 
-## Method 2: Install using `Git`
+## English chats
 
-```bash
-git lfs install
-git clone https://huggingface.co/Qwen/Qwen2.5-VL-7B-Instruct models/Qwen2.5-VL-7B-Instruct
-```
+For chats mainly in English, translate `default_system` and set `test_model_args.test_data_path` to `dataset/eval/test_data-en.json`.

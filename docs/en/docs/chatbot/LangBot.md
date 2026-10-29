@@ -1,16 +1,16 @@
-# Deploy to a Chatbot via LangBot
+# Deploy to a Chat Bot via LangBot
 
-[LangBot](https://github.com/RockChinQ/LangBot) is an open-source LLM robot platform that connects to various instant messaging platforms worldwide and is suitable for various scenarios.
+[LangBot](https://github.com/langbot-app/LangBot) is an open-source LLM bot platform that connects to many instant messaging platforms worldwide.
 
-1. [Deploy LangBot](https://github.com/RockChinQ/LangBot#-%E5%BC%80%E5%A7%8B%E4%BD%BF%E7%94%A8)
-2. Add a robot in LangBot
-4. Add a new model on the model page, name it `gpt-3.5-turbo`, select OpenAI as the provider, and fill in the request URL with the WeClone address. For detailed connection methods, please refer to the [documentation](https://docs.langbot.app/zh/workshop/network-details.html). You can fill in any API Key.
+1. [Deploy LangBot](https://docs.langbot.app/en/insight/guide) and add a bot in LangBot.
+2. Start the WeClone server and generate a token as described in [Server and Bot Token](./bot-token.md). If LangBot runs in Docker on Linux, add `--host 172.17.0.1` to the command. Docker Desktop doesn't need it.
+3. Add a new model on the model page: name it `gpt-3.5-turbo`, choose OpenAI as the provider, set the request URL to the WeClone address (see the [LangBot documentation](https://docs.langbot.app/en/workshop/network-details) for connection details), and use the generated token as the API key.
 
 <img width="400px" alt="image" src="https://github.com/user-attachments/assets/fc167dea-7c93-4d94-9c5f-db709d0320ba" />
 
-6. Select the newly added model in the pipeline configuration, or modify the prompt configuration.
+4. Select the new model in the pipeline configuration and set the prompt to the `default_system` used for fine-tuning.
 
 <img width="400px" alt="image" src="https://github.com/user-attachments/assets/dbb0fd0a-f760-42db-acd0-bb99c859b52e" />
 
 ---
-**Now, your exclusive digital avatar should be successfully deployed to the chatbot platform! Go and chat with "it" to see how it works~**
+**Your clone should now be running on the chat bot platform. Chat with it to see how it does.**

@@ -1,7 +1,5 @@
 # Community Resources
 
-## Quality Tutorials
-
 ## Community Channels
 
 ### QQ Group

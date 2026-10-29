@@ -3,7 +3,9 @@ pageClass: wide-page
 ---
 # Required Hardware Configuration
 
-Running WeClone (especially during the model fine-tuning phase) has high requirements for video memory. It is recommended to use a dedicated GPU device or a cloud GPU rental service. Running on integrated graphics or with only a CPU is not recommended.
+These requirements apply to the fine-tuned clone only. Building the life portrait and connecting assistants call API models and need no GPU, and speaking style analysis runs on CPU.
+
+Fine-tuning needs a lot of video memory. A dedicated GPU or a cloud GPU rental is recommended. Integrated graphics or CPU-only machines are not.
 
 The project uses the [`Qwen2.5-7B-Instruct`](https://www.modelscope.cn/models/Qwen/Qwen2.5-7B-Instruct) model by default and employs the **LoRA** method for fine-tuning, which requires approximately **16GB** of video memory.<br>
 Additionally, please reserve **more than 20GB of hard disk space** to store model files, intermediate results, and cached data.

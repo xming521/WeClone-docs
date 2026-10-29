@@ -1,64 +1,74 @@
 # Fine-tuning the Model
 
+Complete [Data Preprocessing](data_preprocessing.md) first.
 
-## Single-Card Training
+## Training parameters
 
+- Adjust `per_device_train_batch_size` and `gradient_accumulation_steps` to fit your VRAM.
+- Tune `num_train_epochs`, `lora_rank`, `lora_dropout` and other settings in `train_sft_args` to the amount and quality of your data.
+- `train_sft_args` accepts every LLaMA Factory argument, see [Arguments - LLaMA Factory](https://llamafactory.readthedocs.io/en/latest/advanced/arguments.html).
+
+## Single-GPU training
 
 ```bash
 weclone-cli train-sft
 ```
 
-> For single-card training in a multi-card environment, you first need to run `export CUDA_VISIBLE_DEVICES=0`
+> To train on one GPU of a multi-GPU machine, run `export CUDA_VISIBLE_DEVICES=0` first.
 
-The training script will read the configuration from `settings.jsonc` and start fine-tuning. Pay attention to the terminal output to see if the loss is decreasing normally.
+The training script reads `settings.jsonc` and starts fine-tuning. Watch the terminal output to check that the loss goes down.
 
-## Multi-Card Training
+When training finishes, the LoRA adapter weights are saved in `common_args.adapter_name_or_path` (`./model_output` by default), which is also the training output directory. In encrypted mode the weights are stored encrypted.
 
-If you have multiple NVIDIA GPUs and want to perform multi-card training:
+## Multi-GPU training
 
-1. **Install Deepspeed:**
+With several NVIDIA GPUs:
 
-   ```bash
-   uv pip install deepspeed
-   ```
-
-2. **Configure Deepspeed** <br>
-   In `settings.jsonc`, find the `deepspeed` configuration item and uncomment it or fill in the path to the Deepspeed JSON configuration file as needed.
-
-3. **Start multi-card training:**
+1. **Install DeepSpeed:**
 
    ```bash
-   deepspeed --num_gpus=<number_of_gpus_to_use> weclone/train/train_sft.py
+   uv pip install "deepspeed<=0.16.9"
    ```
 
+2. **Configure DeepSpeed:** uncomment the `"deepspeed": "ds_config.json"` line in `settings.jsonc`, or point it to your own DeepSpeed configuration file.
 
-After the training is complete, the fine-tuned LoRA adapter weights will be saved in the `output_dir` you specified in `settings.jsonc`.
+3. **Start multi-GPU training:**
 
+   ```bash
+   deepspeed --num_gpus=<number_of_gpus> weclone/train/train_sft.py
+   ```
 
+> [!WARNING]
+> Encrypted mode doesn't support distributed training yet.
 
-## **Enable QLoRA (Optional Configuration)**
+## Enable QLoRA (Optional Configuration)
 
-If you want to further reduce video memory consumption, you can enable **QLoRA quantized training**.
+To save more VRAM, enable **QLoRA quantized training**.
 
 > [!Warning]
-> 
-> The weights fine-tuned using the quantized model cannot be merged back into the original model.
+>
+> After fine-tuning a quantized model, the weights can't be merged into the original model.
 
-Add the following configuration to the `common_args` field in `settings.jsonc`:
+Add `quantization` to `train_sft_args` in `settings.jsonc`:
 
 ```json
-"quantization_bit": 4,
-"quantization_type": "nf4",
-"double_quantization": true,
-"quantization_method": "bitsandbytes"
+"train_sft_args": {
+    ...
+    "quantization": {
+        "quantization_bit": 4,
+        "quantization_type": "nf4",
+        "double_quantization": true,
+        "quantization_method": "bnb"
+    }
+},
 ```
 
 > [!NOTE]
 >
-> - `quantization_bit` supports values: 2 / 4 / 8. The lower the value, the more video memory is saved, but the inference speed and effect may be slightly reduced.
->
-> - If you encounter the error `ImportError: Please install bitsandbytes>=0.45.3`, you can try reinstalling `bitsandbytes`:
+> - `quantization_bit` accepts 2, 4 or 8. Lower values save more VRAM but may slow inference and lower quality slightly.
+> - Inference (`webchat-demo`, `server --inference`) uses the same quantization settings.
+> - If you see `ImportError: Please install bitsandbytes>=0.45.3`, reinstall `bitsandbytes`:
 >
 >   ```bash
->   uv pip install bitsandbytes>=0.39.0
+>   uv pip install "bitsandbytes>=0.45.3"
 >   ```

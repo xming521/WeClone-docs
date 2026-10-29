@@ -7,7 +7,7 @@ export default defineConfig({
       label: 'English',
       lang: 'en',
       title: "WeClone",
-      description: "One-stop solution for creating your digital avatar from chat history",
+      description: "Build a portrait of your life. Assistants that know you. Clones that talk like you.",
       themeConfig: {
         nav: [
           { text: 'Home', link: '/en/' },
@@ -19,17 +19,35 @@ export default defineConfig({
             collapsed: false,
             items: [
               { text: 'What is WeClone', link: '/en/docs/introduce/what-is-weclone' },
+              { text: 'Upgrading from 0.3', link: '/en/docs/introduce/upgrade' },
               { text: 'Community Resources', link: '/en/docs/introduce/community-resources' },
               { text: 'FAQ', link: '/en/docs/introduce/FAQ' },
             ]
           },
           {
-            text: 'Deploy WeClone',
+            text: 'Getting Started',
+            collapsed: false,
+            items: [
+              { text: 'Installation', link: '/en/docs/deploy/environment' },
+              { text: 'Preparing Data', link: '/en/docs/deploy/export-chat-history' },
+            ]
+          },
+          {
+            text: 'Life Portrait and Assistants',
+            collapsed: false,
+            items: [
+              { text: 'Build Your Portrait', link: '/en/docs/profile/build-profile' },
+              { text: 'Review in the Web UI', link: '/en/docs/profile/review' },
+              { text: 'Domain Summaries', link: '/en/docs/profile/summary' },
+              { text: 'Connect AI Assistants', link: '/en/docs/profile/assistant' },
+              { text: 'Speaking Style', link: '/en/docs/profile/style' },
+            ]
+          },
+          {
+            text: 'Fine-tuned Clone',
             collapsed: false,
             items: [
               { text: 'Hardware Requirements', link: '/en/docs/deploy/hardware' },
-              { text: 'Environment Setup', link: '/en/docs/deploy/environment' },
-              { text: 'Export Chat History', link: '/en/docs/deploy/export-chat-history' },
               { text: 'Model Download', link: '/en/docs/deploy/model_download' },
               { text: 'Data Preprocessing', link: '/en/docs/deploy/data_preprocessing' },
               { text: 'Model Fine-tuning', link: '/en/docs/deploy/model_finetuning' },
@@ -37,19 +55,22 @@ export default defineConfig({
             ]
           },
           {
-            text: 'Deploy to Chatbot',
+            text: 'Chat Bots',
             collapsed: false,
             items: [
+              { text: 'Server and Bot Token', link: '/en/docs/chatbot/bot-token' },
               { text: 'AstrBot', link: '/en/docs/chatbot/AstrBot' },
               { text: 'LangBot', link: '/en/docs/chatbot/LangBot' },
               { text: 'Dify', link: '/en/docs/chatbot/Dify' }
             ]
           },
           {
-            text: 'Configure WeClone',
+            text: 'Reference',
             collapsed: false,
             items: [
-              { text: 'WeClone Configuration', link: '/en/docs/config/weclone-config' },
+              { text: 'Security', link: '/en/docs/security/data-security' },
+              { text: 'Configuration File', link: '/en/docs/config/weclone-config' },
+              { text: 'Command Line', link: '/en/docs/config/cli' },
             ]
           },
         ],
@@ -67,7 +88,7 @@ export default defineConfig({
       label: '简体中文',
       lang: 'zh',
       title: "WeClone",
-      description: "一站式解决方案，从聊天记录创建您的数字化身",
+      description: "绘制你的人生画像，让助理懂你，让分身像你",
       themeConfig: {
         nav: [
           { text: '主页', link: '/zh/' },
@@ -82,18 +103,36 @@ export default defineConfig({
             text: '介绍',
             collapsed: false,
             items: [
-              { text: '什么是WeClone', link: '/zh/docs/introduce/what-is-weclone' },
+              { text: '什么是 WeClone', link: '/zh/docs/introduce/what-is-weclone' },
+              { text: '从 0.3 版本升级', link: '/zh/docs/introduce/upgrade' },
               { text: '社区资源', link: '/zh/docs/introduce/community-resources' },
               { text: 'FAQ', link: '/zh/docs/introduce/FAQ' },
             ]
           },
           {
-            text: '部署WeClone',
+            text: '开始使用',
+            collapsed: false,
+            items: [
+              { text: '安装与配置', link: '/zh/docs/deploy/environment' },
+              { text: '准备数据', link: '/zh/docs/deploy/export-chat-history' },
+            ]
+          },
+          {
+            text: '人生画像与助手接入',
+            collapsed: false,
+            items: [
+              { text: '绘制人生画像', link: '/zh/docs/profile/build-profile' },
+              { text: '网页审核', link: '/zh/docs/profile/review' },
+              { text: '板块总结', link: '/zh/docs/profile/summary' },
+              { text: '接入 AI 助理', link: '/zh/docs/profile/assistant' },
+              { text: '说话风格', link: '/zh/docs/profile/style' },
+            ]
+          },
+          {
+            text: '微调分身',
             collapsed: false,
             items: [
               { text: '硬件要求', link: '/zh/docs/deploy/hardware' },
-              { text: '环境配置', link: '/zh/docs/deploy/environment' },
-              { text: '导出聊天记录', link: '/zh/docs/deploy/export-chat-history' },
               { text: '模型下载', link: '/zh/docs/deploy/model_download' },
               { text: '数据预处理', link: '/zh/docs/deploy/data_preprocessing' },
               { text: '模型微调', link: '/zh/docs/deploy/model_finetuning' },
@@ -101,19 +140,22 @@ export default defineConfig({
             ]
           },
           {
-            text: '配置WeClone',
+            text: '接入聊天机器人',
             collapsed: false,
             items: [
-              { text: 'WeClone 配置文件', link: '/zh/docs/config/weclone-config' },
-            ]
-          },
-          {
-            text: '部署到聊天机器人',
-            collapsed: false,
-            items: [
+              { text: '启动服务与令牌', link: '/zh/docs/chatbot/bot-token' },
               { text: 'AstrBot', link: '/zh/docs/chatbot/AstrBot' },
               { text: 'LangBot', link: '/zh/docs/chatbot/LangBot' },
               { text: 'Dify', link: '/zh/docs/chatbot/Dify' }
+            ]
+          },
+          {
+            text: '参考',
+            collapsed: false,
+            items: [
+              { text: '数据安全', link: '/zh/docs/security/data-security' },
+              { text: '配置文件', link: '/zh/docs/config/weclone-config' },
+              { text: '命令行', link: '/zh/docs/config/cli' },
             ]
           },
         ],
@@ -126,6 +168,7 @@ export default defineConfig({
   },
   head: [['link', { rel: 'icon', href: '/img/logo.svg' }]],
   lastUpdated: true,
+  cleanUrls: true,
   themeConfig: {
     search: {
       provider: 'local'
@@ -137,7 +180,7 @@ export default defineConfig({
         icon: {
           svg: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>'
         },
-        link: 'https://t.me/weclone666',
+        link: 'https://t.me/+JEdak4m0XEQ3NGNl',
         ariaLabel: '加入 Telegram 群组'
       },
       {
@@ -150,7 +193,7 @@ export default defineConfig({
     ],
     footer: {
       message: 'Contact Us：<a href="mailto:hello@weclone.love" style="color: var(--vp-c-brand-1); text-decoration: none;">✉️ hello@weclone.love</a>',
-      copyright: 'Copyright © 2025 WeClone. All rights reserved.'
+      copyright: 'Copyright © 2025-2026 WeClone. All rights reserved.'
     },
   }
 })

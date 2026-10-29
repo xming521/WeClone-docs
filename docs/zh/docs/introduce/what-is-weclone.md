@@ -1,41 +1,43 @@
 ---
 outline: false
 ---
-# WeClone：从聊天记录创造数字分身的一站式解决方案
+# 什么是 WeClone
 
-你是否设想过——你的聊天风格、口头禅，甚至独特的表达习惯，能够被 AI 学会，并在数字世界中“复刻”一个你，这会是怎样的体验？ [WeClone](https://github.com/xming521/WeClone) 正是在这样一个愿景下诞生的尝试。
+WeClone 从你的数字生活中提炼身份、目标、偏好与近况，按工作、家庭、健康等板块整理成一份可审核、可追溯、按需授权的人生画像，并分析你的说话风格。画像可以作为 AI 助理的长期记忆，也将驱动具有你个人风格的数字分身。目前支持聊天记录，更多数据源持续接入中。
 
-WeClone 是从聊天记录创造数字分身的一站式解决方案，它可以通过使用聊天记录微调大语言模型，让模型说出“你那味儿”的话，并将其接入聊天机器人，打造出专属于你的数字分身。
+## 两条路线
 
-> ##### [社区社群](./community-resources.md)均部署了使用WeClone微调后的Bot，更多有趣案例也可以移步[小红书](https://www.xiaohongshu.com/user/profile/628109730000000021029de4)
+| 路线 | 做什么 | 需要什么 |
+|---|---|---|
+| [人生画像与助手接入](../profile/build-profile.md) | 抽取并整理画像，在网页上逐条审核，通过 MCP 提供给 Claude Code、Codex 等助手 | 基础安装，Codex CLI 或任意 OpenAI 兼容 API，不需要 GPU |
+| [微调分身](../deploy/hardware.md) | 用聊天记录微调开源模型，接入 AstrBot、LangBot 等聊天机器人平台 | NVIDIA GPU，默认模型以 LoRA 微调约需 16GB 显存 |
 
-::: details 查看训练效果图（点击展开）
+两条路线共用[安装与配置](../deploy/environment.md)和[准备数据](../deploy/export-chat-history.md)，可以只走其中一条。由大模型结合画像、记忆与说话风格驱动的 Agent 分身还在开发中。
+
+::: tip
+人生画像的抽取提示词目前是中文，英文聊天尚未经过测试。网页界面支持中文和英文。
+:::
+
+## 微调分身的效果
+
+> ##### [社区社群](./community-resources.md)均部署了使用 WeClone 微调后的 Bot，更多案例可以移步[小红书](https://www.xiaohongshu.com/user/profile/628109730000000021029de4)。
+
+::: details 查看微调效果图（点击展开）
 <div style="display: flex; flex-wrap: wrap; gap: 10px;">
-<img src="/screenshots/1.jpg" alt="WeClone训练效果演示1" style="width: 52%; min-width: 150px;"> 
-<img src="/screenshots/2.jpg" alt="WeClone训练效果演示2" style="width: 52%; min-width: 150px;">
-<img src="/screenshots/3.jpg" alt="WeClone训练效果演示3" style="width: 52%; min-width: 150px;">
+<img src="/screenshots/1.jpg" alt="WeClone微调效果演示1" style="width: 52%; min-width: 150px;"> 
+<img src="/screenshots/2.jpg" alt="WeClone微调效果演示2" style="width: 52%; min-width: 150px;">
+<img src="/screenshots/3.jpg" alt="WeClone微调效果演示3" style="width: 52%; min-width: 150px;">
 </div>
 :::
 
 ::: tip
-WeClone 项目仍在快速更新迭代中，当前效果并非最终状态。
-微调效果受诸多因素影响，如模型参数规模、对话数据量和质量等。通常来说，**模型参数越大、对话数据越多、表达风格越一致，微调后对话效果越接近原始人格特征**。
+微调效果受模型参数规模、对话数据量和质量等因素影响。通常来说，**模型参数越大、对话数据越多、表达风格越一致，微调后的对话越接近本人**。
 :::
-
-<div class="sponsor-card sponsor-card--docs">
-  <div class="sponsor-card__content">
-    <span class="sponsor-card__label">赞助伙伴</span>
-    <strong>✨ Infistar.cc 无限星河</strong>
-    <p>感谢 Infistar.cc 无限星河赞助 WeClone。一个 API Key 即可接入 Claude、ChatGPT、Gemini、DeepSeek 等主流模型，价格低至官方渠道 1 折。</p>
-  </div>
-  <a class="sponsor-card__link" href="https://www.infistar.cc/register?aff=RYD228HX&ref_source=link" target="_blank" rel="noopener noreferrer">领取 5 美元测试额度 →</a>
-</div>
-
 
 在正式开始前，请注意：
 
 ::: warning
-妥善保护个人聊天记录，避免泄露隐私信息，**切勿上传至公共平台**。<br> 确保本项目不被用于任何非法用途, 使用者应对自己的数据使用和行为承担全部责任。
+妥善保护个人聊天记录和生成的画像，避免泄露隐私信息，**切勿上传至公共平台**。<br> 确保本项目不被用于任何非法用途, 使用者应对自己的数据使用和行为承担全部责任。
 :::
 
 

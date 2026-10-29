@@ -1,40 +1,37 @@
-# Deploy to a Chatbot via AstrBot
+# Deploy to a Chat Bot via AstrBot
 
-[AstrBot](https://github.com/AstrBotDevs/AstrBot) is a multi-platform LLM chatbot framework that can deploy your WeClone model to platforms like Telegram, Slack, Discord.
+[AstrBot](https://github.com/AstrBotDevs/AstrBot) is an easy-to-use multi-platform LLM chat bot framework that can deploy your WeClone clone to Telegram, Feishu, Slack, Discord and more.
 
-Deployment steps:
+Steps:
 
-1. **Deploy AstrBot:** Follow the official AstrBot documentation to install and configure AstrBot on your server or local machine.
+1. **Deploy AstrBot:** install and configure AstrBot on your server or locally following its documentation, and set up the messaging platform you want to use.
 
+2. **Start the WeClone server and generate a token:** follow [Server and Bot Token](./bot-token.md) to run `weclone-cli server --inference --port 8005` and generate a token on the Bots page of the web UI. If AstrBot runs in Docker on Linux, add `--host 172.17.0.1` to the command.
 
-2. **Start the WeClone API service:** Ensure that your `weclone-cli server` is running and that AstrBot can access the service's address and port.
-
-3. **Add a new service provider in AstrBot:**
+3. **Add a provider in AstrBot:**
 
    * Type: OpenAI
-   * API Base URL: Fill in the WeClone API service address according to the AstrBot deployment method (e.g., `http://127.0.0.1:8005/v1`).
+   * API Base URL: the WeClone address as AstrBot reaches it, such as `http://127.0.0.1:8005/v1`. In Docker on Linux, `http://172.17.0.1:8005/v1`. On Docker Desktop, `http://host.docker.internal:8005/v1`
    * Model: `gpt-3.5-turbo`
-   * API Key: Just fill in a few random letters, do not leave it blank.
+   * API Key: the generated token
 
-4. **Deploy a messaging platform in AstrBot:** Configure AstrBot to connect to the chat platform you want to use.
-
-5. **Disable tool calls (Important):**
-   The fine-tuned model is mainly used to imitate your language style and usually does not support complex tool calls. In the corresponding chat platform in AstrBot, send a command to your bot to turn off all default tools to ensure you can see the fine-tuning effect, or manually turn off the tools in the AstrBot WebUI:
+4. **Turn off tool calling (important):**
+   The fine-tuned model imitates your style and doesn't support tool calling. Send this command to your bot on the chat platform to turn off all default tools, or turn them off by hand in the AstrBot WebUI, so you can see the fine-tuning effect:
 
    ```
    /tool off_all
    ```
 
-6. **Set the system prompt:**
-   In the AstrBot configuration, set the **System Prompt** for your bot. This prompt must be **exactly the same** as the `default_system` you set in `settings.jsonc` when you fine-tuned the model.
+5. **Set the system prompt:**
+   Set the bot's **System Prompt** in the AstrBot configuration. It must **exactly match** `default_system` in `settings.jsonc` used for fine-tuning.
 
    <img src="https://blog-img.051088.xyz/AstrBot%E6%95%99%E7%A8%8B01.png"/>
 
-7. **Adjust sampling parameters (Optional):**
-   You can adjust the model's sampling parameters in the `infer_args` of the configuration file. You can also adjust them in AstrBot, such as `temperature`, `top_p`, `top_k`, etc. For specific configuration methods, please refer to the section on [configuring custom model parameters](https://astrbot.app/config/model-config.html#configuring-custom-model-parameters) in the AstrBot documentation.
+6. **Adjust sampling parameters (optional):**
+   Adjust sampling in `infer_args` of the configuration file or in AstrBot, such as `temperature`, `top_p` and `top_k`. See [custom model parameters](https://astrbot.app/config/model-config.html) in the AstrBot documentation.
 
 > [!TIP]
-> Frequently check the log output of `api_service.py` to ensure that the prompt sent by AstrBot to the large model service is consistent with what you expected during fine-tuning and testing.
+> Check the WeClone server log regularly to make sure the prompt AstrBot sends matches what you used in fine-tuning and testing, with all tool plugins off.
 
 ---
-**Now, your exclusive digital avatar should be successfully deployed to the chatbot platform! Go and chat with "it" to see how it works~**
+**Your clone should now be running on the chat bot platform. Chat with it to see how it does.**
