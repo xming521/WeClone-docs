@@ -5,7 +5,7 @@
 | 用途 | 安装 | 其他要求 |
 |---|---|---|
 | 人生画像、网页、助手接入 | `uv pip install -e .` | Codex CLI 或任意 OpenAI 兼容 API，不需要 GPU |
-| 说话风格（`build-profile --purpose clone`） | `uv pip install --group style --torch-backend cpu -e .` | LTP 模型，CPU 即可运行 |
+| 语言风格（`build-profile --purpose clone`） | `uv pip install --group style --torch-backend cpu -e .` | LTP 模型，CPU 即可运行 |
 | 微调分身 | `uv pip install --group main -e .` | NVIDIA GPU、CUDA 12.6 及以上、spaCy 模型 |
 
 ## 基础安装
@@ -47,7 +47,7 @@ cp settings.template.jsonc settings.jsonc
 > [!WARNING]
 > 绘制画像时，聊天内容会发送给所选的模型服务。开始前命令行会显示模型后端并请你确认。
 
-## 说话风格依赖
+## 语言风格依赖
 
 只在选择做分身（`build-profile --purpose clone`）时需要：
 

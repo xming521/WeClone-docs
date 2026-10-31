@@ -31,12 +31,12 @@ features:
     details: 基于聊天记录微调开源模型，并通过 AstrBot、LangBot 部署至 Telegram、Discord、Slack、飞书等平台。训练数据经过隐私信息过滤。
 
   - icon: 🗣️
-    title: 说话风格分析
+    title: 语言风格分析
     details: 覆盖词汇、句式、语气、情绪、修辞、互动节奏等十大类、179 项风格特征。
 
   - icon: 🤖
     title: Agent 分身（开发中）
-    details: 无需训练，由大模型结合画像、记忆与说话风格实时驱动。
+    details: 无需训练，由大模型结合画像、记忆与语言风格实时驱动。
 
   - icon: 🔒
     title: 隐私优先
