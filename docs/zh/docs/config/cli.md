@@ -12,15 +12,15 @@ weclone-cli [--config-path <配置文件>] <命令> [选项]
 
 | 命令 | 说明 |
 |---|---|
-| `build-profile` | 从聊天数据依次完成数据准备、记忆抽取、整理和画像生成，做分身时另外抽取说话风格。见[绘制人生画像](../profile/build-profile.md) |
+| `build-profile` | 从聊天数据依次完成数据准备、记忆抽取、整理和画像生成，做分身时另外抽取语言风格。见[绘制人生画像](../profile/build-profile.md) |
 | `organize-memories` | 单独运行板块划分、分类、分主题和汇总，用于调试或补跑 |
-| `distill-style` | 单独抽取说话风格。见[说话风格](../profile/style.md#单独运行) |
+| `distill-style` | 单独抽取语言风格。见[语言风格](../profile/style.md#单独运行) |
 
 `build-profile` 的选项：
 
 | 选项 | 说明 |
 |---|---|
-| `--purpose assistant\|clone` | `assistant` 给个人助理用，抽取画像和事件。`clone` 做分身，另外抽取说话风格。未指定时交互选择 |
+| `--purpose assistant\|clone` | `assistant` 给个人助理用，抽取画像和事件。`clone` 做分身，另外抽取语言风格。未指定时交互选择 |
 | `--output-dir <目录>` | 结果目录，必须是新目录。默认在 `dataset/res_csv/agent/profile_runs` 下新建时间戳目录 |
 | `--max-context-tokens <数量>` | 记忆整理和画像生成的输入 token 上限。默认读取 Codex 的上下文长度，API 后端必须指定 |
 

@@ -125,7 +125,7 @@ export default defineConfig({
               { text: '网页审核', link: '/zh/docs/profile/review' },
               { text: '板块总结', link: '/zh/docs/profile/summary' },
               { text: '接入 AI 助理', link: '/zh/docs/profile/assistant' },
-              { text: '说话风格', link: '/zh/docs/profile/style' },
+              { text: '语言风格', link: '/zh/docs/profile/style' },
             ]
           },
           {

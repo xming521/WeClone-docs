@@ -15,7 +15,7 @@ weclone-cli build-profile
 运行时选择用途，也可以直接指定：
 
 - `--purpose assistant`：给个人助理用，抽取画像和事件。
-- `--purpose clone`：做分身，另外抽取说话风格，需要先安装[说话风格依赖](../deploy/environment.md#说话风格依赖)。
+- `--purpose clone`：做分身，另外抽取语言风格，需要先安装[语言风格依赖](../deploy/environment.md#语言风格依赖)。
 
 开始前命令行会显示结果目录、抽取内容和模型后端，并请你确认。确认后聊天内容会发送给该模型服务。
 
@@ -34,7 +34,7 @@ weclone-cli build-profile
 | 3. 整理记忆 | 划分板块，分类、分主题并汇总记忆，为每条事实标注隐私级别和时效，写入 `memory_organization/` |
 | 4. 生成画像层级 | 生成网页展示和审核使用的画像，写入 `profile_hierarchy/` |
 | 5. 生成板块总结 | 为每个板块写一段总结，见[板块总结](./summary.md) |
-| 6. 抽取说话风格 | 仅 `--purpose clone`，写入 `style/`，见[说话风格](./style.md) |
+| 6. 抽取语言风格 | 仅 `--purpose clone`，写入 `style/`，见[语言风格](./style.md) |
 
 准备聊天数据时，同一个人连续两分钟内发出的消息合并为一条，间隔超过十分钟的对话切分为新的一段。过短的对话段不参与抽取，以节省模型调用。
 
@@ -67,7 +67,7 @@ dataset/res_csv/agent/profile_runs/<时间>/
 ├── distill/               # 抽取的画像记忆和事件记忆
 ├── memory_organization/   # 板块、分类和汇总后的记忆
 ├── profile_hierarchy/     # 画像，以及网页上的审核记录
-└── style/                 # 说话风格（仅 --purpose clone）
+└── style/                 # 语言风格（仅 --purpose clone）
 ```
 
 加密模式下这些文件以 `.enc` 结尾。完成后用 `weclone-cli server` 打开网页[审核画像](./review.md)。
@@ -78,7 +78,7 @@ dataset/res_csv/agent/profile_runs/<时间>/
 
 ```bash
 weclone-cli organize-memories --help                     # 板块划分、分类、分主题和汇总
-weclone-cli distill-style --input-dir <结果目录>/people  # 说话风格
+weclone-cli distill-style --input-dir <结果目录>/people  # 语言风格
 ```
 
 ## 请求设置

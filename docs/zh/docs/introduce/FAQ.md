@@ -19,7 +19,7 @@
 `--output-dir` 必须是新目录。重跑时换一个新目录即可，已经抽取过的内容会从 `dataset/res_csv/agent/llm_cache.sqlite` 读取，不会再次请求模型。
 
 ### 选择做分身时提示安装 ltp
-抽取说话风格需要 `ltp` 包和 LTP 模型，安装方法见[安装与配置](../deploy/environment.md#说话风格依赖)。只给个人助理用时选择 `--purpose assistant`，不需要这些依赖。
+抽取语言风格需要 `ltp` 包和 LTP 模型，安装方法见[安装与配置](../deploy/environment.md#语言风格依赖)。只给个人助理用时选择 `--purpose assistant`，不需要这些依赖。
 
 ### Codex 后端调用失败
 确认终端里能直接运行 `codex` 并已登录，且 `codex_exec_args.model` 是当前 Codex 支持的模型。装有多个版本的 Codex 时，可以在 `codex_exec_args.command` 中填写可执行文件的绝对路径。

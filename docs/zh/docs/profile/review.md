@@ -16,7 +16,7 @@ weclone-cli server --run <结果目录>   # 打开指定的一次结果
 | 页面 | 用途 |
 |---|---|
 | 人生画像（`#/`） | 按板块和主题浏览画像，逐条审核 |
-| 说话风格（`#/style`） | 查看 `--purpose clone` 抽取的[说话风格](./style.md) |
+| 语言风格（`#/style`） | 查看 `--purpose clone` 抽取的[语言风格](./style.md) |
 | 板块总结（`#/summary`） | 生成和确认各板块的[总结](./summary.md) |
 | 助手接入（`#/assistant`） | 设置助手能读取的内容，生成令牌，见[接入 AI 助理](./assistant.md) |
 | 机器人接入（`#/bots`） | 生成聊天机器人调用分身的令牌，见[启动服务与令牌](../chatbot/bot-token.md) |

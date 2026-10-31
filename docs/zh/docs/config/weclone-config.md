@@ -45,7 +45,7 @@ cp settings.template.jsonc settings.jsonc
 
 ## codex_exec_args
 
-Codex CLI 后端的设置，用于[绘制人生画像](../profile/build-profile.md)和[说话风格](../profile/style.md)。
+Codex CLI 后端的设置，用于[绘制人生画像](../profile/build-profile.md)和[语言风格](../profile/style.md)。
 
 | 配置项 | 默认值 | 说明 |
 |---|---|---|
