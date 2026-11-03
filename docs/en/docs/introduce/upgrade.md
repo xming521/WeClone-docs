@@ -1,10 +1,10 @@
 # Upgrading from 0.3
 
-Version 0.4 adds the life portrait, assistant access and encrypted storage. The original fine-tuning workflow remains fully supported. The changes below affect users of 0.3.
+Version 1.0 adds the life portrait, assistant access and encrypted storage. The original fine-tuning workflow remains fully supported. The changes below affect users of 0.3.
 
 ## Configuration file
 
-The configuration version is now `0.4.01`, and the command line warns at startup when your file doesn't match. Copy the template again and move your settings over one by one:
+The configuration version is now `1.0.1`, and the command line warns at startup when your file doesn't match. Copy the template again and move your settings over one by one:
 
 ```bash
 cp settings.jsonc settings.old.jsonc
