@@ -25,7 +25,6 @@ Normal and public summaries are shorter and leave out plans, commitments and out
 
 **Export text** at the bottom of the page collects the approved summaries of the chosen level, ready to paste into your assistant's "About me", custom instructions or USER.md.
 
-- **Entries attached per domain** can be none, 3, 5 or 10.
 - At the **All** level the text contains private and sensitive content, and you are asked to confirm before copying.
 
 > [!WARNING]
