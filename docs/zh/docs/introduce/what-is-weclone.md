@@ -5,6 +5,11 @@ outline: false
 
 WeClone 从你的数字生活中提炼身份、目标、偏好与近况，按工作、家庭、健康等板块整理成一份可审核、可追溯、按需授权的人生画像，并分析你的语言风格。画像可以作为 AI 助理的长期记忆，也将驱动具有你个人风格的数字分身。目前支持聊天记录，更多数据源持续接入中。
 
+<a class="theme-light" href="/img/architecture/overview-light.webp" target="_blank"><img src="/img/architecture/overview-light.webp" alt="WeClone 功能概览"></a>
+<a class="theme-dark" href="/img/architecture/overview-dark.webp" target="_blank"><img src="/img/architecture/overview-dark.webp" alt="WeClone 功能概览"></a>
+
+各模块的实现和每一步输出的文件见[架构](./architecture.md)。
+
 ## 两条路线
 
 | 路线 | 做什么 | 需要什么 |

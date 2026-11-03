@@ -19,6 +19,7 @@ export default defineConfig({
             collapsed: false,
             items: [
               { text: 'What is WeClone', link: '/en/docs/introduce/what-is-weclone' },
+              { text: 'Architecture', link: '/en/docs/introduce/architecture' },
               { text: 'Upgrading from 0.3', link: '/en/docs/introduce/upgrade' },
               { text: 'Community Resources', link: '/en/docs/introduce/community-resources' },
               { text: 'FAQ', link: '/en/docs/introduce/FAQ' },
@@ -104,6 +105,7 @@ export default defineConfig({
             collapsed: false,
             items: [
               { text: '什么是 WeClone', link: '/zh/docs/introduce/what-is-weclone' },
+              { text: '架构', link: '/zh/docs/introduce/architecture' },
               { text: '从 0.3 版本升级', link: '/zh/docs/introduce/upgrade' },
               { text: '社区资源', link: '/zh/docs/introduce/community-resources' },
               { text: 'FAQ', link: '/zh/docs/introduce/FAQ' },

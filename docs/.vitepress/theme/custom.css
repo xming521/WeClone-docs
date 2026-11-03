@@ -233,3 +233,9 @@
     /* 默认 1104px */
   }
 }
+
+/* 有明暗两版的图，跟随站点的明暗切换 */
+html:not(.dark) .theme-dark,
+html.dark .theme-light {
+  display: none;
+}
