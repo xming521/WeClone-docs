@@ -53,7 +53,7 @@ Each fact belongs to a dimension and carries:
 
 No fact is dropped for privacy during extraction. Every fact is kept with a privacy level, and you decide who gets what when you [review](./review.md) and [connect assistants](./assistant.md).
 
-See the figure in [Architecture](../introduce/architecture.md) for how memories, dimensions, domains, topics, attributes and facts relate.
+See the figure in [Architecture](../introduce/architecture.md) for how dimensions, domains, topics, attributes and facts nest.
 
 ## Cache and reruns
 

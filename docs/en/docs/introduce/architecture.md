@@ -4,12 +4,12 @@ aside: false
 ---
 # Architecture
 
-## Overview and portrait concepts
+## Overview and portrait levels
 
-The top half is an overview of what WeClone does. The bottom half explains the concepts in the life portrait: what memories, dimensions, domains, topics, facts and attributes are, and how they relate. Click an image for the full-size version.
+The top half is an overview of what WeClone does. The bottom half opens one dimension level by level: dimension, domain, topic, attribute and fact, then the source memories and chats behind a fact. The panel on the right shows that dimensions and domains are two independent axes. Click an image for the full-size version.
 
-<a class="theme-light" href="/img/architecture/overview-light-en.webp" target="_blank"><img src="/img/architecture/overview-light-en.webp" alt="WeClone overview and portrait concepts"></a>
-<a class="theme-dark" href="/img/architecture/overview-dark-en.webp" target="_blank"><img src="/img/architecture/overview-dark-en.webp" alt="WeClone overview and portrait concepts"></a>
+<a class="theme-light" href="/img/architecture/overview-light-en.webp" target="_blank"><img src="/img/architecture/overview-light-en.webp" alt="WeClone overview and portrait levels"></a>
+<a class="theme-dark" href="/img/architecture/overview-dark-en.webp" target="_blank"><img src="/img/architecture/overview-dark-en.webp" alt="WeClone overview and portrait levels"></a>
 
 ## Modules and data flow
 

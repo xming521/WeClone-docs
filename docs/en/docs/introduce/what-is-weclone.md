@@ -8,7 +8,7 @@ WeClone distills your identity, goals, preferences and current situation from yo
 <a class="theme-light" href="/img/architecture/overview-light-en.webp" target="_blank"><img src="/img/architecture/overview-compact-light-en.webp" alt="WeClone feature overview"></a>
 <a class="theme-dark" href="/img/architecture/overview-dark-en.webp" target="_blank"><img src="/img/architecture/overview-compact-dark-en.webp" alt="WeClone feature overview"></a>
 
-See [Architecture](./architecture.md) for the full overview, the concepts in the portrait and how each module works.
+See [Architecture](./architecture.md) for the full overview, the levels of the portrait and how each module works.
 
 ## Two routes
 

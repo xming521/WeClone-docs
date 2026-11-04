@@ -53,7 +53,7 @@ weclone-cli build-profile
 
 抽取时不会因为隐私删除事实，每条事实都保留下来并标注隐私级别。哪些内容提供给谁，在[审核](./review.md)和[接入助理](./assistant.md)时由你决定。
 
-记忆、维度、板块、主题、属性和事实之间的关系见[架构](../introduce/architecture.md)中的图。
+维度、板块、主题、属性、事实这几级怎样展开，见[架构](../introduce/architecture.md)中的图。
 
 ## 缓存与重跑
 

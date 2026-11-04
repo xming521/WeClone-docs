@@ -8,7 +8,7 @@ WeClone 从你的数字生活中提炼身份、目标、偏好与近况，按工
 <a class="theme-light" href="/img/architecture/overview-light.webp" target="_blank"><img src="/img/architecture/overview-compact-light.webp" alt="WeClone 功能概览"></a>
 <a class="theme-dark" href="/img/architecture/overview-dark.webp" target="_blank"><img src="/img/architecture/overview-compact-dark.webp" alt="WeClone 功能概览"></a>
 
-完整的功能概览、画像里的概念和各模块的实现见[架构](./architecture.md)。
+完整的功能概览、画像的层级和各模块的实现见[架构](./architecture.md)。
 
 ## 两条路线
 
