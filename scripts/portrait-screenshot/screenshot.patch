@@ -1,3 +1,24 @@
+diff --git a/web/src/App.tsx b/web/src/App.tsx
+index 20d18a674bec41a1b2cffabea681b66e776f4e65..1abbba29f4ee030dd98b2d24465a6618d25819f5 100644
+--- a/web/src/App.tsx
++++ b/web/src/App.tsx
+@@ -25,13 +25,15 @@ import { AboutApp } from './settings/AboutApp';
+ import { SettingsApp } from './settings/SettingsApp';
+ import { SettingsLink } from './settings/SettingsLink';
+ import { Toaster } from './feedback/Toaster';
++import { SCREENSHOT } from './screenshot';
+ 
+ function Atlas() {
+   const { t } = useTranslation();
+   const viewModel = useProfileStore((state) => state.viewModel)!;
+   const domainCount = useProfileStore((state) => state.fullModel!.dimensionIds.length);
+   const atlasRef = useRef<AtlasControls | null>(null);
+-  const [leftOpen, setLeftOpen] = useState(true);
++  // The screenshot starts with the panel shut, as it is a few seconds in.
++  const [leftOpen, setLeftOpen] = useState(!SCREENSHOT);
+   const [leftTouched, setLeftTouched] = useState(false);
+   const focusedDimension = useProfileStore((state) => state.focusedDimension);
+   const resetVersion = useProfileStore((state) => state.resetVersion);
 diff --git a/web/src/atlas/GraphCanvas.tsx b/web/src/atlas/GraphCanvas.tsx
 index e14653381a1a9e8e92c64c129984056ab8a61771..a8ced2fd33da96dabb44e2c18dda3d84eb87f321 100644
 --- a/web/src/atlas/GraphCanvas.tsx
@@ -68,40 +89,18 @@ index e14653381a1a9e8e92c64c129984056ab8a61771..a8ced2fd33da96dabb44e2c18dda3d84
        return;
      }
 diff --git a/web/src/atlas/atlasEngine.ts b/web/src/atlas/atlasEngine.ts
-index 5f50061a36ddf565b00f9f2546b832c653f6b1b0..8c0e7314877f40f028515ac20563e77d3d5fa627 100644
+index 5f50061a36ddf565b00f9f2546b832c653f6b1b0..6c9cb622fc25e8a67ccef6e5524b5955dbd9e3d1 100644
 --- a/web/src/atlas/atlasEngine.ts
 +++ b/web/src/atlas/atlasEngine.ts
-@@ -38,11 +38,13 @@ import {
-   computeSeeds,
-   dimensionAngle,
-   expansionPositions,
-+  forceExtents,
-   overviewPositions,
-   placeNodes,
-   sameTree,
-   shiftClusters,
-   topicDistance,
-+  type Extent,
-   type Point,
-   type Positions,
- } from './graphLayout';
-@@ -50,6 +52,7 @@ import {
-   BALL,
-   EDGE_BEND,
-   EDGE_GAP,
-+  LABEL_HALO_WIDTH,
-   LABEL_LINE_HEIGHT,
-   LABEL_OFFSET_Y,
-   edgeOnStyle,
-@@ -67,6 +70,7 @@ import {
+@@ -66,6 +66,7 @@ import {
+   curvePoint,
    drawLabel,
    drawNode,
++  drawnLabels,
    edgeCurve,
-+  labelHeight,
    resetLabelMetrics,
    rgbaOf,
-   strokeEdge,
-@@ -83,6 +87,23 @@ export interface AtlasControls {
+@@ -83,6 +84,25 @@ export interface AtlasControls {
    snapshot(): Promise<Blob | null>;
  }
  
@@ -115,45 +114,19 @@ index 5f50061a36ddf565b00f9f2546b832c653f6b1b0..8c0e7314877f40f028515ac20563e77d
 +  period(): number;
 +  /** Stops the frame loop, then advances the map by `ms` and draws it. */
 +  step(ms: number): void;
++  /** Zooms till the root is drawn `size` px wide and puts it `x`, `y` of the way across and down. */
++  closeUp(size: number, x: number, y: number): void;
++  /** Draws each child of `names`' nodes (by id) named `name` as `names[id][name]`; the layout keeps the real names. */
++  relabel(names: Record<string, Record<string, string>>): void;
 +}
 +
-+export type AtlasOptions = {
-+  /** The screenshot page (`?screenshot`): see SCREENSHOT_LAYOUT. */
-+  screenshot?: boolean;
-+};
++/** The screenshot page (`?screenshot`): labels drawn `labels` times their size, past the room the layout gave them. */
++export type AtlasOptions = { screenshot?: { labels: number } };
 +
  /** A node to preview at (x, y), in pixels from the map's top left, inside a `width` × `height` area. */
  export type HoverInfo = { id: string; x: number; y: number; width: number; height: number };
  
-@@ -175,6 +196,27 @@ const CLUSTER_PULL: Record<NodeKind, number> = {
- };
- /** Room kept free for the top bar, the toolbar and the help line. */
- const PADDING = { top: 92, right: 56, bottom: 86, left: 56 };
-+/**
-+ * The screenshot packs the map round its labels, so that all of it fills the window with the labels at
-+ * reading size: nodes are only drawn to their anchors and kept apart by the boxes of their discs and
-+ * labels (packedSimulation), since circles round wide labels, links and charge leave room the labels
-+ * do not use. Tuned on the demo portraits in a 3:2 window for the largest zoom that shows every node:
-+ * - spread: share of the map's distance from the centre to the clusters; less crowds the centre's label.
-+ * - pull: how much harder than on the map nodes below a dimension are drawn to it.
-+ * - sideways: overlapping boxes move sideways unless that is this many times as far as up or down;
-+ *   1 stacks wide labels one above another into tall columns, more spreads them too wide.
-+ * - gap: clear space round a label in ems of its type, so that neighbours on a row read apart.
-+ * - padding: clear space round the map; tries and jitter: see packTightest.
-+ */
-+const SCREENSHOT_LAYOUT = {
-+  spread: 0.8,
-+  pull: 3,
-+  sideways: 2.5,
-+  gap: { x: 0.75, y: 0.25 },
-+  padding: 20,
-+  tries: 12,
-+  jitter: 60,
-+};
- /** Closest zoom that shows a node's whole branch, and least zoom on a node shown alone. */
- const BRANCH_ZOOM: Record<NodeKind, number> = { root: 0.95, dimension: 0.9, topic: 1.1, subtopic: 1.2, attribute: 1.2 };
- const NODE_ZOOM: Record<NodeKind, number> = {
-@@ -209,12 +251,13 @@ function hash01(text: string): number {
+@@ -209,7 +229,7 @@ function hash01(text: string): number {
    return ((h >>> 0) % 1000003) / 1000003;
  }
  
@@ -162,23 +135,19 @@ index 5f50061a36ddf565b00f9f2546b832c653f6b1b0..8c0e7314877f40f028515ac20563e77d
    private readonly canvas: HTMLCanvasElement;
    private readonly wash: HTMLCanvasElement;
    private readonly ctx: CanvasRenderingContext2D;
-   private readonly washCtx: CanvasRenderingContext2D;
-   private readonly callbacks: AtlasCallbacks;
-+  private readonly screenshot: boolean;
-   private readonly reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-   private readonly measure = document.createElement('canvas').getContext('2d');
-   private readonly sprites = new Map<string, HTMLCanvasElement>();
-@@ -242,6 +285,9 @@ export class AtlasEngine implements AtlasControls {
+@@ -242,6 +262,11 @@ export class AtlasEngine implements AtlasControls {
    private readonly viewPositions = new Map<ReviewView, Positions>();
    private layoutView: ReviewView | null = null;
    private fitted = false;
-+  /** The screenshot packs nodes by their labels' size, so it lays them out once their font has loaded; till then the tree waits here. */
++  /** The screenshot lays the map out once its labels' font has loaded, so that it comes out the same every time; till then the tree waits here. */
 +  private fontsPending = false;
 +  private waitingTree: ProfileNode[] | null = null;
++  /** Names the screenshot draws in place of the real ones, by node id. */
++  private readonly drawnNames = new Map<string, string>();
  
    private selectedId: string | null = null;
    private hoverId: string | null = null;
-@@ -292,12 +338,19 @@ export class AtlasEngine implements AtlasControls {
+@@ -292,12 +317,19 @@ export class AtlasEngine implements AtlasControls {
    private tipTimer = 0;
    private tipShown = false;
  
@@ -194,12 +163,12 @@ index 5f50061a36ddf565b00f9f2546b832c653f6b1b0..8c0e7314877f40f028515ac20563e77d
      this.ctx = canvas.getContext('2d')!;
      this.washCtx = wash.getContext('2d')!;
      this.callbacks = callbacks;
-+    this.screenshot = options.screenshot ?? false;
-+    this.fontsPending = this.screenshot && Boolean(document.fonts);
++    this.fontsPending = Boolean(options.screenshot && document.fonts);
++    drawnLabels.scale = options.screenshot?.labels ?? 1;
      canvas.style.cursor = 'grab';
      this.loadFonts();
      canvas.addEventListener('pointerdown', this.onDown);
-@@ -328,6 +381,10 @@ export class AtlasEngine implements AtlasControls {
+@@ -328,6 +360,10 @@ export class AtlasEngine implements AtlasControls {
    setTree(visible: ProfileNode[]) {
      const model = this.model;
      if (!model || visible === this.visible) return;
@@ -210,42 +179,7 @@ index 5f50061a36ddf565b00f9f2546b832c653f6b1b0..8c0e7314877f40f028515ac20563e77d
      this.visible = visible;
      const switchingView = this.layoutView !== null && this.layoutView !== this.view;
      if (
-@@ -352,10 +409,17 @@ export class AtlasEngine implements AtlasControls {
-     const root = previous.get('root') ?? this.initialPositions.get('root')!;
-     // Clusters are laid out around the root's undragged place, then moved by their own drags.
-     const rootShift = this.anchorShifts.get('root') ?? { x: 0, y: 0 };
--    const centers = clusterCenters(model, visible, { x: root.x - rootShift.x, y: root.y - rootShift.y });
-+    const origin = { x: root.x - rootShift.x, y: root.y - rootShift.y };
-+    const centers = clusterCenters(model, visible, origin);
-+    // The screenshot draws the clusters in, and spreads them sideways by the window's aspect.
-+    const { spread } = SCREENSHOT_LAYOUT;
-+    const scale = this.screenshot ? { x: spread * this.frameAspect(), y: spread } : null;
-     for (const [id, center] of centers) {
--      const shift = this.anchorShifts.get(id);
--      if (shift) centers.set(id, { x: center.x + shift.x, y: center.y + shift.y });
-+      const shift = this.anchorShifts.get(id) ?? { x: 0, y: 0 };
-+      const at = scale
-+        ? { x: origin.x + (center.x - origin.x) * scale.x, y: origin.y + (center.y - origin.y) * scale.y }
-+        : center;
-+      centers.set(id, { x: at.x + shift.x, y: at.y + shift.y });
-     }
-     const seeds = shiftClusters(model, computeSeeds(switchingView, previous, this.initialPositions, restored), centers);
-     const fallback = initial
-@@ -434,8 +498,11 @@ export class AtlasEngine implements AtlasControls {
-     this.anchors = new Map([...centers, ['root', root]]);
-     this.buildSimulation();
-     if (initial) {
--      const sim = this.sim!;
--      for (let i = 0; i < 500 && sim.alpha() > sim.alphaMin(); i++) sim.tick();
-+      if (this.screenshot) this.packTightest();
-+      else {
-+        const sim = this.sim!;
-+        for (let i = 0; i < 500 && sim.alpha() > sim.alphaMin(); i++) sim.tick();
-+      }
-       for (const n of this.order) {
-         n.rx = n.x;
-         n.ry = n.y;
-@@ -555,6 +622,26 @@ export class AtlasEngine implements AtlasControls {
+@@ -555,6 +591,44 @@ export class AtlasEngine implements AtlasControls {
      this.draw();
    }
  
@@ -269,10 +203,28 @@ index 5f50061a36ddf565b00f9f2546b832c653f6b1b0..8c0e7314877f40f028515ac20563e77d
 +    this.draw();
 +  }
 +
++  closeUp(size: number, x: number, y: number) {
++    const root = this.nodes.get('root')!;
++    const k = clamp(size / (2 * root.r), ZOOM_MIN, ZOOM_MAX);
++    this.cam = { x: root.x - ((x - 0.5) * this.W) / k, y: root.y - ((y - 0.5) * this.H) / k, k };
++    this.goal = null;
++    this.userMoved = true;
++    this.requestDraw();
++  }
++
++  relabel(names: Record<string, Record<string, string>>) {
++    this.drawnNames.clear();
++    for (const n of this.order) {
++      const name = n.node.parentId === null ? undefined : names[n.node.parentId]?.[n.node.name];
++      if (name !== undefined) this.drawnNames.set(n.id, name);
++    }
++    this.requestDraw();
++  }
++
    snapshot(): Promise<Blob | null> {
      this.draw();
      const out = document.createElement('canvas');
-@@ -656,16 +743,23 @@ export class AtlasEngine implements AtlasControls {
+@@ -656,16 +730,23 @@ export class AtlasEngine implements AtlasControls {
      if (!fonts) return;
      const roles: LabelRole[] = [{ kind: 'root' }, { kind: 'dimension' }, { kind: 'topic' }, { kind: 'attribute' }];
      const wanted = [...roles.map((role) => labelStyle(role)), labelStyle({ kind: 'topic' }, true)];
@@ -299,187 +251,49 @@ index 5f50061a36ddf565b00f9f2546b832c653f6b1b0..8c0e7314877f40f028515ac20563e77d
      );
    }
  
-@@ -685,6 +779,16 @@ export class AtlasEngine implements AtlasControls {
-     this.waveDepth = depth;
-   }
+@@ -1472,7 +1553,7 @@ export class AtlasEngine implements AtlasControls {
+     const attributeLabels = this.attributeLabelsShown();
+     const last: MapNode[] = [];
+     for (const n of this.order) {
+-      n.label = this.labelOf(n, attributeLabels);
++      n.label = this.drawnNames.get(n.id) ?? this.labelOf(n, attributeLabels);
+       if (!n.label || n.vis < 0.2 || !this.inView(n.rx, n.ry + n.r + 20, n.labelWidth / 2 + 20)) continue;
+       if (n.selected || n.id === this.hoverId) last.push(n);
+       else drawLabel(ctx, tf, n, n.rx, n.ry, n.vis * n.emph);
+diff --git a/web/src/atlas/paint.ts b/web/src/atlas/paint.ts
+index ad39e898c79bf9d02a9bdbb9937e86f32d918751..80aeee862a902f70dda9b4934518dc57d298e757 100644
+--- a/web/src/atlas/paint.ts
++++ b/web/src/atlas/paint.ts
+@@ -344,6 +344,9 @@ export function labelHeight(c: CanvasRenderingContext2D, font: string): number {
+ /** Forgets measured label heights, once the fonts they were measured in have loaded. */
+ export const resetLabelMetrics = () => labelBoxHeight.clear();
  
-+  /** The screenshot's room for a node: its disc and its label's box, with SCREENSHOT_LAYOUT's gap round them. */
-+  private extent(n: MapNode): Extent {
-+    const style = labelStyle(n);
-+    const height = this.measure ? labelHeight(this.measure, labelFont(style)) : LABEL_LINE_HEIGHT;
-+    const x = SCREENSHOT_LAYOUT.gap.x * style.size;
-+    const y = SCREENSHOT_LAYOUT.gap.y * style.size;
-+    const half = Math.max(n.r, n.labelWidth / 2 + LABEL_HALO_WIDTH) + x;
-+    return { left: half, right: half, top: n.r + y, bottom: n.r + LABEL_OFFSET_Y + height + y };
-+  }
++/** How many times their size labels are drawn: more than 1 only in the screenshot, past the room the layout gave them. */
++export const drawnLabels = { scale: 1 };
 +
-   private collisionRadius(n: MapNode, dense: boolean): number {
-     if (dense && n.kind === 'attribute') return n.r + 8;
-     return Math.max(n.r + 8, Math.hypot(n.labelWidth / 2 + 4, n.r + 11 + labelStyle(n).size));
-@@ -705,6 +809,10 @@ export class AtlasEngine implements AtlasControls {
-     const topicLength = topicDistance(model.dimensionIds.length);
-     this.sim?.stop();
-     this.layoutDecay = dense ? 0.65 : busy ? 0.4 : 0.06;
-+    if (this.screenshot) {
-+      this.sim = this.packedSimulation(target);
-+      return;
-+    }
-     this.sim = forceSimulation<MapNode, MapLink>(this.order)
-       .force('x', forceX<MapNode>((n) => target(n).x).strength(pull))
-       .force('y', forceY<MapNode>((n) => target(n).y).strength(pull))
-@@ -735,6 +843,65 @@ export class AtlasEngine implements AtlasControls {
-       .stop();
-   }
- 
-+  /**
-+   * The screenshot's layout: every node is only drawn to its anchor and kept clear of the others by its
-+   * box. Nodes below the dimensions are drawn `pull` times harder than on the map, so that each cluster
-+   * packs round its dimension, and all but the centre harder up and down than sideways by the window's
-+   * aspect, so that the map takes the window's shape.
-+   */
-+  private packedSimulation(target: (n: MapNode) => Point): Simulation<MapNode, MapLink> {
-+    const { pull, sideways } = SCREENSHOT_LAYOUT;
-+    const aspect = this.frameAspect();
-+    const pullX = (n: MapNode) => CLUSTER_PULL[n.kind] * (n.kind === 'root' || n.kind === 'dimension' ? 1 : pull);
-+    const pullY = (n: MapNode) => pullX(n) * (n.kind === 'root' ? 1 : aspect);
-+    const collide = forceExtents<MapNode>((n) => this.extent(n), 2, sideways);
-+    return forceSimulation<MapNode, MapLink>(this.order)
-+      .force('x', forceX<MapNode>((n) => target(n).x).strength(pullX))
-+      .force('y', forceY<MapNode>((n) => target(n).y).strength(pullY))
-+      .force('collide', collide)
-+      .alphaDecay(this.layoutDecay)
-+      .stop();
-+  }
-+
-+  /**
-+   * The packed layout settles into one of many arrangements, some far roomier than others. The
-+   * screenshot settles it `tries` times, every node starting up to `jitter` off its seed by an amount
-+   * hashed from the try and the node's place in the map, not its id, which each server makes afresh.
-+   * It keeps the arrangement that fits the window at the largest zoom.
-+   */
-+  private packTightest() {
-+    const sim = this.sim!;
-+    const { tries, jitter } = SCREENSHOT_LAYOUT;
-+    const seeds = this.order.map((n) => ({ x: n.x, y: n.y }));
-+    let best: { k: number; at: Point[] } | null = null;
-+    for (let attempt = 0; attempt < tries; attempt++) {
-+      this.order.forEach((n, i) => {
-+        const angle = hash01(`${attempt}:${i}:angle`) * TAU;
-+        const distance = attempt ? hash01(`${attempt}:${i}:distance`) * jitter : 0;
-+        n.x = seeds[i].x + Math.cos(angle) * distance;
-+        n.y = seeds[i].y + Math.sin(angle) * distance;
-+        n.vx = 0;
-+        n.vy = 0;
-+      });
-+      sim.alpha(1);
-+      for (let i = 0; i < 500 && sim.alpha() > sim.alphaMin(); i++) sim.tick();
-+      const { k } = this.framing(this.box(this.order), ZOOM_MAX);
-+      if (!best || k > best.k) best = { k, at: this.order.map((n) => ({ x: n.x, y: n.y })) };
-+    }
-+    this.order.forEach((n, i) => {
-+      n.x = best!.at[i].x;
-+      n.y = best!.at[i].y;
-+      n.vx = 0;
-+      n.vy = 0;
-+    });
-+  }
-+
-+  /** Width over height of the frame the map fits into. */
-+  private frameAspect(): number {
-+    const frame = this.frame();
-+    return clamp((frame.x1 - frame.x0) / (frame.y1 - frame.y0), 0.5, 2.5);
-+  }
-+
-   private startDrag(n: MapNode) {
-     const sim = this.sim;
-     if (!sim) return;
-@@ -836,13 +1003,15 @@ export class AtlasEngine implements AtlasControls {
- 
-   /** Part of the canvas the map is framed in: clear of the panels, the top bar and the toolbar. */
-   private frame(): Box {
--    const right = this.W - this.insets.right - (this.insets.right ? 32 : PADDING.right);
--    const bottom = this.H - this.insets.bottom - (this.insets.bottom ? 24 : PADDING.bottom);
-+    const p = SCREENSHOT_LAYOUT.padding;
-+    const padding = this.screenshot ? { top: p, right: p, bottom: p, left: p } : PADDING;
-+    const right = this.W - this.insets.right - (this.insets.right ? 32 : padding.right);
-+    const bottom = this.H - this.insets.bottom - (this.insets.bottom ? 24 : padding.bottom);
-     return {
--      x0: PADDING.left,
--      y0: PADDING.top,
--      x1: Math.max(PADDING.left + 160, right),
--      y1: Math.max(PADDING.top + 160, bottom),
-+      x0: padding.left,
-+      y0: padding.top,
-+      x1: Math.max(padding.left + 160, right),
-+      y1: Math.max(padding.top + 160, bottom),
-     };
-   }
- 
-diff --git a/web/src/atlas/graphLayout.ts b/web/src/atlas/graphLayout.ts
-index d0552e29b0de5838fe989041f1de06fd6c2638d9..9b53c7d62feb144229ce477231a7f7c883491fc2 100644
---- a/web/src/atlas/graphLayout.ts
-+++ b/web/src/atlas/graphLayout.ts
-@@ -156,6 +156,60 @@ export function shiftClusters(model: ProfileModel, positions: Positions, centers
-   return shifted;
- }
- 
-+/** Room a node takes round its position: its disc and the label under it. */
-+export type Extent = { left: number; right: number; top: number; bottom: number };
-+
-+type MovingNode = { x: number; y: number; vx?: number; vy?: number };
-+
-+/**
-+ * Keeps nodes' extents apart the way d3-force's forceCollide keeps circles apart: two boxes that would
-+ * overlap after this tick are pushed apart, the larger one moving less, sideways unless that is more
-+ * than `sideways` times as far as up or down. A circle round a wide label also keeps free the space
-+ * above and below it, which boxes leave to other labels.
-+ */
-+export function forceExtents<N extends MovingNode>(extentOf: (node: N) => Extent, iterations = 2, sideways = 1) {
-+  let nodes: N[] = [];
-+  let extents: Extent[] = [];
-+  let areas: number[] = [];
-+  function force() {
-+    for (let pass = 0; pass < iterations; pass++) {
-+      for (let i = 0; i < nodes.length; i++) {
-+        const a = nodes[i];
-+        const ea = extents[i];
-+        const ax = a.x + (a.vx ?? 0);
-+        const ay = a.y + (a.vy ?? 0);
-+        for (let j = i + 1; j < nodes.length; j++) {
-+          const b = nodes[j];
-+          const eb = extents[j];
-+          const bx = b.x + (b.vx ?? 0);
-+          const by = b.y + (b.vy ?? 0);
-+          const overlapX = Math.min(ax + ea.right, bx + eb.right) - Math.max(ax - ea.left, bx - eb.left);
-+          if (overlapX <= 0) continue;
-+          const overlapY = Math.min(ay + ea.bottom, by + eb.bottom) - Math.max(ay - ea.top, by - eb.top);
-+          if (overlapY <= 0) continue;
-+          // Share of the push that moves a.
-+          const share = areas[j] / (areas[i] + areas[j]);
-+          if (overlapX < sideways * overlapY) {
-+            const side = bx + (eb.right - eb.left) / 2 >= ax + (ea.right - ea.left) / 2 ? 1 : -1;
-+            a.vx = (a.vx ?? 0) - side * overlapX * share;
-+            b.vx = (b.vx ?? 0) + side * overlapX * (1 - share);
-+          } else {
-+            const side = by + (eb.bottom - eb.top) / 2 >= ay + (ea.bottom - ea.top) / 2 ? 1 : -1;
-+            a.vy = (a.vy ?? 0) - side * overlapY * share;
-+            b.vy = (b.vy ?? 0) + side * overlapY * (1 - share);
-+          }
-+        }
-+      }
-+    }
-+  }
-+  force.initialize = (all: N[]) => {
-+    nodes = all;
-+    extents = all.map(extentOf);
-+    areas = extents.map((e) => Math.max(1, (e.left + e.right) * (e.top + e.bottom)));
-+  };
-+  return force;
-+}
-+
- export function overviewPositions(model: ProfileModel): Positions {
-   const positions: Positions = new Map([['root', { x: 0, y: 0 }]]);
-   function placeDescendants(parentId: string, direction: number) {
+ // The label sits below the node, its box starting LABEL_OFFSET_Y below the edge and shifted right
+ // by half the halo width. A `paper` halo keeps it readable where a line crosses it.
+ export function drawLabel(
+@@ -356,15 +359,16 @@ export function drawLabel(
+ ) {
+   if (alpha <= 0.01 || !n.label) return;
+   const style = labelStyle(n, n.selected);
+-  const font = labelFont(style);
++  const scale = drawnLabels.scale;
++  const font = labelFont({ ...style, size: style.size * scale });
+   c.setTransform(tf.k, 0, 0, tf.k, tf.ox, tf.oy);
+   const ly = y + n.r + LABEL_OFFSET_Y + labelHeight(c, font) / 2;
+   c.font = font;
+   c.textAlign = 'center';
+   c.textBaseline = 'middle';
+   c.lineJoin = 'round';
+-  c.lineWidth = LABEL_HALO_WIDTH;
+-  const lx = x + LABEL_HALO_WIDTH / 2;
++  c.lineWidth = LABEL_HALO_WIDTH * scale;
++  const lx = x + (LABEL_HALO_WIDTH * scale) / 2;
+   c.globalAlpha = alpha;
+   c.strokeStyle = palette().paper;
+   c.strokeText(n.label, lx, ly);
 diff --git a/web/src/main.tsx b/web/src/main.tsx
 index 71e96f77f93c93b0f4d0585069da53cb14eb247e..bf87d8147bfc57bf390940cd60ffb6684ae009cc 100644
 --- a/web/src/main.tsx
@@ -493,32 +307,31 @@ index 71e96f77f93c93b0f4d0585069da53cb14eb247e..bf87d8147bfc57bf390940cd60ffb668
  import './style.css';
 diff --git a/web/src/screenshot.css b/web/src/screenshot.css
 new file mode 100644
-index 0000000000000000000000000000000000000000..c2f5e6a838b2f253db2172298c37e8b1e4094eb7
+index 0000000000000000000000000000000000000000..8a78d0a4a039bc27bc587646da5f36752d76842f
 --- /dev/null
 +++ b/web/src/screenshot.css
-@@ -0,0 +1,12 @@
-+/* The README screenshot (?screenshot, see screenshot.ts): the map alone, its labels at reading size. */
+@@ -0,0 +1,11 @@
++/* The README screenshot (?screenshot, see screenshot.ts): the map without the bars and buttons over it, laid out
++   with heavier, larger label type. */
 +:root[data-screenshot] {
-+  --text-node-root: 700 26px/32px var(--font-sans);
-+  --text-node-dim: 700 23px/29px var(--font-sans);
-+  --text-node-section: 600 19px/24px var(--font-sans);
-+  --text-node-attr: 500 15px/19px var(--font-sans);
++  --text-node-root: 700 22px/28px var(--font-sans);
++  --text-node-dim: 700 20px/26px var(--font-sans);
++  --text-node-section: 600 18px/23px var(--font-sans);
 +}
 +
-+:root[data-screenshot] .app-shell > :not(.atlas-main),
-+:root[data-screenshot] .atlas-main > :is(.topbar, .review-bar, .canvas-toolbar, .canvas-help) {
-+  display: none;
++:root[data-screenshot] :is(.topbar, .review-bar, .canvas-toolbar, .canvas-help) {
++  visibility: hidden;
 +}
 diff --git a/web/src/screenshot.ts b/web/src/screenshot.ts
 new file mode 100644
-index 0000000000000000000000000000000000000000..76823abf6446b3df8c801ac763a5fa877439beb7
+index 0000000000000000000000000000000000000000..e20f7a72d099d3ba75ecd1844d866df5ec7041e3
 --- /dev/null
 +++ b/web/src/screenshot.ts
-@@ -0,0 +1,15 @@
-+// `?screenshot` in the address opens the portrait map alone, for the README picture: no page around it,
-+// labels at reading size, the nodes packed round them to fill the window, and no intro. The recorder
-+// (scripts/portrait-screenshot/record.mjs in WeClone-docs) steps the map frame by frame through `window.atlasCapture`.
-+import type { AtlasCapture } from './atlas/atlasEngine';
+@@ -0,0 +1,19 @@
++// `?screenshot` in the address opens the portrait map alone, for the README picture: no page around it and no
++// intro. `labels` draws its labels that many times their size. The recorder (scripts/portrait-screenshot/record.mjs
++// in WeClone-docs) steps it frame by frame through `window.atlasCapture`.
++import type { AtlasCapture, AtlasOptions } from './atlas/atlasEngine';
 +import './screenshot.css';
 +
 +declare global {
@@ -527,6 +340,10 @@ index 0000000000000000000000000000000000000000..76823abf6446b3df8c801ac763a5fa87
 +  }
 +}
 +
-+export const SCREENSHOT = new URLSearchParams(window.location.search).has('screenshot');
++const query = new URLSearchParams(window.location.search);
++
++export const SCREENSHOT: AtlasOptions['screenshot'] = query.has('screenshot')
++  ? { labels: Number(query.get('labels') ?? 1) }
++  : undefined;
 +
 +if (SCREENSHOT) document.documentElement.setAttribute('data-screenshot', '');

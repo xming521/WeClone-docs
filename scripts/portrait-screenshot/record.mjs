@@ -6,7 +6,11 @@
 //   node scripts/portrait-screenshot/record.mjs ~/WeClone docs/public/img/screenshots/atlas-light-en.webp
 //
 // --locale (en, zh-CN) picks the language of the page and the demo portrait, --theme (light, dark) the colours,
-// --size and --scale the picture: the README shows the default 1280x840 at 880 wide.
+// --size and --scale the picture: the README shows the default 1280x840 at 880 wide. The map is laid out from the
+// demo portrait at the WeClone revision --layout and framed as in the first published picture, so the picture
+// keeps its look while the demo changes; the children of each dimension are drawn with the checkout's demo names,
+// rank for rank by their number of facts. --labels draws the labels that many times their size without moving
+// anything, so neighbouring labels may overlap.
 import { spawn, spawnSync } from 'node:child_process';
 import { once } from 'node:events';
 import { existsSync, mkdtempSync, readFileSync, rmSync, symlinkSync, unlinkSync, writeFileSync } from 'node:fs';
@@ -20,6 +24,13 @@ import { parseArgs } from 'node:util';
 /** Time between frames in ms: about 29 frames a second keep the wave smooth. */
 const FRAME_MS = 35;
 const PATCH = fileURLToPath(new URL('./screenshot.patch', import.meta.url));
+/** The demo portrait of each language, as weclone/server/app.py serves them. */
+const DEMOS = {
+  zh: 'tests/tests_data/profile_hierarchy.demo.json',
+  en: 'tests/tests_data/profile_hierarchy.demo.en.json',
+};
+/** The first published picture drew the root 55.9 px wide, 0.502 of the way across and 0.516 down. */
+const CAMERA = [55.92, 0.50224, 0.51635];
 
 const { values: options, positionals } = parseArgs({
   allowPositionals: true,
@@ -28,6 +39,10 @@ const { values: options, positionals } = parseArgs({
     theme: { type: 'string', default: 'light' },
     size: { type: 'string', default: '1280x840' },
     scale: { type: 'string', default: '1.5' },
+    // The demo before 819648b regenerated it, which the first published picture was laid out from.
+    layout: { type: 'string', default: '819648b^' },
+    // Section labels come out about 17 px on the picture.
+    labels: { type: 'string', default: '1.28' },
     still: { type: 'boolean', default: false },
   },
 });
@@ -36,7 +51,8 @@ const [width, height] = options.size.split('x').map(Number);
 if (!checkout || !output || !width || !height) {
   console.error(
     'Usage: node scripts/portrait-screenshot/record.mjs <WeClone checkout> <output.webp|.png>' +
-      ' [--locale en] [--theme light] [--size 1280x840] [--scale 1.5] [--still]',
+      ' [--locale en] [--theme light] [--size 1280x840] [--scale 1.5] [--layout 819648b^] [--labels 1.28]' +
+      ' [--still]',
   );
   process.exit(2);
 }
@@ -66,7 +82,34 @@ function freePort() {
   });
 }
 
-/** The WeClone checkout's HEAD with the patch, built, in `tree`. */
+/** The children of each dimension in a demo portrait, by name, those with the most facts first. */
+function ranked(profile) {
+  const facts = (item) =>
+    (item.fact_indices?.length ?? 0) + (item.items ?? []).reduce((sum, child) => sum + facts(child), 0);
+  return new Map(
+    profile.dimensions.map((dimension) => [
+      dimension.dim,
+      dimension.groups
+        .map((group) => ({ name: group.name, facts: facts(group) }))
+        .sort((a, b) => b.facts - a.facts || a.name.localeCompare(b.name))
+        .map((group) => group.name),
+    ]),
+  );
+}
+
+/** For each dimension of the map, the names its children are drawn with: the current demo's, rank for rank. A child
+ * ranked past the current demo's last keeps its own. */
+function relabelling(layout, current) {
+  const now = ranked(current);
+  return Object.fromEntries(
+    [...ranked(layout)].map(([dim, names]) => {
+      const drawn = now.get(dim) ?? [];
+      return [`dimension:${dim}`, Object.fromEntries(names.slice(0, drawn.length).map((name, i) => [name, drawn[i]]))];
+    }),
+  );
+}
+
+/** The WeClone checkout's HEAD with the patch and the --layout demo, built, in `tree`; returns relabelling(). */
 function prepare(repo, tree, cleanups) {
   const modules = join(repo, 'web', 'node_modules');
   if (!existsSync(modules)) throw new Error(`Run pnpm --dir web install in ${repo} first.`);
@@ -77,11 +120,15 @@ function prepare(repo, tree, cleanups) {
   } catch (error) {
     throw new Error(`screenshot.patch no longer applies to ${repo}: update it as README.md says.\n${error.message}`);
   }
+  const demo = join(tree, DEMOS[options.locale.split('-')[0]]);
+  const current = JSON.parse(readFileSync(demo, 'utf8'));
+  run('git', ['-C', tree, 'checkout', options.layout, '--', ...Object.values(DEMOS)]);
   // The checkout's dependencies, linked rather than installed again.
   const link = join(tree, 'web', 'node_modules');
   symlinkSync(modules, link);
   cleanups.push(() => unlinkSync(link));
   run(join(modules, '.bin', 'vite'), ['build', '--logLevel', 'error'], join(tree, 'web'));
+  return relabelling(JSON.parse(readFileSync(demo, 'utf8')), current);
 }
 
 /** The demo server of the WeClone package in `tree`, which serves the patched build. */
@@ -187,8 +234,8 @@ async function connect(profile, cleanups) {
   };
 }
 
-async function record(page, origin) {
-  const url = `${origin}/?screenshot`;
+async function record(page, origin, names) {
+  const url = `${origin}/?screenshot&labels=${options.labels}`;
   await page.send('Page.enable');
   await page.send('Emulation.setDeviceMetricsOverride', {
     width,
@@ -223,6 +270,8 @@ async function record(page, origin) {
   const { frames, step } = await page.evaluate(`(() => {
     const capture = window.atlasCapture;
     capture.step(0);
+    capture.closeUp(${CAMERA.join(', ')});
+    capture.relabel(${JSON.stringify(names)});
     for (let left = capture.warmUp(); left > 0; left -= ${FRAME_MS}) capture.step(Math.min(${FRAME_MS}, left));
     const frames = Math.round(capture.period() / ${FRAME_MS});
     return { frames, step: capture.period() / frames };
@@ -232,7 +281,8 @@ async function record(page, origin) {
     return;
   }
   const input = `-v error -y -f image2pipe -c:v png -framerate ${1000 / step} -i -`;
-  const encoding = '-c:v libwebp_anim -pix_fmt yuv420p -quality 90 -loop 0';
+  // Below quality 95 the pale halos round the dimensions break up into blocks.
+  const encoding = '-c:v libwebp_anim -pix_fmt yuv420p -quality 95 -loop 0';
   const ffmpeg = spawn('ffmpeg', [...`${input} ${encoding}`.split(' '), output], {
     stdio: ['pipe', 'inherit', 'inherit'],
   });
@@ -268,9 +318,9 @@ const cleanUp = async () => {
 process.once('SIGINT', () => cleanUp().then(() => process.exit(130)));
 try {
   const tree = join(work, 'weclone');
-  prepare(resolve(checkout), tree, cleanups);
+  const names = prepare(resolve(checkout), tree, cleanups);
   const origin = await serve(tree, cleanups);
-  await record(await connect(join(work, 'chrome'), cleanups), origin);
+  await record(await connect(join(work, 'chrome'), cleanups), origin, names);
   console.log(`Wrote ${output}`);
 } catch (error) {
   console.error(error.message);
