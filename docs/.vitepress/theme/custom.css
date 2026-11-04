@@ -239,3 +239,13 @@ html:not(.dark) .theme-dark,
 html.dark .theme-light {
   display: none;
 }
+
+/* 点开放大的图（规则同 imageViewer.js） */
+.vp-doc img:not(a img),
+.vp-doc a:is([href$=".png" i], [href$=".jpg" i], [href$=".jpeg" i], [href$=".gif" i], [href$=".webp" i], [href$=".avif" i], [href$=".svg" i]) img {
+  cursor: zoom-in;
+}
+
+.viewer-backdrop {
+  background-color: rgba(0, 0, 0, 0.82);
+}

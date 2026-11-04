@@ -1,5 +1,6 @@
 {
   "devDependencies": {
+    "viewerjs": "^1.15.2",
     "vitepress": "^1.6.3"
   },
   "scripts": {
