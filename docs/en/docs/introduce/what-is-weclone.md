@@ -5,10 +5,10 @@ outline: false
 
 WeClone distills your identity, goals, preferences and current situation from your digital life into a portrait of your life, organized into domains such as work, family and health, that you can review, trace to its sources and share on your own terms. It also analyzes your speaking style. The portrait works as long-term memory for your AI assistants and will power clones with your personal style. Chat history is supported today, with more data sources coming.
 
-<a class="theme-light" href="/img/architecture/overview-light-en.webp" target="_blank"><img src="/img/architecture/overview-light-en.webp" alt="WeClone feature overview"></a>
-<a class="theme-dark" href="/img/architecture/overview-dark-en.webp" target="_blank"><img src="/img/architecture/overview-dark-en.webp" alt="WeClone feature overview"></a>
+<a class="theme-light" href="/img/architecture/overview-light-en.webp" target="_blank"><img src="/img/architecture/overview-compact-light-en.webp" alt="WeClone feature overview"></a>
+<a class="theme-dark" href="/img/architecture/overview-dark-en.webp" target="_blank"><img src="/img/architecture/overview-compact-dark-en.webp" alt="WeClone feature overview"></a>
 
-See [Architecture](./architecture.md) for how each module works and the files each step writes.
+See [Architecture](./architecture.md) for the full overview, the concepts in the portrait and how each module works.
 
 ## Two routes
 

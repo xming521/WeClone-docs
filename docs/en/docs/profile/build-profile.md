@@ -44,7 +44,7 @@ Each fact belongs to a dimension and carries:
 
 | Field | Description |
 |---|---|
-| Dimension | Demographics and identity, needs motives and goals, resources and constraints, key plans and commitments, interests and preferences |
+| Dimension | Demographics and identity, knowledge skills and limits, needs motives and goals, resources and constraints, key plans and commitments, interests and preferences |
 | Domain and topic | Induced by the model from your chats, such as work, family and health |
 | Privacy level | Public, normal, private or sensitive. Decides what assistants can be given |
 | Time scope | Long-term, current, outdated, or an event at a given time |
@@ -52,6 +52,8 @@ Each fact belongs to a dimension and carries:
 | Confidence and importance | Averages of the source scores |
 
 No fact is dropped for privacy during extraction. Every fact is kept with a privacy level, and you decide who gets what when you [review](./review.md) and [connect assistants](./assistant.md).
+
+See the figure in [Architecture](../introduce/architecture.md) for how memories, dimensions, domains, topics, attributes and facts relate.
 
 ## Cache and reruns
 
