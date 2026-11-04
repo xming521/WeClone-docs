@@ -7,7 +7,7 @@ hero:
   text: "Build a portrait of your life"
   tagline: Assistants that know you. Clones that talk like you.
   image: 
-    src: /img/logo_plain.png
+    src: /img/logo/weclone-mark.svg
     alt: "weclone-hero-image"
   actions:
     - theme: brand

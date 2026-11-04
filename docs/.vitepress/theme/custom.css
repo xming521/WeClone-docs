@@ -73,16 +73,7 @@
   background-color: var(--vp-code-bg) !important;
 }
 
-.image-container .VPImage.image-src[alt="weclone-hero-image"] {
-  zoom: 1.5;
-}
-
 /* 自定义组件样式增强 */
-/* 导航栏品牌色 */
-.VPNavBar .brand .VPImage {
-  filter: hue-rotate(160deg) saturate(1.2);
-}
-
 /* 侧边栏激活项 */
 .VPSidebarItem.is-active>.item .text {
   color: var(--vp-c-brand-1);
@@ -171,12 +162,15 @@
   }
 }
 
-.image-container .VPImage.image-src[alt="weclone-hero-image"] {
-  width: 100% !important;
-  max-width: 800px !important;
-  height: auto !important;
-  object-fit: contain;
-  /* 保持比例缩放 */
+/* 首页标志：SVG 自带的宽高太小，按主题给的最大宽度铺满，大屏再放大一些 */
+.VPHero .image-src[alt="weclone-hero-image"] {
+  width: 100%;
+}
+
+@media (min-width: 960px) {
+  .VPHero .image-src[alt="weclone-hero-image"] {
+    max-width: 400px;
+  }
 }
 
 /* 减小 h1 后的 h2 的margin-top */

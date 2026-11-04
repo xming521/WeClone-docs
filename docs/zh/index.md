@@ -7,7 +7,7 @@ hero:
   text: "绘制你的人生画像"
   tagline: 让助理懂你，让分身像你
   image: 
-    src: /img/logo_plain.png
+    src: /img/logo/weclone-mark.svg
     alt: "weclone-hero-image"
   actions:
     - theme: brand

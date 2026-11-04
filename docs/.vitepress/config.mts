@@ -168,10 +168,11 @@ export default defineConfig({
       }
     }
   },
-  head: [['link', { rel: 'icon', href: '/img/logo.svg' }]],
+  head: [['link', { rel: 'icon', type: 'image/svg+xml', href: '/img/logo/weclone-favicon.svg' }]],
   lastUpdated: true,
   cleanUrls: true,
   themeConfig: {
+    logo: { src: '/img/logo/weclone-mark-small.svg', alt: '' },
     search: {
       provider: 'local'
     },
