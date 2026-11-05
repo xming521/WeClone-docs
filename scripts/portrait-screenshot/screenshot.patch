@@ -89,7 +89,7 @@ index e14653381a1a9e8e92c64c129984056ab8a61771..a8ced2fd33da96dabb44e2c18dda3d84
        return;
      }
 diff --git a/web/src/atlas/atlasEngine.ts b/web/src/atlas/atlasEngine.ts
-index 5f50061a36ddf565b00f9f2546b832c653f6b1b0..6c9cb622fc25e8a67ccef6e5524b5955dbd9e3d1 100644
+index 5f50061a36ddf565b00f9f2546b832c653f6b1b0..3856316a155ae7b6e3987eba1904e502bf0a2854 100644
 --- a/web/src/atlas/atlasEngine.ts
 +++ b/web/src/atlas/atlasEngine.ts
 @@ -66,6 +66,7 @@ import {
@@ -100,7 +100,7 @@ index 5f50061a36ddf565b00f9f2546b832c653f6b1b0..6c9cb622fc25e8a67ccef6e5524b5955
    edgeCurve,
    resetLabelMetrics,
    rgbaOf,
-@@ -83,6 +84,25 @@ export interface AtlasControls {
+@@ -83,6 +84,26 @@ export interface AtlasControls {
    snapshot(): Promise<Blob | null>;
  }
  
@@ -116,7 +116,8 @@ index 5f50061a36ddf565b00f9f2546b832c653f6b1b0..6c9cb622fc25e8a67ccef6e5524b5955
 +  step(ms: number): void;
 +  /** Zooms till the root is drawn `size` px wide and puts it `x`, `y` of the way across and down. */
 +  closeUp(size: number, x: number, y: number): void;
-+  /** Draws each child of `names`' nodes (by id) named `name` as `names[id][name]`; the layout keeps the real names. */
++  /** Draws each node named `name` under the node `parent` (by id, '' for the root itself) as `names[parent][name]`; the
++   * layout keeps the real names. */
 +  relabel(names: Record<string, Record<string, string>>): void;
 +}
 +
@@ -126,7 +127,7 @@ index 5f50061a36ddf565b00f9f2546b832c653f6b1b0..6c9cb622fc25e8a67ccef6e5524b5955
  /** A node to preview at (x, y), in pixels from the map's top left, inside a `width` × `height` area. */
  export type HoverInfo = { id: string; x: number; y: number; width: number; height: number };
  
-@@ -209,7 +229,7 @@ function hash01(text: string): number {
+@@ -209,7 +230,7 @@ function hash01(text: string): number {
    return ((h >>> 0) % 1000003) / 1000003;
  }
  
@@ -135,7 +136,7 @@ index 5f50061a36ddf565b00f9f2546b832c653f6b1b0..6c9cb622fc25e8a67ccef6e5524b5955
    private readonly canvas: HTMLCanvasElement;
    private readonly wash: HTMLCanvasElement;
    private readonly ctx: CanvasRenderingContext2D;
-@@ -242,6 +262,11 @@ export class AtlasEngine implements AtlasControls {
+@@ -242,6 +263,11 @@ export class AtlasEngine implements AtlasControls {
    private readonly viewPositions = new Map<ReviewView, Positions>();
    private layoutView: ReviewView | null = null;
    private fitted = false;
@@ -147,7 +148,7 @@ index 5f50061a36ddf565b00f9f2546b832c653f6b1b0..6c9cb622fc25e8a67ccef6e5524b5955
  
    private selectedId: string | null = null;
    private hoverId: string | null = null;
-@@ -292,12 +317,19 @@ export class AtlasEngine implements AtlasControls {
+@@ -292,12 +318,19 @@ export class AtlasEngine implements AtlasControls {
    private tipTimer = 0;
    private tipShown = false;
  
@@ -168,7 +169,7 @@ index 5f50061a36ddf565b00f9f2546b832c653f6b1b0..6c9cb622fc25e8a67ccef6e5524b5955
      canvas.style.cursor = 'grab';
      this.loadFonts();
      canvas.addEventListener('pointerdown', this.onDown);
-@@ -328,6 +360,10 @@ export class AtlasEngine implements AtlasControls {
+@@ -328,6 +361,10 @@ export class AtlasEngine implements AtlasControls {
    setTree(visible: ProfileNode[]) {
      const model = this.model;
      if (!model || visible === this.visible) return;
@@ -179,7 +180,7 @@ index 5f50061a36ddf565b00f9f2546b832c653f6b1b0..6c9cb622fc25e8a67ccef6e5524b5955
      this.visible = visible;
      const switchingView = this.layoutView !== null && this.layoutView !== this.view;
      if (
-@@ -555,6 +591,44 @@ export class AtlasEngine implements AtlasControls {
+@@ -555,6 +592,44 @@ export class AtlasEngine implements AtlasControls {
      this.draw();
    }
  
@@ -215,7 +216,7 @@ index 5f50061a36ddf565b00f9f2546b832c653f6b1b0..6c9cb622fc25e8a67ccef6e5524b5955
 +  relabel(names: Record<string, Record<string, string>>) {
 +    this.drawnNames.clear();
 +    for (const n of this.order) {
-+      const name = n.node.parentId === null ? undefined : names[n.node.parentId]?.[n.node.name];
++      const name = names[n.node.parentId ?? '']?.[n.node.name];
 +      if (name !== undefined) this.drawnNames.set(n.id, name);
 +    }
 +    this.requestDraw();
@@ -224,7 +225,7 @@ index 5f50061a36ddf565b00f9f2546b832c653f6b1b0..6c9cb622fc25e8a67ccef6e5524b5955
    snapshot(): Promise<Blob | null> {
      this.draw();
      const out = document.createElement('canvas');
-@@ -656,16 +730,23 @@ export class AtlasEngine implements AtlasControls {
+@@ -656,16 +731,23 @@ export class AtlasEngine implements AtlasControls {
      if (!fonts) return;
      const roles: LabelRole[] = [{ kind: 'root' }, { kind: 'dimension' }, { kind: 'topic' }, { kind: 'attribute' }];
      const wanted = [...roles.map((role) => labelStyle(role)), labelStyle({ kind: 'topic' }, true)];
@@ -251,7 +252,7 @@ index 5f50061a36ddf565b00f9f2546b832c653f6b1b0..6c9cb622fc25e8a67ccef6e5524b5955
      );
    }
  
-@@ -1472,7 +1553,7 @@ export class AtlasEngine implements AtlasControls {
+@@ -1472,7 +1554,7 @@ export class AtlasEngine implements AtlasControls {
      const attributeLabels = this.attributeLabelsShown();
      const last: MapNode[] = [];
      for (const n of this.order) {

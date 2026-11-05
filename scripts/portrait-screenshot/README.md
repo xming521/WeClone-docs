@@ -21,7 +21,7 @@ The script needs:
 
 With the patch, `?screenshot` in the address shows the map alone and skips the intro, laid out with its labels in heavier, larger type. `labels` then draws the labels that many times their size without moving the nodes. It also exposes `window.atlasCapture`, through which the script frames the map, draws other names on its nodes and steps it frame by frame. It is kept here so that none of it reaches the app.
 
-The script serves the demo portrait of the WeClone revision `--layout`, whose map the first published picture showed, and frames it as that picture did. It then draws each dimension's children with the names of the checkout's demo, the child with the most facts with the name of the one with the most facts now, and so on down. The picture so keeps its layout, sizes and halos when the demo changes, and only the names follow it.
+The script serves the English demo portrait of the WeClone revision `--layout`, whose map the first published picture showed, opens it in English and frames it as that picture did. It then draws the root and the dimensions with their names in `--locale`, and each dimension's children with the names of the checkout's demo in that language, the child with the most facts with the name of the one with the most facts now, and so on down. Every language so shows the same picture, which keeps its layout, sizes and halos when the demo changes; only the names follow it. Chinese labels are drawn 0.9 times as large, as Han characters fill their em box and would otherwise look larger than English.
 
 When the patch no longer applies to WeClone, apply it in a worktree, resolve the conflicts and write it back:
 

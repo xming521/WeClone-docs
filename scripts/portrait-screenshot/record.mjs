@@ -5,12 +5,12 @@
 //
 //   node scripts/portrait-screenshot/record.mjs ~/WeClone docs/public/img/screenshots/atlas-light-en.webp
 //
-// --locale (en, zh-CN) picks the language of the page and the demo portrait, --theme (light, dark) the colours,
-// --size and --scale the picture: the README shows the default 1280x840 at 880 wide. The map is laid out from the
-// demo portrait at the WeClone revision --layout and framed as in the first published picture, so the picture
-// keeps its look while the demo changes; the children of each dimension are drawn with the checkout's demo names,
-// rank for rank by their number of facts. --labels draws the labels that many times their size without moving
-// anything, so neighbouring labels may overlap.
+// --locale (en, zh-CN) picks the language of the names on the map, --theme (light, dark) the colours, --size and
+// --scale the picture: the README shows the default 1280x840 at 880 wide. The map is laid out in English from the
+// demo portrait at the WeClone revision --layout and framed as in the first published picture, so every language
+// shows the same picture and it keeps its look while the demo changes. Its nodes are then drawn with the names of
+// the checkout's demo in --locale, each dimension's children rank for rank by their number of facts. --labels draws
+// the labels that many times their size without moving anything, so neighbouring labels may overlap.
 import { spawn, spawnSync } from 'node:child_process';
 import { once } from 'node:events';
 import { existsSync, mkdtempSync, readFileSync, rmSync, symlinkSync, unlinkSync, writeFileSync } from 'node:fs';
@@ -31,6 +31,8 @@ const DEMOS = {
 };
 /** The first published picture drew the root 55.9 px wide, 0.502 of the way across and 0.516 down. */
 const CAMERA = [55.92, 0.50224, 0.51635];
+/** Han characters fill their em box, unlike Latin letters, so Chinese labels drawn this much smaller look as large. */
+const HAN_LABELS = 0.9;
 
 const { values: options, positionals } = parseArgs({
   allowPositionals: true,
@@ -82,7 +84,7 @@ function freePort() {
   });
 }
 
-/** The children of each dimension in a demo portrait, by name, those with the most facts first. */
+/** The children of each dimension in a demo portrait with their places in it, those with the most facts first. */
 function ranked(profile) {
   const facts = (item) =>
     (item.fact_indices?.length ?? 0) + (item.items ?? []).reduce((sum, child) => sum + facts(child), 0);
@@ -90,26 +92,37 @@ function ranked(profile) {
     profile.dimensions.map((dimension) => [
       dimension.dim,
       dimension.groups
-        .map((group) => ({ name: group.name, facts: facts(group) }))
-        .sort((a, b) => b.facts - a.facts || a.name.localeCompare(b.name))
-        .map((group) => group.name),
+        .map((group, index) => ({ name: group.name, index, facts: facts(group) }))
+        .sort((a, b) => b.facts - a.facts || a.name.localeCompare(b.name)),
     ]),
   );
 }
 
-/** For each dimension of the map, the names its children are drawn with: the current demo's, rank for rank. A child
- * ranked past the current demo's last keeps its own. */
-function relabelling(layout, current) {
-  const now = ranked(current);
-  return Object.fromEntries(
-    [...ranked(layout)].map(([dim, names]) => {
-      const drawn = now.get(dim) ?? [];
-      return [`dimension:${dim}`, Object.fromEntries(names.slice(0, drawn.length).map((name, i) => [name, drawn[i]]))];
-    }),
-  );
+/**
+ * What relabel() draws over the map of the `layout` demo: the root and the dimensions with the `to` page's names for
+ * them, and each dimension's children with the names in the `drawn` demo of the children ranked the same in the
+ * `english` one, which lists the same children in the same order. A child ranked past the last keeps its own name.
+ */
+function relabelling(layout, english, drawn, from, to) {
+  const now = ranked(english);
+  const children = new Map(drawn.dimensions.map((dimension) => [dimension.dim, dimension.groups]));
+  const names = {
+    '': { [from.root]: to.root },
+    root: Object.fromEntries(Object.entries(from.dimensions).map(([dim, name]) => [name, to.dimensions[dim]])),
+  };
+  for (const [dim, before] of ranked(layout)) {
+    const order = now.get(dim) ?? [];
+    if (order.length !== (children.get(dim) ?? []).length) {
+      throw new Error(`The ${options.locale} demo does not list the English demo's children of dimension ${dim}.`);
+    }
+    names[`dimension:${dim}`] = Object.fromEntries(
+      before.slice(0, order.length).map((child, i) => [child.name, children.get(dim)[order[i].index].name]),
+    );
+  }
+  return names;
 }
 
-/** The WeClone checkout's HEAD with the patch and the --layout demo, built, in `tree`; returns relabelling(). */
+/** The WeClone checkout's HEAD with the patch and the --layout English demo, built, in `tree`; returns relabelling(). */
 function prepare(repo, tree, cleanups) {
   const modules = join(repo, 'web', 'node_modules');
   if (!existsSync(modules)) throw new Error(`Run pnpm --dir web install in ${repo} first.`);
@@ -120,24 +133,25 @@ function prepare(repo, tree, cleanups) {
   } catch (error) {
     throw new Error(`screenshot.patch no longer applies to ${repo}: update it as README.md says.\n${error.message}`);
   }
-  const demo = join(tree, DEMOS[options.locale.split('-')[0]]);
-  const current = JSON.parse(readFileSync(demo, 'utf8'));
-  run('git', ['-C', tree, 'checkout', options.layout, '--', ...Object.values(DEMOS)]);
+  const read = (path) => JSON.parse(readFileSync(join(tree, path), 'utf8'));
+  const english = read(DEMOS.en);
+  const drawn = read(DEMOS[options.locale.split('-')[0]]);
+  const model = (locale) => read(`web/src/i18n/locales/${locale}/translation.json`).model;
+  run('git', ['-C', tree, 'checkout', options.layout, '--', DEMOS.en]);
   // The checkout's dependencies, linked rather than installed again.
   const link = join(tree, 'web', 'node_modules');
   symlinkSync(modules, link);
   cleanups.push(() => unlinkSync(link));
   run(join(modules, '.bin', 'vite'), ['build', '--logLevel', 'error'], join(tree, 'web'));
-  return relabelling(JSON.parse(readFileSync(demo, 'utf8')), current);
+  return relabelling(read(DEMOS.en), english, drawn, model('en'), model(options.locale));
 }
 
-/** The demo server of the WeClone package in `tree`, which serves the patched build. */
+/** The English demo server of the WeClone package in `tree`, which serves the patched build. */
 async function serve(tree, cleanups) {
   const port = await freePort();
   // Run from the worktree, Python imports its weclone package rather than the installed one.
-  const language = options.locale.split('-')[0];
   const python = process.env.PYTHON ?? 'python3';
-  const server = spawn(python, ['-m', 'weclone.cli', 'server', '--demo', language, '--port', String(port)], {
+  const server = spawn(python, ['-m', 'weclone.cli', 'server', '--demo', 'en', '--port', String(port)], {
     cwd: tree,
     stdio: ['ignore', 'ignore', 'pipe'],
   });
@@ -235,7 +249,8 @@ async function connect(profile, cleanups) {
 }
 
 async function record(page, origin, names) {
-  const url = `${origin}/?screenshot&labels=${options.labels}`;
+  const labels = Number(options.labels) * (options.locale.startsWith('zh') ? HAN_LABELS : 1);
+  const url = `${origin}/?screenshot&labels=${labels}`;
   await page.send('Page.enable');
   await page.send('Emulation.setDeviceMetricsOverride', {
     width,
@@ -244,7 +259,8 @@ async function record(page, origin, names) {
     mobile: false,
   });
   const saved = {
-    'weclone.locale': options.locale,
+    // Laid out in English; relabel() then draws it in --locale.
+    'weclone.locale': 'en',
     'weclone.theme': options.theme,
     'weclone.profile.grouping': 'dimension',
   };
