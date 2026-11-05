@@ -9,8 +9,10 @@
 // --scale the picture: the README shows the default 1280x840 at 880 wide. The map is laid out in English from the
 // demo portrait at the WeClone revision --layout and framed as in the first published picture, so every language
 // shows the same picture and it keeps its look while the demo changes. Its nodes are then drawn with the names of
-// the checkout's demo in --locale, each dimension's children rank for rank by their number of facts. --labels draws
-// the labels that many times their size without moving anything, so neighbouring labels may overlap.
+// the checkout's demo in --locale as it is on disk, each dimension's children rank for rank by their number of
+// facts, or with --names showcase with those of the screenshot-only portrait of showcase.py. --labels draws the
+// labels that many times their size without moving anything, so neighbouring labels may overlap. --showcase instead
+// lays the map out from the showcase portrait, with many more sections.
 import { spawn, spawnSync } from 'node:child_process';
 import { once } from 'node:events';
 import { existsSync, mkdtempSync, readFileSync, rmSync, symlinkSync, unlinkSync, writeFileSync } from 'node:fs';
@@ -24,6 +26,7 @@ import { parseArgs } from 'node:util';
 /** Time between frames in ms: about 29 frames a second keep the wave smooth. */
 const FRAME_MS = 35;
 const PATCH = fileURLToPath(new URL('./screenshot.patch', import.meta.url));
+const SHOWCASE = fileURLToPath(new URL('./showcase.py', import.meta.url));
 /** The demo portrait of each language, as weclone/server/app.py serves them. */
 const DEMOS = {
   zh: 'tests/tests_data/profile_hierarchy.demo.json',
@@ -31,6 +34,8 @@ const DEMOS = {
 };
 /** The first published picture drew the root 55.9 px wide, 0.502 of the way across and 0.516 down. */
 const CAMERA = [55.92, 0.50224, 0.51635];
+/** The showcase map is larger and is drawn smaller, centred. */
+const SHOWCASE_CAMERA = [36, 0.5, 0.5];
 /** Han characters fill their em box, unlike Latin letters, so Chinese labels drawn this much smaller look as large. */
 const HAN_LABELS = 0.9;
 
@@ -45,7 +50,10 @@ const { values: options, positionals } = parseArgs({
     layout: { type: 'string', default: '819648b^' },
     // Section labels come out about 17 px on the picture.
     labels: { type: 'string', default: '1.28' },
+    // demo or showcase: the portrait whose names are drawn.
+    names: { type: 'string', default: 'demo' },
     still: { type: 'boolean', default: false },
+    showcase: { type: 'boolean', default: false },
   },
 });
 const [checkout, output] = positionals;
@@ -54,7 +62,7 @@ if (!checkout || !output || !width || !height) {
   console.error(
     'Usage: node scripts/portrait-screenshot/record.mjs <WeClone checkout> <output.webp|.png>' +
       ' [--locale en] [--theme light] [--size 1280x840] [--scale 1.5] [--layout 819648b^] [--labels 1.28]' +
-      ' [--still]',
+      ' [--names demo] [--still] [--showcase]',
   );
   process.exit(2);
 }
@@ -122,7 +130,10 @@ function relabelling(layout, english, drawn, from, to) {
   return names;
 }
 
-/** The WeClone checkout's HEAD with the patch and the --layout English demo, built, in `tree`; returns relabelling(). */
+/**
+ * The WeClone checkout's HEAD with the patch and the --layout English demo, or with --showcase the showcase portrait,
+ * built, in `tree`; returns relabelling().
+ */
 function prepare(repo, tree, cleanups) {
   const modules = join(repo, 'web', 'node_modules');
   if (!existsSync(modules)) throw new Error(`Run pnpm --dir web install in ${repo} first.`);
@@ -133,17 +144,29 @@ function prepare(repo, tree, cleanups) {
   } catch (error) {
     throw new Error(`screenshot.patch no longer applies to ${repo}: update it as README.md says.\n${error.message}`);
   }
-  const read = (path) => JSON.parse(readFileSync(join(tree, path), 'utf8'));
-  const english = read(DEMOS.en);
-  const drawn = read(DEMOS[options.locale.split('-')[0]]);
-  const model = (locale) => read(`web/src/i18n/locales/${locale}/translation.json`).model;
-  run('git', ['-C', tree, 'checkout', options.layout, '--', DEMOS.en]);
-  // The checkout's dependencies, linked rather than installed again.
+  const read = (root, path) => JSON.parse(readFileSync(join(root, path), 'utf8'));
+  const model = (locale) => read(repo, `web/src/i18n/locales/${locale}/translation.json`).model;
+  // The names come from the screenshot-only portrait, written over the worktree's demo, or else from the checkout's
+  // demo as it is on disk, committed or not.
+  let names = repo;
+  if (options.showcase || options.names === 'showcase') {
+    run(process.env.PYTHON ?? 'python3', [SHOWCASE, repo, join(tree, DEMOS.zh), join(tree, DEMOS.en)]);
+    names = tree;
+  }
+  const english = read(names, DEMOS.en);
+  const drawn = read(names, DEMOS[options.locale.split('-')[0]]);
+  // The showcase map is laid out as it is.
+  if (!options.showcase) run('git', ['-C', tree, 'checkout', options.layout, '--', DEMOS.en]);
+  build(modules, tree, cleanups);
+  return relabelling(read(tree, DEMOS.en), english, drawn, model('en'), model(options.locale));
+}
+
+/** The web UI in `tree`, built with the checkout's dependencies, linked rather than installed again. */
+function build(modules, tree, cleanups) {
   const link = join(tree, 'web', 'node_modules');
   symlinkSync(modules, link);
   cleanups.push(() => unlinkSync(link));
   run(join(modules, '.bin', 'vite'), ['build', '--logLevel', 'error'], join(tree, 'web'));
-  return relabelling(read(DEMOS.en), english, drawn, model('en'), model(options.locale));
 }
 
 /** The English demo server of the WeClone package in `tree`, which serves the patched build. */
@@ -286,7 +309,7 @@ async function record(page, origin, names) {
   const { frames, step } = await page.evaluate(`(() => {
     const capture = window.atlasCapture;
     capture.step(0);
-    capture.closeUp(${CAMERA.join(', ')});
+    capture.closeUp(${(options.showcase ? SHOWCASE_CAMERA : CAMERA).join(', ')});
     capture.relabel(${JSON.stringify(names)});
     for (let left = capture.warmUp(); left > 0; left -= ${FRAME_MS}) capture.step(Math.min(${FRAME_MS}, left));
     const frames = Math.round(capture.period() / ${FRAME_MS});
