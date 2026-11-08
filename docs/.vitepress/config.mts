@@ -39,8 +39,8 @@ export default defineConfig({
             items: [
               { text: 'Build Your Portrait', link: '/en/docs/profile/build-profile' },
               { text: 'Review in the Web UI', link: '/en/docs/profile/review' },
-              { text: 'Domain Summaries', link: '/en/docs/profile/summary' },
-              { text: 'Connect AI Assistants', link: '/en/docs/profile/assistant' },
+              { text: 'Portrait Summary', link: '/en/docs/profile/summary' },
+              { text: 'Connect Personal Assistants', link: '/en/docs/profile/assistant' },
               { text: 'Speaking Style', link: '/en/docs/profile/style' },
             ]
           },
@@ -125,8 +125,8 @@ export default defineConfig({
             items: [
               { text: '绘制人生画像', link: '/zh/docs/profile/build-profile' },
               { text: '网页审核', link: '/zh/docs/profile/review' },
-              { text: '板块总结', link: '/zh/docs/profile/summary' },
-              { text: '接入 AI 助理', link: '/zh/docs/profile/assistant' },
+              { text: '画像总结', link: '/zh/docs/profile/summary' },
+              { text: '接入个人助手', link: '/zh/docs/profile/assistant' },
               { text: '语言风格', link: '/zh/docs/profile/style' },
             ]
           },

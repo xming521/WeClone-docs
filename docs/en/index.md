@@ -23,8 +23,8 @@ features:
     details: Your portrait is organized by domain and topic. Every fact traces back to its source and can be reviewed and edited. Extraction runs through Codex or any OpenAI-compatible API.
 
   - icon: 🧠
-    title: Connect AI assistants
-    details: Claude Code, Codex and other assistants read your portrait and domain summaries over MCP. You choose which domains and privacy levels they can read.
+    title: Connect personal assistants
+    details: Claude Code, Codex, dots, Muse, Grok Bot and other personal assistants use your portrait through MCP or their memory. You choose which domains and privacy levels they get.
 
   - icon: 🎭
     title: Your own AI clone

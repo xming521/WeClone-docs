@@ -1,11 +1,11 @@
-# Connect AI Assistants
+# Connect Personal Assistants
 
-Claude Code, Codex and other assistants with MCP support can read your life portrait and use it as long-term memory. You set in the web UI which domains they can read and up to which privacy level.
+Claude Code, Codex, dots, Muse, Grok Bot and other personal assistants can use your life portrait through MCP or their memory. You set in the web UI which domains they can read and up to which privacy level. For cloud assistants that can't reach MCP on your computer, see [Cloud assistants](#cloud-assistants).
 
 ## Before you start
 
 1. [Build your portrait](./build-profile.md) and open the web UI with `weclone-cli server`.
-2. Approve the [summaries](./summary.md) you want to share on the Summaries page. Assistants only get approved summaries.
+2. Approve the [summaries](./summary.md) you want to share on the Portrait summary page. Assistants only get approved summaries.
 
 ## Choose what to share
 
@@ -64,6 +64,6 @@ Keep `weclone-cli server` running while assistants use it.
 
 Every call is recorded in the review database with the calling client, the tool, its arguments and what it returned.
 
-## Assistants without MCP
+## Cloud assistants
 
-Copy the export text on the Summaries page and paste it into the assistant's "About me", custom instructions or USER.md, see [Domain Summaries](./summary.md#copy-for-assistants-without-mcp).
+dots, Muse, Grok Bot and other assistants that run in the cloud can't reach WeClone on your computer, so use the portrait summary instead: copy the export text on the Portrait summary page and paste it into the assistant's memory import or custom instructions, or send it to the assistant and ask it to remember. See [Portrait Summary](./summary.md#copy-for-assistants).

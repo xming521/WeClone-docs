@@ -49,7 +49,7 @@ weclone-cli decrypt --input <encrypted-file> --output <new-plain-file>  # export
 The `.weclone/` directory holds the data key encrypted with your password (`manifest.json`) and the token records for assistants and bots (`assistant.sqlite3`, `bots.sqlite3`). Encrypted data can't be read without it, so keep and back it up.
 
 - Both tokens are stored only as hashes and shown once when generated. If you lose one, generate a new one.
-- In encrypted mode, the assistant token only works during the time you allow, see [Connect AI Assistants](../profile/assistant.md#keep-the-server-running).
+- In encrypted mode, the assistant token only works during the time you allow, see [Connect Personal Assistants](../profile/assistant.md#keep-the-server-running).
 - In encrypted mode the bot token is stored with the data key: the key is encrypted with the token and kept in `bots.sqlite3`, and bot requests open it with the token, so nobody has to be signed in. The token together with that file decrypts all data, so keep it as safe as the password. It survives a password change and has to be generated again after a reset.
 - `/v1` and `/mcp` refuse requests with an `Origin` header, so web pages can't use a token even if they learn it.
 

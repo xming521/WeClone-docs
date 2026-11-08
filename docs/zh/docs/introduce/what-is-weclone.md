@@ -3,7 +3,7 @@ outline: false
 ---
 # 什么是 WeClone
 
-WeClone 从你的数字生活中提炼身份、目标、偏好与近况，按工作、家庭、健康等板块整理成一份可审核、可追溯、按需授权的人生画像，并分析你的语言风格。画像可以作为 AI 助理的长期记忆，也将驱动具有你个人风格的数字分身。目前支持聊天记录，更多数据源持续接入中。
+WeClone 从你的数字生活中提炼身份、目标、偏好与近况，按工作、家庭、健康等板块整理成一份可审核、可追溯、按需授权的人生画像，并分析你的语言风格。画像可以作为个人助手的长期记忆，也将驱动具有你个人风格的数字分身。目前支持聊天记录，更多数据源持续接入中。
 
 <a class="theme-light" href="/img/architecture/overview-light.webp" target="_blank"><img src="/img/architecture/overview-compact-light.webp" alt="WeClone 功能概览"></a>
 <a class="theme-dark" href="/img/architecture/overview-dark.webp" target="_blank"><img src="/img/architecture/overview-compact-dark.webp" alt="WeClone 功能概览"></a>
@@ -14,7 +14,7 @@ WeClone 从你的数字生活中提炼身份、目标、偏好与近况，按工
 
 | 路线 | 做什么 | 需要什么 |
 |---|---|---|
-| [人生画像与助手接入](../profile/build-profile.md) | 抽取并整理画像，在网页上逐条审核，通过 MCP 提供给 Claude Code、Codex 等助手 | 基础安装，Codex CLI 或任意 OpenAI 兼容 API，不需要 GPU |
+| [人生画像与助手接入](../profile/build-profile.md) | 抽取并整理画像，在网页上逐条审核，提供给 Claude Code、Codex、dots、Muse、Grok Bot 等个人助手 | 基础安装，Codex CLI 或任意 OpenAI 兼容 API，不需要 GPU |
 | [微调分身](../deploy/hardware.md) | 用聊天记录微调开源模型，接入 AstrBot、LangBot 等聊天机器人平台 | NVIDIA GPU，默认模型以 LoRA 微调约需 16GB 显存 |
 
 两条路线共用[安装与配置](../deploy/environment.md)和[准备数据](../deploy/export-chat-history.md)，可以只走其中一条。由大模型结合画像、记忆与语言风格驱动的 Agent 分身还在开发中。

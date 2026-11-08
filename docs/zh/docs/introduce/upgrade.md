@@ -29,7 +29,7 @@ cp settings.template.jsonc settings.jsonc
 
 ## 安装
 
-基础安装改为 `uv pip install -e .`，足够绘制人生画像和接入助理。微调仍然需要 `uv pip install --group main -e .`，见[安装与配置](../deploy/environment.md)。
+基础安装改为 `uv pip install -e .`，足够绘制人生画像和接入个人助手。微调仍然需要 `uv pip install --group main -e .`，见[安装与配置](../deploy/environment.md)。
 
 ## 服务与端口
 

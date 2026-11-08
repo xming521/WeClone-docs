@@ -17,7 +17,7 @@ cp settings.template.jsonc settings.jsonc
 | 配置项 | 默认值 | 说明 |
 |---|---|---|
 | `storage_mode` | `"encrypted"` | `encrypted` 加密保存聊天数据和衍生产物，`plaintext` 明文保存。首次初始化后固定，改变模式须重新处理全部数据。配置中没有这一项时按 `plaintext` 处理 |
-| `state_dir` | `".weclone"` | 保存密钥、令牌和助理设置的目录 |
+| `state_dir` | `".weclone"` | 保存密钥、令牌和助手设置的目录 |
 | `runtime_dir` | 系统临时目录 | 加密模式下解密文件的临时存放位置 |
 
 ## common_args

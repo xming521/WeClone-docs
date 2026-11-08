@@ -5,7 +5,7 @@ layout: home
 hero:
   name: "WeClone"
   text: "绘制你的人生画像"
-  tagline: 让助理懂你，让分身像你
+  tagline: 让助手懂你，让分身像你
   image: 
     src: /img/logo/weclone-mark.svg
     alt: "weclone-hero-image"
@@ -23,8 +23,8 @@ features:
     details: 画像按板块与主题逐层组织，每条事实均可追溯原文，支持逐条审核与修改。可通过 Codex 或任意 OpenAI 兼容 API 抽取画像。
 
   - icon: 🧠
-    title: 接入 AI 助理
-    details: Claude Code、Codex 等助手可通过 MCP 读取你的画像与板块总结，能读哪些板块、读到哪个隐私级别由你设定。
+    title: 接入个人助手
+    details: Claude Code、Codex、dots、Muse、Grok Bot 等个人助手可以通过 MCP 或记忆使用你的画像。提供哪些板块、到哪个隐私级别由你决定。
 
   - icon: 🎭
     title: 专属数字分身

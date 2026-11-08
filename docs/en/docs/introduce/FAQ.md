@@ -30,7 +30,7 @@ The portrait's extraction prompts are currently in Chinese, and English chats ha
 ### Assistants can't read the portrait
 - Make sure `weclone-cli server` is still running.
 - In encrypted mode, turn on **Allow assistants to read** on the Assistants page. Turn it on again when the time is up or after the server restarts.
-- Assistants only get summaries approved on the Summaries page. After the portrait changes, the affected summaries have to be regenerated and approved.
+- Assistants only get summaries approved on the Portrait summary page. After the portrait changes, the affected summaries have to be regenerated and approved.
 - Regenerating the token stops the old one at once, so every assistant has to be set up again with the new command.
 
 ### I forgot my password

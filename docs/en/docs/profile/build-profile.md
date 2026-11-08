@@ -33,7 +33,7 @@ Before it starts, the command line shows the result directory, what will be extr
 | 2. Extract memories | Profile memories and event memories are extracted from each conversation, written to `distill/` |
 | 3. Organize memories | Domains are induced, memories are classified, grouped into topics and summarized, and every fact gets a privacy level and a time scope, written to `memory_organization/` |
 | 4. Build the hierarchy | The portrait shown and reviewed in the web UI, written to `profile_hierarchy/` |
-| 5. Domain summaries | One summary per domain, see [Domain Summaries](./summary.md) |
+| 5. Domain summaries | One summary per domain, see [Portrait Summary](./summary.md) |
 | 6. Speaking style | `--purpose clone` only, written to `style/`, see [Speaking Style](./style.md) |
 
 While chat data is prepared, one sender's messages less than two minutes apart become one message, and a silence of more than ten minutes starts a new conversation. Very short conversations are skipped to save model calls.

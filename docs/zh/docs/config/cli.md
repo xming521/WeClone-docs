@@ -20,7 +20,7 @@ weclone-cli [--config-path <配置文件>] <命令> [选项]
 
 | 选项 | 说明 |
 |---|---|
-| `--purpose assistant\|clone` | `assistant` 给个人助理用，抽取画像和事件。`clone` 做分身，另外抽取语言风格。未指定时交互选择 |
+| `--purpose assistant\|clone` | `assistant` 给个人助手用，抽取画像和事件。`clone` 做分身，另外抽取语言风格。未指定时交互选择 |
 | `--output-dir <目录>` | 结果目录，必须是新目录。默认在 `dataset/res_csv/agent/profile_runs` 下新建时间戳目录 |
 | `--max-context-tokens <数量>` | 记忆整理和画像生成的输入 token 上限。默认读取 Codex 的上下文长度，API 后端必须指定 |
 
@@ -37,7 +37,7 @@ weclone-cli [--config-path <配置文件>] <命令> [选项]
 | `--run <目录>` | 最新一次结果 | 要打开的 `build-profile` 结果目录 |
 | `--inference` | 关闭 | 加载微调模型，开放 `/v1` 推理接口，供[聊天机器人](../chatbot/bot-token.md)调用 |
 
-网页的用法见[网页审核](../profile/review.md)，助手接入见[接入 AI 助理](../profile/assistant.md)。
+网页的用法见[网页审核](../profile/review.md)，助手接入见[接入个人助手](../profile/assistant.md)。
 
 ## 密码与加密
 

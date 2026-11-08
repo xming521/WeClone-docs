@@ -17,8 +17,8 @@ Open http://127.0.0.1:5175 in your browser. At startup the server picks the newe
 |---|---|
 | Portrait (`#/`) | Browse the portrait by domain and topic and review it entry by entry |
 | Style (`#/style`) | View the [speaking style](./style.md) extracted with `--purpose clone` |
-| Summaries (`#/summary`) | Generate and approve [domain summaries](./summary.md) |
-| Assistants (`#/assistant`) | Choose what assistants can read and generate their token, see [Connect AI Assistants](./assistant.md) |
+| Portrait summary (`#/summary`) | Generate and approve [domain summaries](./summary.md) |
+| Assistants (`#/assistant`) | Choose what assistants can read and generate their token, see [Connect Personal Assistants](./assistant.md) |
 | Bots (`#/bots`) | Generate the token chat bots call the clone with, see [Server and Bot Token](../chatbot/bot-token.md) |
 
 ## Browse the portrait

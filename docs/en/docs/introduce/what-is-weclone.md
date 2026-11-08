@@ -3,7 +3,7 @@ outline: false
 ---
 # What is WeClone
 
-WeClone distills your identity, goals, preferences and current situation from your digital life into a portrait of your life, organized into domains such as work, family and health, that you can review, trace to its sources and share on your own terms. It also analyzes your speaking style. The portrait works as long-term memory for your AI assistants and will power clones with your personal style. Chat history is supported today, with more data sources coming.
+WeClone distills your identity, goals, preferences and current situation from your digital life into a portrait of your life, organized into domains such as work, family and health, that you can review, trace to its sources and share on your own terms. It also analyzes your speaking style. The portrait works as long-term memory for your personal assistants and will power clones with your personal style. Chat history is supported today, with more data sources coming.
 
 <a class="theme-light" href="/img/architecture/overview-light-en.webp" target="_blank"><img src="/img/architecture/overview-compact-light-en.webp" alt="WeClone feature overview"></a>
 <a class="theme-dark" href="/img/architecture/overview-dark-en.webp" target="_blank"><img src="/img/architecture/overview-compact-dark-en.webp" alt="WeClone feature overview"></a>
@@ -14,7 +14,7 @@ See [Architecture](./architecture.md) for the full overview, the levels of the p
 
 | Route | What it does | What it needs |
 |---|---|---|
-| [Life portrait and assistants](../profile/build-profile.md) | Extract and organize your portrait, review it fact by fact in the web UI, and share it with Claude Code, Codex and other assistants over MCP | The base install and the Codex CLI or any OpenAI-compatible API. No GPU |
+| [Life portrait and assistants](../profile/build-profile.md) | Extract and organize your portrait, review it fact by fact in the web UI, and share it with personal assistants such as Claude Code, Codex, dots, Muse and Grok Bot | The base install and the Codex CLI or any OpenAI-compatible API. No GPU |
 | [Fine-tuned clone](../deploy/hardware.md) | Fine-tune an open model on your chat history and connect it to bot platforms such as AstrBot and LangBot | An NVIDIA GPU. The default model with LoRA needs about 16GB of VRAM |
 
 Both routes share [Installation](../deploy/environment.md) and [Preparing Data](../deploy/export-chat-history.md), and you can follow just one of them. The agent clone, driven by a large model from your portrait, memories and speaking style, is still in development.
